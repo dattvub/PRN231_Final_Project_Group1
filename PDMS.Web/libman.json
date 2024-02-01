@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "bootstrap@5.1.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation@1.20.0",
+      "destination": "wwwroot/jquery-validation/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "anchor-js@5.0.0",
+      "destination": "wwwroot/lib/anchor-js/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "lodash@4.17.21",
+      "destination": "wwwroot/lib/lodash/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "is_js@0.9.0",
+      "destination": "wwwroot/lib/is_js/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery"
+    }
+  ]
+}
