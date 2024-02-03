@@ -1,51 +1,118 @@
-﻿<!DOCTYPE html>
+﻿@using PDMS.Web.Models.Sidebar
+@{
+    var sections = ViewData[SidebarExtension.Key] as List<SidebarSection>;
+    var definedSection = IsSectionDefined("SideBar");
+
+    void RenderSidebarItemTitle(SidebarItem sidebarItem) {
+        <div class="d-flex align-items-center">
+            @if (sidebarItem.Icon != null) {
+                <span class="nav-link-icon">
+                    <i class="iconify-inline" data-icon="@sidebarItem.Icon"></i>
+                </span>
+            }
+            <span class="nav-link-text ps-1">@sidebarItem?.Name</span>
+        </div>
+    }
+
+    void RenderSidebarContent(SidebarItem sidebarItem) {
+        if (sidebarItem.Count == 0) {
+            <a class="nav-link" href="@sidebarItem.Href" role="button" aria-expanded="false">
+                @{ RenderSidebarItemTitle(sidebarItem); }
+            </a>
+        } else {
+            var uid = "z" + Guid.NewGuid().ToString("N");
+            <a class="nav-link dropdown-indicator" href="#@uid" role="button" data-bs-toggle="collapse" aria-expanded="false">
+                @{ RenderSidebarItemTitle(sidebarItem!); }
+            </a>
+            <ul class="nav collapse" id="@uid">
+                @foreach (var item in sidebarItem) {
+                    RenderSidebarItem(item);
+                }
+            </ul>
+        }
+    }
+
+    void RenderSidebarItem(SidebarItem sidebarItem, bool isRootItem = false) {
+        if (isRootItem) {
+            RenderSidebarContent(sidebarItem);
+        } else {
+            <li class="nav-item">
+                @{ RenderSidebarContent(sidebarItem); }
+            </li>
+        }
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - PDMS.Web</title>
     <link rel="stylesheet" href="~/css/common.css"/>
+    @await RenderSectionAsync("Heads", false)
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PDMS.Web</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="border-top footer text-muted">
+<main class="main" id="top">
     <div class="container">
-        &copy; 2024 - PDMS.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        @if (definedSection || sections != null) {
+            <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+                <div class="d-flex align-items-center">
+                    <div class="toggle-icon-wrapper">
+                        <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Toggle Navigation">
+                            <span class="navbar-toggle-icon">
+                                <span class="toggle-line"></span>
+                            </span>
+                        </button>
+                    </div>
+                    <a class="navbar-brand" href="/">
+                        <div class="d-flex align-items-center py-3">
+                            <img style="width: 40px" class="me-2" src="https://static.vecteezy.com/system/resources/thumbnails/023/654/784/small/golden-logo-template-free-png.png" alt="PDMS">
+                            <span class="font-sans-serif">PDMS</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+                    <div class="navbar-vertical-content scrollbar">
+                        <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+                            @if (definedSection) {
+                                @await RenderSectionAsync("SideBar", false)
+                            }
+                            @if (!definedSection && sections != null) {
+                                foreach (var section in sections) {
+                                    <li class="nav-item">
+                                        @if (section.Title != null) {
+                                            <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                                                <div class="col-auto navbar-vertical-label">@(section.Title)</div>
+                                                <div class="col ps-0">
+                                                    <hr class="mb-0 navbar-vertical-divider">
+                                                </div>
+                                            </div>
+                                        }
+                                        @foreach (var item in section) {
+                                            RenderSidebarItem(item);
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
+        <div class="content">
+            @await Html.PartialAsync("_Header")
+            @RenderBody()
+        </div>
     </div>
-</footer>
+</main>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/anchor-js/anchor.js"></script>
 <script src="~/lib/is_js/is.js"></script>
 <script src="~/lib/lodash/lodash.min.js"></script>
 <script src="~/js/common.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
