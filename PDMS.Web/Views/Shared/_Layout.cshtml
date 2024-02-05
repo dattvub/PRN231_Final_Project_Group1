@@ -49,6 +49,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - PDMS.Web</title>
+    <link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css"/>
     <link rel="stylesheet" href="~/css/common.css"/>
     @await RenderSectionAsync("Heads", false)
 </head>
@@ -67,12 +68,12 @@
                     </div>
                     <a class="navbar-brand" href="/">
                         <div class="d-flex align-items-center py-3">
-                            <img style="width: 40px" class="me-2" src="https://static.vecteezy.com/system/resources/thumbnails/023/654/784/small/golden-logo-template-free-png.png" alt="PDMS">
+                            <img width="40" class="me-2" src="/images/prn231.png" alt="PDMS">
                             <span class="font-sans-serif">PDMS</span>
                         </div>
                     </a>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+                <div class="collapse navbar-collapse" id="headerVerticalCollapse">
                     <div class="navbar-vertical-content scrollbar">
                         <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                             @if (definedSection) {
@@ -108,8 +109,9 @@
 </main>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/anchor-js/anchor.js"></script>
-<script src="~/lib/is_js/is.js"></script>
+<script src="~/lib/overlayscrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="~/lib/anchor-js/anchor.min.js"></script>
+<script src="~/lib/is_js/is.min.js"></script>
 <script src="~/lib/lodash/lodash.min.js"></script>
 <script src="~/js/common.js"></script>
 <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
