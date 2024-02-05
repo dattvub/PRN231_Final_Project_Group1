@@ -1,6 +1,7 @@
 @import "essential";
-@import 'theme/_utilities';
+@import 'theme/utilities';
 @import "../lib/bootstrap/scss/root";
 @import 'theme/root';
 @import "bootstrap";
 @import "theme/theme";
+@import 'custom';
