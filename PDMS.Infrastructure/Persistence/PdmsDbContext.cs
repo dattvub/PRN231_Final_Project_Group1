@@ -54,6 +54,7 @@ namespace PDMS.Infrastructure.Persistence {
             OrderTicketConfig(builder);
             SupplierConfig(builder);
             MajorsConfig(builder);
+            BrandConfig(builder);
             EmployeeConfig(builder);
             ProductConfig(builder);
             OrderDetail(builder);

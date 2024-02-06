@@ -1,0 +1,64 @@
+/* -------------------------------------------------------------------------- */
+/*                                Falcon Button                               */
+/* -------------------------------------------------------------------------- */
+/* prettier-ignore */
+#mainGrid {
+  grid-template-columns: 1fr 0;
+  transition: all 0.2s ease-out;
+}
+
+#mainCard.newOpened #mainGrid {
+  grid-template-columns: 1fr 33.33%;
+}
+#mainCard.newOpened #newBtn {
+  display: none;
+}
+#mainCard.newOpened #closeNewBtn {
+  display: initial;
+}
+#mainCard:not(.newOpened) #newBtn {
+  display: initial;
+}
+#mainCard:not(.newOpened) #closeNewBtn {
+  display: none;
+}
+
+.change-update {
+  display: none;
+}
+
+.updating .change-update {
+  display: initial;
+}
+
+.change-new {
+  display: initial;
+}
+
+.updating .change-new {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  #mainGrid {
+    grid-template-columns: 1fr !important;
+  }
+  div:has(> #formTitle) {
+    order: -2;
+  }
+  div:has(> #brandForm) {
+    order: -1;
+  }
+  #brandForm {
+    overflow-y: hidden;
+    height: 0;
+  }
+  .newOpened #brandForm {
+    height: initial;
+  }
+}
+#brandCode {
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=brand-list.css.map */
