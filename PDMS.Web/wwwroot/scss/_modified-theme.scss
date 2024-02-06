@@ -1,0 +1,43 @@
+﻿@import "./theme/utilities";
+@import "./theme/functions";
+@import "./theme/variables";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "width": map-merge(
+      map-get($utilities, "width"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "width"), "values"),
+          (
+            0: 0,
+            20: 20%,
+            33: 33.33%,
+            40: 40%,
+            60: 60%,
+            66: 66.67%,
+            80: 80%,
+          ),
+        ),
+      ),
+    ),
+    "height": map-merge(
+      map-get($utilities, "height"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "height"), "values"),
+          (
+            0: 0,
+            20: 20%,
+            33: 33.33%,
+            40: 40%,
+            60: 60%,
+            66: 66.67%,
+            80: 80%,
+          ),
+        ),
+      ),
+    ),
+  )
+);

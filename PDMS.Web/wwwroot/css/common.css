@@ -6,6 +6,10 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Utilities                                 */
 /* -------------------------------------------------------------------------- */
+/* prettier-ignore */
+/* -------------------------------------------------------------------------- */
+/*                                  Utilities                                 */
+/* -------------------------------------------------------------------------- */
 :root {
   --falcon-blue: #2c7be5;
   --falcon-indigo: #727cf5;
@@ -7728,6 +7732,34 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   width: auto !important;
 }
 
+.w-0 {
+  width: 0 !important;
+}
+
+.w-20 {
+  width: 20% !important;
+}
+
+.w-33 {
+  width: 33.33% !important;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.w-66 {
+  width: 66.67% !important;
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
 .mw-100 {
   max-width: 100% !important;
 }
@@ -7770,6 +7802,34 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
 
 .h-auto {
   height: auto !important;
+}
+
+.h-0 {
+  height: 0 !important;
+}
+
+.h-20 {
+  height: 20% !important;
+}
+
+.h-33 {
+  height: 33.33% !important;
+}
+
+.h-40 {
+  height: 40% !important;
+}
+
+.h-60 {
+  height: 60% !important;
+}
+
+.h-66 {
+  height: 66.67% !important;
+}
+
+.h-80 {
+  height: 80% !important;
 }
 
 .mh-100 {
@@ -10000,6 +10060,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   .w-sm-auto {
     width: auto !important;
   }
+  .w-sm-0 {
+    width: 0 !important;
+  }
+  .w-sm-20 {
+    width: 20% !important;
+  }
+  .w-sm-33 {
+    width: 33.33% !important;
+  }
+  .w-sm-40 {
+    width: 40% !important;
+  }
+  .w-sm-60 {
+    width: 60% !important;
+  }
+  .w-sm-66 {
+    width: 66.67% !important;
+  }
+  .w-sm-80 {
+    width: 80% !important;
+  }
   .vw-sm-25 {
     width: 25vw !important;
   }
@@ -10026,6 +10107,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   }
   .h-sm-auto {
     height: auto !important;
+  }
+  .h-sm-0 {
+    height: 0 !important;
+  }
+  .h-sm-20 {
+    height: 20% !important;
+  }
+  .h-sm-33 {
+    height: 33.33% !important;
+  }
+  .h-sm-40 {
+    height: 40% !important;
+  }
+  .h-sm-60 {
+    height: 60% !important;
+  }
+  .h-sm-66 {
+    height: 66.67% !important;
+  }
+  .h-sm-80 {
+    height: 80% !important;
   }
   .vh-sm-25 {
     height: 25vh !important;
@@ -11397,6 +11499,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   .w-md-auto {
     width: auto !important;
   }
+  .w-md-0 {
+    width: 0 !important;
+  }
+  .w-md-20 {
+    width: 20% !important;
+  }
+  .w-md-33 {
+    width: 33.33% !important;
+  }
+  .w-md-40 {
+    width: 40% !important;
+  }
+  .w-md-60 {
+    width: 60% !important;
+  }
+  .w-md-66 {
+    width: 66.67% !important;
+  }
+  .w-md-80 {
+    width: 80% !important;
+  }
   .vw-md-25 {
     width: 25vw !important;
   }
@@ -11423,6 +11546,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   }
   .h-md-auto {
     height: auto !important;
+  }
+  .h-md-0 {
+    height: 0 !important;
+  }
+  .h-md-20 {
+    height: 20% !important;
+  }
+  .h-md-33 {
+    height: 33.33% !important;
+  }
+  .h-md-40 {
+    height: 40% !important;
+  }
+  .h-md-60 {
+    height: 60% !important;
+  }
+  .h-md-66 {
+    height: 66.67% !important;
+  }
+  .h-md-80 {
+    height: 80% !important;
   }
   .vh-md-25 {
     height: 25vh !important;
@@ -12794,6 +12938,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   .w-lg-auto {
     width: auto !important;
   }
+  .w-lg-0 {
+    width: 0 !important;
+  }
+  .w-lg-20 {
+    width: 20% !important;
+  }
+  .w-lg-33 {
+    width: 33.33% !important;
+  }
+  .w-lg-40 {
+    width: 40% !important;
+  }
+  .w-lg-60 {
+    width: 60% !important;
+  }
+  .w-lg-66 {
+    width: 66.67% !important;
+  }
+  .w-lg-80 {
+    width: 80% !important;
+  }
   .vw-lg-25 {
     width: 25vw !important;
   }
@@ -12820,6 +12985,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   }
   .h-lg-auto {
     height: auto !important;
+  }
+  .h-lg-0 {
+    height: 0 !important;
+  }
+  .h-lg-20 {
+    height: 20% !important;
+  }
+  .h-lg-33 {
+    height: 33.33% !important;
+  }
+  .h-lg-40 {
+    height: 40% !important;
+  }
+  .h-lg-60 {
+    height: 60% !important;
+  }
+  .h-lg-66 {
+    height: 66.67% !important;
+  }
+  .h-lg-80 {
+    height: 80% !important;
   }
   .vh-lg-25 {
     height: 25vh !important;
@@ -14191,6 +14377,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   .w-xl-auto {
     width: auto !important;
   }
+  .w-xl-0 {
+    width: 0 !important;
+  }
+  .w-xl-20 {
+    width: 20% !important;
+  }
+  .w-xl-33 {
+    width: 33.33% !important;
+  }
+  .w-xl-40 {
+    width: 40% !important;
+  }
+  .w-xl-60 {
+    width: 60% !important;
+  }
+  .w-xl-66 {
+    width: 66.67% !important;
+  }
+  .w-xl-80 {
+    width: 80% !important;
+  }
   .vw-xl-25 {
     width: 25vw !important;
   }
@@ -14217,6 +14424,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   }
   .h-xl-auto {
     height: auto !important;
+  }
+  .h-xl-0 {
+    height: 0 !important;
+  }
+  .h-xl-20 {
+    height: 20% !important;
+  }
+  .h-xl-33 {
+    height: 33.33% !important;
+  }
+  .h-xl-40 {
+    height: 40% !important;
+  }
+  .h-xl-60 {
+    height: 60% !important;
+  }
+  .h-xl-66 {
+    height: 66.67% !important;
+  }
+  .h-xl-80 {
+    height: 80% !important;
   }
   .vh-xl-25 {
     height: 25vh !important;
@@ -15588,6 +15816,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   .w-xxl-auto {
     width: auto !important;
   }
+  .w-xxl-0 {
+    width: 0 !important;
+  }
+  .w-xxl-20 {
+    width: 20% !important;
+  }
+  .w-xxl-33 {
+    width: 33.33% !important;
+  }
+  .w-xxl-40 {
+    width: 40% !important;
+  }
+  .w-xxl-60 {
+    width: 60% !important;
+  }
+  .w-xxl-66 {
+    width: 66.67% !important;
+  }
+  .w-xxl-80 {
+    width: 80% !important;
+  }
   .vw-xxl-25 {
     width: 25vw !important;
   }
@@ -15614,6 +15863,27 @@ fieldset:disabled .tox .tox-dialog__footer .tox-button--secondary,
   }
   .h-xxl-auto {
     height: auto !important;
+  }
+  .h-xxl-0 {
+    height: 0 !important;
+  }
+  .h-xxl-20 {
+    height: 20% !important;
+  }
+  .h-xxl-33 {
+    height: 33.33% !important;
+  }
+  .h-xxl-40 {
+    height: 40% !important;
+  }
+  .h-xxl-60 {
+    height: 60% !important;
+  }
+  .h-xxl-66 {
+    height: 66.67% !important;
+  }
+  .h-xxl-80 {
+    height: 80% !important;
   }
   .vh-xxl-25 {
     height: 25vh !important;
@@ -24464,6 +24734,22 @@ div[data-collapse] + .kanban-item,
 .dropstart > .dropdown-menu:after {
   top: 0.8rem;
   left: calc(100% - 0.625rem);
+}
+
+.right-0 {
+  right: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0;
 }
 
 /*# sourceMappingURL=common.css.map */
