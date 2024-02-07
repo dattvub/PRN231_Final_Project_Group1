@@ -7,12 +7,23 @@ using PDMS.Configurations;
 using PDMS.Domain.Entities;
 using Serilog;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using PDMS.Domain.Abstractions;
 using PDMS.Infrastructure.Extensions;
 using PDMS.Infrastructure.Persistence;
+using PDMS.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
+builder.Services.AddCors(
+    options => {
+        options.AddPolicy(
+            "allowAll", x => {
+                x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            }
+        );
+    }
+);
 builder.Services.AddHttpContextAccessor();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // Add serilog
@@ -55,6 +66,11 @@ builder.Services.AddIdentity<User, Role>(options =>
     >()
     .AddDefaultTokenProviders();
 builder.Services.AddControllers();
+builder.Services.Configure<ApiBehaviorOptions>(
+    options => {
+        options.InvalidModelStateResponseFactory = ValidationError.GenerateErrorResponse;
+    }
+);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerModule();
 
@@ -62,6 +78,7 @@ builder.Services.AddSwaggerModule();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
     app.UseApplicationSwagger();
 }
 IHostApplicationLifetime lifetime = app.Lifetime;
