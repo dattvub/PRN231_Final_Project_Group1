@@ -31,6 +31,24 @@
   }
 }
 
+div {
+  &:has(> #brandForm) {
+    height: 218px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandCode:invalid):not(:has(#brandName:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandName:invalid):not(:has(#brandCode:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandName:invalid):has(#brandCode:invalid) {
+    height: 262px;
+  }
+}
+
 .change-update {
   display: none;
 }
@@ -51,7 +69,7 @@
   #mainGrid {
     grid-template-columns: 1fr !important;
   }
-  
+
   div:has(> #formTitle) {
     order: -2;
   }
@@ -64,7 +82,7 @@
     overflow-y: hidden;
     height: 0;
   }
-  
+
   .newOpened #brandForm {
     height: initial;
   }

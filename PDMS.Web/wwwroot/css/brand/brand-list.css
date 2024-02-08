@@ -23,6 +23,19 @@
   display: none;
 }
 
+div:has(> #brandForm) {
+  height: 218px;
+}
+div:has(> #brandForm.was-validated):has(#brandCode:invalid):not(:has(#brandName:invalid)) {
+  height: 240px;
+}
+div:has(> #brandForm.was-validated):has(#brandName:invalid):not(:has(#brandCode:invalid)) {
+  height: 240px;
+}
+div:has(> #brandForm.was-validated):has(#brandName:invalid):has(#brandCode:invalid) {
+  height: 262px;
+}
+
 .change-update {
   display: none;
 }
