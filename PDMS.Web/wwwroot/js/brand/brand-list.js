@@ -79,6 +79,8 @@ const brandForm = $('#brandForm')
 const brandIdInput = $('#brandId')
 const brandCodeInput = $('#brandCode')
 const brandNameInput = $('#brandName')
+/** @type {[{id: number, type: string}]} */
+const highlightList = []
 let newOpened = mainCard.hasClass('newOpened');
 let currentPage = 1
 let currentTotalPage = 1
@@ -98,6 +100,9 @@ async function loadBrands(page, search) {
     $.get(`http://localhost:5000/Brand/list?${params}`)
         .done(result => {
             currentPage = page
+            $('#mainGrid tbody .delete-btn').each((i, elm) => {
+                bootstrap.Popover.getInstance(elm).dispose()
+            })
             brandList.clear()
             brandList.add(result.items, onLoadBrandList)
             const totalPage = Math.max(Math.ceil(result.total / result.itemsPerPage), 1)
@@ -139,8 +144,13 @@ function renderPaginationNumber(active, totalPage) {
 
     for (let i = lower; i <= upper; i++) {
         const page = i
-        paginationGroup.append(
-            $('<li></li>').attr({'data-page': page}).append(
+        const paginationItem = $('<li></li>').attr({'data-page': page})
+        if (currentPage === i) {
+            paginationItem
+                .addClass('active fw-medium text-primary mx-1 px-2 d-flex align-items-center')
+                .text(page)
+        } else {
+            paginationItem.append(
                 $('<button></button>').attr({
                     class: 'page',
                     type: 'button',
@@ -148,7 +158,8 @@ function renderPaginationNumber(active, totalPage) {
                     loadBrands(page, searchKeyword)
                 })
             )
-        )
+        }
+        paginationGroup.append(paginationItem)
     }
 
     paginationGroup.find(`[data-page=${active}]`).addClass('active')
@@ -193,7 +204,10 @@ function trimInputElement(e) {
 
 function onLoadBrandList(items) {
     items.forEach(item => {
-        $(item.elm).find('.edit-btn').on('click', () => {
+        const itemId = item.values().brandId
+        const rowElm = $(item.elm)
+
+        rowElm.find('.edit-btn').on('click', () => {
             if (newOpened && !brandIdInput.val()) {
                 return
             }
@@ -207,9 +221,48 @@ function onLoadBrandList(items) {
             }
         })
 
-        $(item.elm).find('.delete-btn').on('click', () => {
-            brandList.remove('brandId', item.values().brandId)
-        })
+        function deleteBrand() {
+            if (!popOver) {
+                return
+            }
+            $.ajax({
+                type: 'DELETE',
+                url: `http://localhost:5000/Brand/${itemId}`,
+                dataType: 'json',
+                contentType: 'application/json',
+            })
+                .done(result => {
+                    console.log(result)
+                    loadBrands(currentPage, searchKeyword)
+                })
+                .fail(err => {
+                    console.log(err)
+                })
+        }
+
+        const popOverElement = $('<div></div>').append([
+            $('<p class="mb-2"></p>')
+                .append($('<span></span>').text('Xác nhận xoá brand '))
+                .append($('<strong></strong>').text(item.values().brandCode)),
+            $('<button class="btn btn-sm btn-danger w-50 mx-auto d-block">Xoá</button>').on('click', deleteBrand),
+        ])
+        const popOverOptions = {
+            html: true,
+            trigger: 'click',
+            placement: 'left',
+            content: popOverElement
+        }
+        const popOver = new bootstrap.Popover(rowElm.find('.delete-btn'), popOverOptions)
+
+        const index = highlightList.findIndex(x => x.id === itemId)
+        if (index >= 0) {
+            const className = `row-${highlightList[index].type}`
+            highlightList.splice(index, 1)
+            rowElm.addClass(className)
+            setTimeout(() => {
+                rowElm.removeClass(className)
+            }, 300)
+        }
     })
 }
 
@@ -313,6 +366,9 @@ brandForm.submit((e) => {
         brandCode: brandCodeInput.val().trim().toUpperCase(),
         brandName: brandNameInput.val().trim()
     }
+    const brandId = parseInt($('#brandId').val())
+    const url = brandId ? `http://localhost:5000/Brand/${brandId}` : 'http://localhost:5000/Brand/create'
+    const method = brandId ? 'PUT' : 'POST'
 
     if (data.brandCode.length === 0 || data.brandName.length === 0) {
         return
@@ -320,8 +376,8 @@ brandForm.submit((e) => {
 
     $('#brandForm > fieldset').prop('disabled', true)
     $.ajax({
-        type: 'POST',
-        url: 'http://localhost:5000/Brand/create',
+        type: method,
+        url,
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -332,6 +388,10 @@ brandForm.submit((e) => {
                 toggleNewForm()
                 formClear()
             }
+            highlightList.push({
+                id: result.brandId,
+                type: brandId ? 'info' : 'success'
+            })
             loadBrands(currentPage, searchKeyword)
         })
         .fail(err => {
