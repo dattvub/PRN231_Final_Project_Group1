@@ -1,5 +1,17 @@
 ﻿@import "../essential";
 
+@mixin row-variant($color) {
+  .row-#{$color} {
+    background-color: var(--#{$variable-prefix}table-#{$color}-bg);
+    color: var(--#{$variable-prefix}table-#{$color}-color);
+    border-color: var(--#{$variable-prefix}table-#{$color}-border-color);
+
+    & > * {
+      box-shadow: initial !important;
+    }
+  }
+}
+
 #mainGrid {
   grid-template-columns: 1fr 0;
   transition: all 0.2s ease-out;
@@ -31,6 +43,24 @@
   }
 }
 
+div {
+  &:has(> #brandForm) {
+    height: 218px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandCode:invalid):not(:has(#brandName:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandName:invalid):not(:has(#brandCode:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #brandForm.was-validated):has(#brandName:invalid):has(#brandCode:invalid) {
+    height: 262px;
+  }
+}
+
 .change-update {
   display: none;
 }
@@ -49,27 +79,36 @@
 
 @include media-breakpoint-down(lg) {
   #mainGrid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 100% !important;
   }
-  
+
   div:has(> #formTitle) {
     order: -2;
+    display: none;
   }
 
   div:has(> #brandForm) {
     order: -1;
+    display: none;
   }
 
-  #brandForm {
-    overflow-y: hidden;
-    height: 0;
+  .newOpened div:has(> #brandForm) {
+    display: initial;
   }
-  
-  .newOpened #brandForm {
-    height: initial;
+
+  .newOpened div:has(> #formTitle) {
+    display: initial;
   }
 }
 
 #brandCode {
   text-transform: uppercase;
+}
+
+@each $color, $value in $table-variants {
+  @include row-variant($color);
+}
+
+tr {
+  transition: all 2s ease-out;
 }
