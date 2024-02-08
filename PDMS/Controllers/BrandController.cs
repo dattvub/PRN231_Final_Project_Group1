@@ -26,7 +26,7 @@ public class BrandController : ControllerBase {
     [EnableCors("allowAll")]
     [HttpGet("list")]
     public async Task<ActionResult<PaginationDto<BrandDto>>> GetBrands([FromQuery] GetBrandsDto getBrandsDto) {
-        var query = _context.Brands.AsQueryable();
+        var query = _context.Brands.Where(x => x.Status);
 
         if (getBrandsDto.Query != null) {
             if (getBrandsDto.QueryByName) {
@@ -81,7 +81,7 @@ public class BrandController : ControllerBase {
         [FromRoute] int id,
         [FromBody] CreateBrandDto createBrandDto
     ) {
-        var brand = await _context.Brands.FindAsync(id);
+        var brand = await _context.Brands.FirstOrDefaultAsync(x => x.BrandId == id && x.Status);
         if (brand == null) {
             return ValidationError.BadRequest400($"Brand with id {id} is not exist");
         }
@@ -108,7 +108,7 @@ public class BrandController : ControllerBase {
     [EnableCors("allowAll")]
     [HttpDelete("{id:int:min(1)}")]
     public async Task<ActionResult<BrandDto>> DeleteBrand([FromRoute] int id) {
-        var brand = await _context.Brands.FindAsync(id);
+        var brand = await _context.Brands.FirstOrDefaultAsync(x => x.BrandId == id && x.Status);
         if (brand == null) {
             return ValidationError.BadRequest400($"Brand with id {id} is not exist");
         }
