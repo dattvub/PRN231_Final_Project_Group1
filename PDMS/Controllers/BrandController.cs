@@ -39,6 +39,7 @@ public class BrandController : ControllerBase {
         var total = await query.CountAsync();
 
         var brands = await query
+            .OrderByDescending(x => x.BrandId)
             .Skip((getBrandsDto.Page - 1) * getBrandsDto.Quantity)
             .Take(getBrandsDto.Quantity)
             .Select(x => _mapper.Map<BrandDto>(x))
