@@ -341,11 +341,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasMaxLength(50)
                 .IsRequired();
             employee.Property(x => x.EntranceDate)
-                .HasColumnType("datetime")
-                .IsRequired();
+                .HasColumnType("datetime");
             employee.Property(x => x.ExitDate)
-                .HasColumnType("datetime")
-                .IsRequired();
+                .HasColumnType("datetime");
             employee.Property(x => x.Address)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
