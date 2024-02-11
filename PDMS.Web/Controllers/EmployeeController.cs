@@ -2,4 +2,9 @@
 
 namespace PDMS.Web.Controllers;
 
-public class EmployeeController : Controller { }
+[Route("[controller]")]
+public class EmployeeController : Controller {
+    public IActionResult Index() {
+        return View();
+    }
+}

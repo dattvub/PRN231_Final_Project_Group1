@@ -24736,20 +24736,436 @@ div[data-collapse] + .kanban-item,
   left: calc(100% - 0.625rem);
 }
 
-.right-0 {
-  right: 0;
+.btn-toggle-primary {
+  position: relative;
 }
-
-.left-0 {
-  left: 0;
-}
-
-.top-0 {
+.btn-toggle-primary .toggle-state-store {
+  opacity: 0;
+  position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-primary-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-primary-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-primary-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-primary-active-color);
+}
+.btn-check:checked + .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-primary-color);
+  background-color: var(--falcon-btn-falcon-primary-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-primary:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #2c7be5;
+  border-color: #2c7be5;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #2569c3;
+  border-color: #2362b7;
+}
+.btn-check:focus + .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #2569c3;
+  border-color: #2362b7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(76, 143, 233, 0.5);
+}
+.btn-check:checked + .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #2362b7;
+  border-color: #215cac;
+}
+.btn-check:checked + .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(76, 143, 233, 0.5);
+}
+.btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-primary:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #2c7be5;
+  border-color: #2c7be5;
 }
 
-.bottom {
-  bottom: 0;
+.btn-toggle-success {
+  position: relative;
+}
+.btn-toggle-success .toggle-state-store {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-success-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-success-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-success-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-success-active-color);
+}
+.btn-check:checked + .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-success-color);
+  background-color: var(--falcon-btn-falcon-success-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-success:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #00d27a;
+  border-color: #00d27a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #00b368;
+  border-color: #00a862;
+}
+.btn-check:focus + .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #00b368;
+  border-color: #00a862;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(38, 217, 142, 0.5);
+}
+.btn-check:checked + .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #00a862;
+  border-color: #009e5c;
+}
+.btn-check:checked + .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(38, 217, 142, 0.5);
+}
+.btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-success:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #00d27a;
+  border-color: #00d27a;
+}
+
+.btn-toggle-info {
+  position: relative;
+}
+.btn-toggle-info .toggle-state-store {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-info-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-info-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-info-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-info-active-color);
+}
+.btn-check:checked + .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-info-color);
+  background-color: var(--falcon-btn-falcon-info-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-info:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #27bcfd;
+  border-color: #27bcfd;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #21a0d7;
+  border-color: #1f96ca;
+}
+.btn-check:focus + .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #21a0d7;
+  border-color: #1f96ca;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(71, 198, 253, 0.5);
+}
+.btn-check:checked + .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #1f96ca;
+  border-color: #1d8dbe;
+}
+.btn-check:checked + .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(71, 198, 253, 0.5);
+}
+.btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-info:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #27bcfd;
+  border-color: #27bcfd;
+}
+
+.btn-toggle-warning {
+  position: relative;
+}
+.btn-toggle-warning .toggle-state-store {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-warning-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-warning-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-warning-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-warning-active-color);
+}
+.btn-check:checked + .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-warning-color);
+  background-color: var(--falcon-btn-falcon-warning-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-warning:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #f5803e;
+  border-color: #f5803e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #d06d35;
+  border-color: #c46632;
+}
+.btn-check:focus + .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #d06d35;
+  border-color: #c46632;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(247, 147, 91, 0.5);
+}
+.btn-check:checked + .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #c46632;
+  border-color: #b8602f;
+}
+.btn-check:checked + .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(247, 147, 91, 0.5);
+}
+.btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-warning:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #f5803e;
+  border-color: #f5803e;
+}
+
+.btn-toggle-danger {
+  position: relative;
+}
+.btn-toggle-danger .toggle-state-store {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-danger-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-danger-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-danger-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-danger-active-color);
+}
+.btn-check:checked + .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-danger-color);
+  background-color: var(--falcon-btn-falcon-danger-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-danger:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #e63757;
+  border-color: #e63757;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #c42f4a;
+  border-color: #b82c46;
+}
+.btn-check:focus + .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #c42f4a;
+  border-color: #b82c46;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(234, 85, 112, 0.5);
+}
+.btn-check:checked + .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #b82c46;
+  border-color: #ad2941;
+}
+.btn-check:checked + .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(234, 85, 112, 0.5);
+}
+.btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-danger:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #e63757;
+  border-color: #e63757;
+}
+
+.btn-toggle-default {
+  position: relative;
+}
+.btn-toggle-default .toggle-state-store {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+  color: var(--falcon-btn-falcon-default-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):hover, .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):focus {
+  color: var(--falcon-btn-falcon-default-hover-color);
+  background-color: var(--falcon-btn-falcon-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):hover:not(.disabled):not(:disabled), .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):focus:not(.disabled):not(:disabled) {
+  color: var(--falcon-btn-falcon-default-hover-color);
+  box-shadow: var(--falcon-btn-falcon-hover-box-shadow);
+}
+.btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):active {
+  box-shadow: none !important;
+  color: var(--falcon-btn-falcon-default-active-color);
+}
+.btn-check:checked + .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-check:active + .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]), .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):active, .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]).active, .show > .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]).dropdown-toggle {
+  color: var(--falcon-btn-falcon-default-color);
+  background-color: var(--falcon-btn-falcon-default-active-background);
+  border-color: var(--falcon-btn-falcon-background);
+}
+.btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]):disabled, .btn-toggle-default:has(.toggle-state-store:not(:checked)[type=checkbox]).disabled {
+  color: var(--falcon-btn-disabled-color);
+  background-color: var(--falcon-btn-falcon-background);
+  box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+.btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]) {
+  color: #fff;
+  background-color: #0b1727;
+  border-color: #0b1727;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):hover {
+  color: #fff;
+  background-color: #091421;
+  border-color: #09121f;
+}
+.btn-check:focus + .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):focus {
+  color: #fff;
+  background-color: #091421;
+  border-color: #09121f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0 rgba(48, 58, 71, 0.5);
+}
+.btn-check:checked + .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]), .btn-check:active + .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]), .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):active, .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]).active, .show > .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle {
+  color: #fff;
+  background-color: #09121f;
+  border-color: #08111d;
+}
+.btn-check:checked + .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-check:active + .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):focus, .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):active:focus, .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]).active:focus, .show > .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]).dropdown-toggle:focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0 rgba(48, 58, 71, 0.5);
+}
+.btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]):disabled, .btn-toggle-default:has(.toggle-state-store:checked[type=checkbox]).disabled {
+  color: #fff;
+  background-color: #0b1727;
+  border-color: #0b1727;
 }
 
 /*# sourceMappingURL=common.css.map */
