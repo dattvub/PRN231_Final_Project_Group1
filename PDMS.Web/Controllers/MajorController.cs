@@ -3,3 +3,4 @@
 namespace PDMS.Web.Controllers;
 
 public class MajorController : Controller { }
+

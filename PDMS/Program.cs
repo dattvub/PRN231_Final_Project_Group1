@@ -10,6 +10,7 @@ using System.Text;
 using PDMS.Domain.Abstractions;
 using PDMS.Infrastructure.Extensions;
 using PDMS.Infrastructure.Persistence;
+using PDMS.Application.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
@@ -21,6 +22,7 @@ AddSerilog(builder.Configuration);
 builder.Services.AddDatabaseModule<PdmsDbContext>(builder.Configuration);
 builder.Services.AddScoped<IPdmsDbContext, PdmsDbContext>();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 //builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 
 //Jwt
