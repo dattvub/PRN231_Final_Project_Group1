@@ -8,6 +8,7 @@ using PDMS.Shared.DTO;
 
 namespace PDMS.Controllers
 {
+    //test
     [Route("api/[controller]")]
     [ApiController]
     public class MajorController : ControllerBase
