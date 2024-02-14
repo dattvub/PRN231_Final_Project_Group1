@@ -9,11 +9,6 @@
     },
     {
       "provider": "unpkg",
-      "library": "jquery-validation@1.20.0",
-      "destination": "wwwroot/jquery-validation/"
-    },
-    {
-      "provider": "unpkg",
       "library": "jquery-validation-unobtrusive@4.0.0",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
     },
@@ -36,6 +31,15 @@
       "provider": "unpkg",
       "library": "jquery@3.7.1",
       "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "library": "list.js@2.3.1",
+      "destination": "wwwroot/lib/list.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "overlayscrollbars@1.13.3",
+      "destination": "wwwroot/lib/overlayscrollbars/"
     }
   ]
 }

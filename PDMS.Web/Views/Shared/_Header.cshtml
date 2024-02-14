@@ -1,0 +1,134 @@
+﻿<nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
+    <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#headerVerticalCollapse" aria-controls="headerVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+        <span class="navbar-toggle-icon">
+            <span class="toggle-line"></span>
+        </span>
+    </button>
+    <a class="navbar-brand me-1 me-sm-3" href="/">
+        <div class="d-flex align-items-center">
+            <img class="me-2" src="/images/prn231.png" alt="PDMS" width="40">
+            <span class="font-sans-serif">PDMS</span>
+        </div>
+    </a>
+    <ul class="navbar-nav navbar-nav-icons align-items-center d-none d-lg-flex flex-1 justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link fs-0" href="#">Khách hàng</a>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownImportExport" role="button" data-bs-toggle="dropdown" aria-expanded="false">Xuất nhập</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownImportExport">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" href="#">Phiếu bán hàng</a>
+                    <a class="dropdown-item" href="#">Phiếu nhập hàng</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh mục</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownCategory">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" href="#">Cây đơn vị</a>
+                    <a class="dropdown-item" href="#">Sản phẩm</a>
+                    <div class="drop-hover dropend">
+                        <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center gap-2" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            Danh mục sản phẩm
+                        </a>
+                        <div class="dropdown-menu py-0">
+                            <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                                <a class="dropdown-item" href="#">Major</a>
+                                <a class="dropdown-item" href="#">Supplier</a>
+                                <a class="dropdown-item" href="#">Brand</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="#">Khách hàng</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownReport" role="button" data-bs-toggle="dropdown" aria-expanded="false">Báo cáo</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownReport">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" href="#">Bán hàng</a>
+                    <a class="dropdown-item" href="#">Nhập hàng</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+        <li class="nav-item dropdown px-1">
+            <a class="nav-link notification-indicator notification-indicator-primary px-1 text-secondary fs-2" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconify-inline" data-icon="mdi:bell"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-notification" aria-labelledby="navbarDropdownNotification">
+                <div class="card card-notification shadow-none">
+                    <div class="card-header">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <h6 class="card-header-title mb-0">Notifications</h6>
+                            </div>
+                            <div class="col-auto ps-0 ps-sm-3">
+                                <a class="card-link fw-normal" href="#">Mark all as read</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scrollbar-overlay" style="max-height:19rem">
+                        <div class="list-group list-group-flush fw-normal fs--1">
+                            <div class="list-group-title border-bottom">NEW</div>
+                            @for (var i = 0; i < 4; i++) {
+                                <div class="list-group-item">
+                                    <a class="notification notification-flush notification-unread" href="#">
+                                        <div class="notification-avatar">
+                                            <div class="avatar avatar-2xl me-3">
+                                                <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt=""/>
+
+                                            </div>
+                                        </div>
+                                        <div class="notification-body">
+                                            <p class="mb-1">Nguyễn Văn A vừa tạo order</p>
+                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                            <div class="list-group-title border-bottom">EARLIER</div>
+                            @for (var i = 0; i < 4; i++) {
+                                <div class="list-group-item">
+                                    <a class="notification notification-flush notification-unread" href="#">
+                                        <div class="notification-avatar">
+                                            <div class="avatar avatar-2xl me-3">
+                                                <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt=""/>
+
+                                            </div>
+                                        </div>
+                                        <div class="notification-body">
+                                            <p class="mb-1">Nguyễn Văn A vừa tạo order</p>
+                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer text-center border-top">
+                        <a class="card-link d-block" href="/">View all</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" id="headerDropdownUser" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-xl">
+                    <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="">
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownUser">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" href="#">View Profile</a>
+                    <hr class="dropdown-divider">
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</nav>
