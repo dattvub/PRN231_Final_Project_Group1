@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Tạo nhân viên mới";
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/css/employee/employee-create.css"/>
+}
+
+<form id="mainForm" class="row g-3 needs-validation" novalidate>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="text-center">Ảnh nhân viên</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="w-100 ratio ratio-1x1">
+                    <div class="rounded-2 img-drop-zone flex-grow-1 position-absolute top-0 start-0 w-100 h-100 bg-white">
+                        <input accept="image/*" type="file" id="avatar" name="avatar" class="w-100 h-100 opacity-0 cursor-pointer position-relative z-index-2">
+                        <img src="" alt="" class="d-none w-100 h-100 position-absolute top-0 start-0 fit-cover" id="preview-avatar">
+                        <div class="position-absolute top-0 start-0 h-100 w-100 overlay d-flex justify-content-center align-items-center">
+                            <p class="h5 text-center fw-normal">
+                                <span class="fw-medium">Tải ảnh lên</span> hoặc <br> kéo thả
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="row g-3">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="empName" class="form-label">Tên nhân viên</label>
+                            <input maxlength="50" required type="text" name="empName" id="empName" class="form-control" autocomplete="off" spellcheck="false">
+                            <div class="invalid-feedback">Tên không được để trống</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="empCode" class="form-label">Mã nhân viên</label>
+                            <input maxlength="50" required type="text" name="empCode" id="empCode" class="form-control" autocomplete="off" spellcheck="false">
+                            <div class="invalid-feedback">Mã không được để trống</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input maxlength="50" required type="text" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Email không được để trống</div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Địa chỉ</label>
+                    <input maxlength="50" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Thông tin nghề nghiệp</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="mb-3">
+                    <label for="position" class="form-label">Chức vụ</label>
+                    <input required type="text" name="position" id="position" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Chức vụ không được để trống</div>
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">Phòng ban</label>
+                    <input required type="text" name="department" id="department" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Phòng ban không được để trống</div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-body card-header bg-light">
+                <button class="btn btn-primary w-100 mb-3" type="submit">Tạo</button>
+                <a class="btn btn-falcon-default w-100" asp-controller="Employee" asp-action="Index">Huỷ</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/employee/employee-create.js"></script>
+}

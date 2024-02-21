@@ -1,0 +1,35 @@
+﻿@import '../essential';
+
+.img-drop-zone {
+  border: 2px dashed #a4aebc;
+
+  &:hover {
+    & .overlay {
+      pointer-events: none;
+      z-index: 10;
+      transition: all 250ms ease-out;
+      background-color: #e4eaf080 !important;
+
+      & > p {
+        opacity: 100%;
+        color: black;
+      }
+    }
+  }
+
+  & .overlay {
+    pointer-events: none;
+    z-index: 10;
+    transition: all 250ms ease-out;
+    background-color: transparent;
+
+    & > p {
+      transition: color 250ms ease, color 250ms ease;
+      color: #575f6b;
+    }
+  }
+
+  & img:not(.d-none) + .overlay > p {
+    opacity: 0;
+  }
+}
