@@ -1,13 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Tạo nhân viên mới";
+    ViewData["Title"] = "Thêm nhân viên mới";
 }
 
 @section Heads {
     <link rel="stylesheet" href="~/css/employee/employee-create.css"/>
 }
 
+<div class="mb-3 d-flex align-items-center mt-2">
+    <h4 class="m-0">Thêm nhân viên mới</h4>
+    <button type="reset" id="btnReset" class="btn btn-warning d-block ms-auto">Nhập lại</button>
+</div>
 <form id="mainForm" class="row g-3 needs-validation" novalidate>
-    <div class="col-3">
+    <div class="col-md-6 col-lg-3">
         <div class="card">
             <div class="card-header">
                 <h5 class="text-center">Ảnh nhân viên</h5>
@@ -27,34 +31,49 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-lg-6">
         <div class="card">
             <div class="card-header">
                 <h5>Thông tin cá nhân</h5>
             </div>
             <div class="card-body bg-light py-3">
                 <div class="row g-3">
-                    <div class="col">
-                        <div class="mb-3">
+                    <div class="mb-3 d-flex gap-3">
+                        <div class="flex-1">
                             <label for="empName" class="form-label">Tên nhân viên</label>
-                            <input maxlength="50" required type="text" name="empName" id="empName" class="form-control" autocomplete="off" spellcheck="false">
+                            <input maxlength="50" tabindex="0" required type="text" name="empName" id="empName" class="form-control" autocomplete="off" spellcheck="false">
                             <div class="invalid-feedback">Tên không được để trống</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="empCode" class="form-label">Mã nhân viên</label>
-                            <input maxlength="50" required type="text" name="empCode" id="empCode" class="form-control" autocomplete="off" spellcheck="false">
-                            <div class="invalid-feedback">Mã không được để trống</div>
+                        <div class="flex-1">
+                            <label class="form-label">Giới tính</label>
+                            <div class="d-flex pt-1 justify-content-evenly">
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" id="genderMale" type="radio" name="gender" checked/>
+                                    <label class="form-check-label" for="genderMale">Nam</label>
+                                </div>
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" id="genderFemale" type="radio" name="gender"/>
+                                    <label class="form-check-label" for="genderFemale">Nữ</label>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex gap-3">
+                    <div class="flex-1">
+                        <label for="empCode" class="form-label">Mã nhân viên</label>
+                        <input maxlength="50" required type="text" name="empCode" id="empCode" class="form-control" autocomplete="off" spellcheck="false">
+                        <div class="invalid-feedback">Mã không được để trống</div>
+                    </div>
+                    <div class="flex-1">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input maxlength="50" required type="text" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
-                    <div class="invalid-feedback">Email không được để trống</div>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Số điện thoại</label>
-                    <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                    <input maxlength="50" required type="email" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Sai định dạng Email</div>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Địa chỉ</label>
@@ -63,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-md-6 col-lg-3 ms-auto">
         <div class="card">
             <div class="card-header">
                 <h5>Thông tin nghề nghiệp</h5>
@@ -83,7 +102,10 @@
         </div>
         <div class="card mt-3">
             <div class="card-body card-header bg-light">
-                <button class="btn btn-primary w-100 mb-3" type="submit">Tạo</button>
+                <button class="btn btn-primary w-100 mb-3" type="submit">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Thêm</span>
+                </button>
                 <a class="btn btn-falcon-default w-100" asp-controller="Employee" asp-action="Index">Huỷ</a>
             </div>
         </div>

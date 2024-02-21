@@ -21,3 +21,7 @@ avatarInput.on('input', e => {
         $('#preview-avatar').addClass('d-none')[0].src = ''
     }
 })
+
+$('#btnReset').on('click', () => {
+    mainForm[0].reset()
+})
