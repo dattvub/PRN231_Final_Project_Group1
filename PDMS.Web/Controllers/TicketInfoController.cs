@@ -3,7 +3,7 @@
 namespace PDMS.Web.Controllers;
 
 [Route("/Category/[controller]")]
-public class ImportTicketController : Controller {
+public class TicketInfoController : Controller {
     public IActionResult Index()
     {
         return View();

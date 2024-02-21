@@ -2,4 +2,6 @@
 
 namespace PDMS.Web.Controllers;
 
-public class SupplierController : Controller { }
+public class SupplierController : Controller {
+    
+}

@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using PDMS.Domain.Entities;
-using PDMS.Shared.DTO;
+using PDMS.Shared.DTO.Brand;
 
-
-namespace PDMS.Application.AutoMapper
-{
-    public class AutoMapperProfile : Profile
-    {
-        public AutoMapperProfile()
-        {
-            CreateMap<Domain.Entities.Major, MajorDTO>().ReverseMap();
-            CreateMap<Domain.Entities.Major, MajorRequest>().ReverseMap();
+namespace PDMS.Application.AutoMapper {
+    public class AutoMapperProfile : Profile {
+        public AutoMapperProfile() {
+            CreateMap<CreateBrandDto, Brand>()
+                .AfterMap(
+                    ((src, dst, ctx) => {
+                        dst.BrandId = 0;
+                        dst.Status = true;
+                    })
+                );
+            CreateMap<Brand, BrandDto>().ReverseMap();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PDMS.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using PDMS.Infrastructure.Persistence;
 namespace PDMS.Infrastructure.Migrations
 {
     [DbContext(typeof(PdmsDbContext))]
-    partial class PdmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206195228_AddMissingBrandConfig")]
+    partial class AddMissingBrandConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +138,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasKey("BrandId");
 
-                    b.HasIndex("BrandCode")
-                        .IsUnique();
-
                     b.ToTable("Brands");
                 });
 
@@ -193,21 +192,9 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("CustomerCode")
-                        .IsUnique();
-
                     b.HasIndex("CustomerGroupId");
 
                     b.HasIndex("CustomerTypeId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
-
-                    b.HasIndex("TaxCode")
-                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
@@ -235,9 +222,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasKey("CustomerGroupId");
 
-                    b.HasIndex("CustomerGroupCode")
-                        .IsUnique();
-
                     b.ToTable("CustomerGroups");
                 });
 
@@ -263,9 +247,6 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("CustomerTypeId");
-
-                    b.HasIndex("CustomerTypeCode")
-                        .IsUnique();
 
                     b.ToTable("CustomerTypes");
                 });
@@ -329,10 +310,10 @@ namespace PDMS.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("EntranceDate")
+                    b.Property<DateTime>("EntranceDate")
                         .HasColumnType("datetime");
 
-                    b.Property<DateTime?>("ExitDate")
+                    b.Property<DateTime>("ExitDate")
                         .HasColumnType("datetime");
 
                     b.Property<bool>("Gender")
@@ -354,15 +335,6 @@ namespace PDMS.Infrastructure.Migrations
                     b.HasKey("EmpId");
 
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("EmpCode")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -394,9 +366,6 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("GroupId");
-
-                    b.HasIndex("GroupCode")
-                        .IsUnique();
 
                     b.ToTable("Groups");
                 });
@@ -465,9 +434,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("TicketCode")
-                        .IsUnique();
-
                     b.ToTable("ImportTickets");
                 });
 
@@ -493,9 +459,6 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("MajorId");
-
-                    b.HasIndex("MajorCode")
-                        .IsUnique();
 
                     b.ToTable("Majors");
                 });
@@ -609,9 +572,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("OrderCode")
-                        .IsUnique();
-
                     b.ToTable("OrderTickets");
                 });
 
@@ -678,9 +638,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("BarCode")
-                        .IsUnique();
-
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CreatedById");
@@ -688,9 +645,6 @@ namespace PDMS.Infrastructure.Migrations
                     b.HasIndex("LastModifiedById");
 
                     b.HasIndex("MajorId");
-
-                    b.HasIndex("ProductCode")
-                        .IsUnique();
 
                     b.HasIndex("SuppilerId");
 
@@ -746,9 +700,6 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SupplierId");
-
-                    b.HasIndex("SupplierCode")
-                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });

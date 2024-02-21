@@ -9,8 +9,8 @@ public class Employee {
     public string Phone { get; set; }
     public string Position { get; set; }
     public string Department { get; set; }
-    public DateTime EntranceDate { get; set; }
-    public DateTime ExitDate { get; set; }
+    public DateTime? EntranceDate { get; set; }
+    public DateTime? ExitDate { get; set; }
     public string Address { get; set; }
     public bool Gender { get; set; }
     public string Avatar { get; set; }

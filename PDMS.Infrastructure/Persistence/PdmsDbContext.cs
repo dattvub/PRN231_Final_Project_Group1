@@ -54,6 +54,7 @@ namespace PDMS.Infrastructure.Persistence {
             OrderTicketConfig(builder);
             SupplierConfig(builder);
             MajorsConfig(builder);
+            BrandConfig(builder);
             EmployeeConfig(builder);
             ProductConfig(builder);
             OrderDetail(builder);
@@ -108,6 +109,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("nchar")
                 .HasMaxLength(10)
                 .IsRequired();
+            group
+                .HasIndex(x => x.GroupCode)
+                .IsUnique();
         }
 
         private void ImportDetailConfig(ModelBuilder builder) {
@@ -165,6 +169,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .WithMany(x => x.CreatedImportTickets)
                 .HasForeignKey(x => x.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
+            importTicket
+                .HasIndex(x => x.TicketCode)
+                .IsUnique();
         }
 
         private void NotificationConfig(ModelBuilder builder) {
@@ -294,6 +301,12 @@ namespace PDMS.Infrastructure.Persistence {
                 .WithMany(x => x.Products)
                 .HasForeignKey(x => x.MajorId)
                 .OnDelete(DeleteBehavior.Restrict);
+            product
+                .HasIndex(x => x.ProductCode)
+                .IsUnique();
+            product
+                .HasIndex(x => x.BarCode)
+                .IsUnique();
         }
 
         private void EmployeeConfig(ModelBuilder builder) {
@@ -328,11 +341,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasMaxLength(50)
                 .IsRequired();
             employee.Property(x => x.EntranceDate)
-                .HasColumnType("datetime")
-                .IsRequired();
+                .HasColumnType("datetime");
             employee.Property(x => x.ExitDate)
-                .HasColumnType("datetime")
-                .IsRequired();
+                .HasColumnType("datetime");
             employee.Property(x => x.Address)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -352,6 +363,15 @@ namespace PDMS.Infrastructure.Persistence {
                 .WithMany(x => x.CreatedEmployees)
                 .HasForeignKey(x => x.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
+            employee
+                .HasIndex(x => x.EmpCode)
+                .IsUnique();
+            employee
+                .HasIndex(x => x.Email)
+                .IsUnique();
+            employee
+                .HasIndex(x => x.Phone)
+                .IsUnique();
         }
 
         private void BrandConfig(ModelBuilder builder) {
@@ -369,6 +389,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             brand.Property(x => x.Status)
                 .IsRequired();
+            brand
+                .HasIndex(x => x.BrandCode)
+                .IsUnique();
         }
 
         private void MajorsConfig(ModelBuilder builder) {
@@ -386,6 +409,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             major.Property(x => x.Status)
                 .IsRequired();
+            major
+                .HasIndex(x => x.MajorCode)
+                .IsUnique();
         }
 
         private void SupplierConfig(ModelBuilder builder) {
@@ -403,6 +429,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             supplier.Property(x => x.Status)
                 .IsRequired();
+            supplier
+                .HasIndex(x => x.SupplierCode)
+                .IsUnique();
         }
 
         private void OrderTicketConfig(ModelBuilder builder) {
@@ -431,6 +460,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .WithMany(x => x.OrderTickets)
                 .HasForeignKey(x => x.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
+            orderTicket
+                .HasIndex(x => x.OrderCode)
+                .IsUnique();
         }
 
         private void CustomerTypeConfig(ModelBuilder builder) {
@@ -448,6 +480,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             customerType.Property(x => x.Status)
                 .IsRequired();
+            customerType
+                .HasIndex(x => x.CustomerTypeCode)
+                .IsUnique();
         }
 
         private void CustomerGroupConfig(ModelBuilder builder) {
@@ -465,6 +500,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             customerGroup.Property(x => x.Status)
                 .IsRequired();
+            customerGroup
+                .HasIndex(x => x.CustomerGroupCode)
+                .IsUnique();
         }
 
         private void CustomerConfig(ModelBuilder builder) {
@@ -514,6 +552,18 @@ namespace PDMS.Infrastructure.Persistence {
                 .WithMany(x => x.Customers)
                 .HasForeignKey(x => x.CustomerGroupId)
                 .OnDelete(DeleteBehavior.Restrict);
+            customer
+                .HasIndex(x => x.CustomerCode)
+                .IsUnique();
+            customer
+                .HasIndex(x => x.TaxCode)
+                .IsUnique();
+            customer
+                .HasIndex(x => x.Email)
+                .IsUnique();
+            customer
+                .HasIndex(x => x.Phone)
+                .IsUnique();
         }
 
         private void IdentityConfig(ModelBuilder builder) {
