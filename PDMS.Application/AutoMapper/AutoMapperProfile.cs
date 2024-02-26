@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PDMS.Domain.Entities;
 using PDMS.Shared.DTO.Brand;
+using PDMS.Shared.DTO.Major;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
@@ -18,6 +19,15 @@ namespace PDMS.Application.AutoMapper {
                     })
                 );
             CreateMap<Brand, BrandDto>().ReverseMap();
+
+            CreateMap<Major, MajorDTO>().ReverseMap();
+            CreateMap<CreateMajorDTO, Major>()
+               .AfterMap(
+                   ((src, dst, ctx) => {
+                       dst.MajorId = 0;
+                       dst.Status = true;
+                   })
+               );
         }
     }
 }
