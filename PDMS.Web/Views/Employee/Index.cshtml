@@ -15,10 +15,12 @@
                 <span class="iconify-inline" data-icon="fa:filter"></span>
                 <span>Bộ lọc</span>
             </button>
-            <button id="newBtn" class="btn btn-falcon-success btn-sm" type="button">
-                <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
-                <span>Tạo mới</span>
-            </button>
+            <a asp-controller="Employee" asp-action="Create">
+                <button id="newBtn" class="btn btn-falcon-success btn-sm" type="button">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Tạo mới</span>
+                </button>
+            </a>
         </div>
     </div>
     <div class="card-body border-top py-3 pt-0">

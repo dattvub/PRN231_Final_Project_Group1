@@ -2,31 +2,5 @@
 /*                                Falcon Button                               */
 /* -------------------------------------------------------------------------- */
 /* prettier-ignore */
-.img-drop-zone {
-  border: 2px dashed #a4aebc;
-}
-.img-drop-zone:hover .overlay {
-  pointer-events: none;
-  z-index: 10;
-  transition: all 250ms ease-out;
-  background-color: rgba(228, 234, 240, 0.5019607843) !important;
-}
-.img-drop-zone:hover .overlay > p {
-  opacity: 100%;
-  color: black;
-}
-.img-drop-zone .overlay {
-  pointer-events: none;
-  z-index: 10;
-  transition: all 250ms ease-out;
-  background-color: transparent;
-}
-.img-drop-zone .overlay > p {
-  transition: color 250ms ease, color 250ms ease;
-  color: #575f6b;
-}
-.img-drop-zone img:not(.d-none) + .overlay > p {
-  opacity: 0;
-}
 
 /*# sourceMappingURL=employee-create.css.map */
