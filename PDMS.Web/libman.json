@@ -37,9 +37,16 @@
       "destination": "wwwroot/lib/list.js/"
     },
     {
-      "provider": "cdnjs",
       "library": "overlayscrollbars@1.13.3",
       "destination": "wwwroot/lib/overlayscrollbars/"
+    },
+    {
+      "library": "flatpickr@4.6.13",
+      "destination": "wwwroot/lib/flatpickr/"
+    },
+    {
+      "library": "dropzone@5.9.3",
+      "destination": "wwwroot/lib/dropzone/"
     }
   ]
 }
