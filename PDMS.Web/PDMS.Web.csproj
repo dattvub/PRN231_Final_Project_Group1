@@ -20,12 +20,4 @@
       <PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <UpToDateCheckInput Remove="wwwroot\scss\major\major-list.scss" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="wwwroot\scss\major\major-list.scss" />
-    </ItemGroup>
-
 </Project>

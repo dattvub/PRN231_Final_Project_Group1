@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PDMS.Domain.Entities;
 using PDMS.Shared.DTO.Brand;
+using PDMS.Shared.DTO.Customer;
+using PDMS.Shared.DTO.Supplier;
 using PDMS.Shared.DTO.Major;
 
 namespace PDMS.Application.AutoMapper {
@@ -20,6 +22,23 @@ namespace PDMS.Application.AutoMapper {
                 );
             CreateMap<Brand, BrandDto>().ReverseMap();
 
+            CreateMap<CreateSupplierDto, Supplier>()
+                .AfterMap(
+                    ((src, dst, ctx) => {
+                        dst.SupplierId = 0;
+                        dst.Status = true;
+                    })
+                );
+            CreateMap<Supplier, SupplierDto>().ReverseMap();
+
+            CreateMap<CreateCustomerDto, Customer>()
+                .AfterMap(
+                    ((src, dst, ctx) => {
+                        dst.CustomerId = 0;
+                        //dst.Status = true;
+                    })
+                );
+            CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Major, MajorDTO>().ReverseMap();
             CreateMap<CreateMajorDTO, Major>()
                .AfterMap(
