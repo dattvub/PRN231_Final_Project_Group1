@@ -48,7 +48,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - PDMS.Web</title>
+    <title>@ViewData["Title"]</title>
+    @await RenderSectionAsync("HeadBeforeStyle", false)
     <link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css"/>
     <link rel="stylesheet" href="~/css/common.css"/>
     @await RenderSectionAsync("Heads", false)
@@ -107,6 +108,7 @@
         </div>
     </div>
 </main>
+@await RenderSectionAsync("ScriptBefore", required: false)
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/overlayscrollbars/js/jquery.overlayScrollbars.min.js"></script>

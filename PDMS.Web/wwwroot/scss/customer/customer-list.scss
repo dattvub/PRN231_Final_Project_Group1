@@ -1,0 +1,114 @@
+﻿@import "../essential";
+
+@mixin row-variant($color) {
+  .row-#{$color} {
+    background-color: var(--#{$variable-prefix}table-#{$color}-bg);
+    color: var(--#{$variable-prefix}table-#{$color}-color);
+    border-color: var(--#{$variable-prefix}table-#{$color}-border-color);
+
+    & > * {
+      box-shadow: initial !important;
+    }
+  }
+}
+
+#mainGrid {
+  grid-template-columns: 1fr 0;
+  transition: all 0.2s ease-out;
+}
+
+#mainCard {
+  &.newOpened #mainGrid {
+    grid-template-columns: 1fr 33.33%;
+  }
+
+  &.newOpened {
+    #newBtn {
+      display: none;
+    }
+
+    #closeNewBtn {
+      display: initial;
+    }
+  }
+
+  &:not(.newOpened) {
+    #newBtn {
+      display: initial;
+    }
+
+    #closeNewBtn {
+      display: none;
+    }
+  }
+}
+
+div {
+  &:has(> #customerForm) {
+    height: 218px;
+  }
+
+  &:has(> #customerForm.was-validated):has(#customerCode:invalid):not(:has(#customerName:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #customerForm.was-validated):has(#customerName:invalid):not(:has(#customerCode:invalid)) {
+    height: 240px;
+  }
+
+  &:has(> #customerForm.was-validated):has(#customerName:invalid):has(#customerCode:invalid) {
+    height: 262px;
+  }
+}
+
+.change-update {
+  display: none;
+}
+
+.updating .change-update {
+  display: initial;
+}
+
+.change-new {
+  display: initial;
+}
+
+.updating .change-new {
+  display: none;
+}
+
+@include media-breakpoint-down(lg) {
+  #mainGrid {
+    grid-template-columns: 100% !important;
+  }
+
+  div:has(> #formTitle) {
+    order: -2;
+    display: none;
+  }
+
+  div:has(> #customerForm) {
+    order: -1;
+    display: none;
+  }
+
+  .newOpened div:has(> #customerForm) {
+    display: initial;
+  }
+
+  .newOpened div:has(> #formTitle) {
+    display: initial;
+  }
+}
+
+#customerCode {
+  text-transform: uppercase;
+}
+
+@each $color, $value in $table-variants {
+  @include row-variant($color);
+}
+
+tr {
+  transition: all 2s ease-out;
+}

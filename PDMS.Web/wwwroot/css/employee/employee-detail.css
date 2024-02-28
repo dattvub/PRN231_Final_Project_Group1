@@ -1,0 +1,17 @@
+.empContent {
+  min-height: 400px;
+}
+.empContent .avatar-wrapper {
+  width: 16rem;
+  aspect-ratio: 1;
+  top: -6rem;
+}
+.empContent .emp-name {
+  left: 16rem;
+  top: -3.5rem;
+}
+.empContent .emp-info {
+  margin-left: 14.2rem;
+}
+
+/*# sourceMappingURL=employee-detail.css.map */

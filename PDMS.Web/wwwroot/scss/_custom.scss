@@ -26,18 +26,26 @@
   }
 }
 
-.right-0 {
-  right: 0;
-}
+@each $color, $value in $theme-falcon-btn-colors {
+  .btn-toggle-#{$color} {
+    position: relative;
 
-.left-0 {
-  left: 0;
-}
+    .toggle-state-store {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
 
-.top-0 {
-  top: 0;
-}
+    &:has(.toggle-state-store:not(:checked)[type=checkbox]) {
+      @include falcon-button-variant($color);
+    }
 
-.bottom {
-  bottom: 0;
+    &:has(.toggle-state-store:checked[type=checkbox]) {
+      @include button-variant($value, $value);
+    }
+  }
 }
