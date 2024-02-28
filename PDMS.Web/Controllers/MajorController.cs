@@ -2,4 +2,10 @@
 
 namespace PDMS.Web.Controllers;
 
-public class MajorController : Controller { }
+[Route("Category/[controller]")]
+public class MajorController : Controller {
+    public IActionResult Index()
+    {
+        return View();
+    }
+}

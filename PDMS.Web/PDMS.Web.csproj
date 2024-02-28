@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Remove="wwwroot\scss\major\major-list.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Folder Include="wwwroot\css\brand\" />
       <Folder Include="wwwroot\images\" />
       <Folder Include="wwwroot\lib\" />
