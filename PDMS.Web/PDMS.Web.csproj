@@ -16,4 +16,12 @@
       <PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\supplier\supplier-list.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\customer\customer-list.scss" />
+    </ItemGroup>
+
 </Project>
