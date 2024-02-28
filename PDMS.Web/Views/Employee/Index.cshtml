@@ -50,10 +50,14 @@
                     </thead>
                     <tbody class="list">
                     <tr class="text-nowrap btn-reveal-trigger">
-                        <td class="align-middle white-space-nowrap py-2 pe-3 empCode fs--1 text-center fw-semi-bold"></td>
-                        <td class="align-middle white-space-nowrap py-2 px-3 empName"></td>
+                        <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
+                            <a asp-controller="Employee" asp-action="Index" class="empCode text-secondary"></a>
+                        </td>
+                        <td class="align-middle white-space-nowrap py-2 px-3">
+                            <a asp-controller="Employee" asp-action="Index" class="empName text-secondary"></a>
+                        </td>
                         <td class="align-middle white-space-nowrap px-3">
-                            <span class="email">abc@gmail.com</span>
+                            <span class="email"></span>
                             <button type="button" class="btn btn-close-falcon-container outline-none lh-1 p-1 mb-1">
                                 <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
                             </button>

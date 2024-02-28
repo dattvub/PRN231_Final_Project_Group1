@@ -12,4 +12,9 @@ public class EmployeeController : Controller {
     public IActionResult Create() {
         return View();
     }
+
+    [Route("{id:int:min(1)}")]
+    public IActionResult EmpDetail([FromRoute] int id) {
+        return View();
+    }
 }

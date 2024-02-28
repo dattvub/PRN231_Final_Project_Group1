@@ -32,4 +32,12 @@ const employeeList = new List('employeeList', options)
 
 
 employeeList.clear()
-employeeList.add(initialList)
+employeeList.add(initialList, onLoadEmployeeList)
+
+function onLoadEmployeeList(items) {
+    items.forEach(item => {
+        $(item.elm).find('.empCode, .empName').each((_, anchor) => {
+            anchor.href += `/${item.values().empId}`
+        })
+    })
+}
