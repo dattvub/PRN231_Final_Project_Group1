@@ -1,0 +1,20 @@
+﻿$avatar-wrapper-width: 16rem;
+
+.empContent {
+  min-height: 400px;
+
+  .avatar-wrapper {
+    width: $avatar-wrapper-width;
+    aspect-ratio: 1;
+    top: -6rem;
+  }
+
+  .emp-name {
+    left: $avatar-wrapper-width;
+    top: -3.5rem;
+  }
+
+  .emp-info {
+    margin-left: $avatar-wrapper-width - 1.8rem;
+  }
+}

@@ -8,6 +8,7 @@ using PDMS.Domain.Entities;
 using PDMS.Shared.DTO.Brand;
 using PDMS.Shared.DTO.Customer;
 using PDMS.Shared.DTO.Supplier;
+using PDMS.Shared.DTO.Major;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
@@ -38,6 +39,14 @@ namespace PDMS.Application.AutoMapper {
                     })
                 );
             CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<Major, MajorDTO>().ReverseMap();
+            CreateMap<CreateMajorDTO, Major>()
+               .AfterMap(
+                   ((src, dst, ctx) => {
+                       dst.MajorId = 0;
+                       dst.Status = true;
+                   })
+               );
         }
     }
 }

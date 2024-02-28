@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "Thêm nhân viên mới";
+}
+
+@section HeadBeforeStyle {
+    <link rel="stylesheet" href="~/lib/dropzone/dropzone.min.css"/>
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css"/>
+    <link rel="stylesheet" href="~/css/employee/employee-create.css"/>
+}
+
+<div class="mb-3 d-flex align-items-center mt-2">
+    <h4 class="m-0">Thêm nhân viên mới</h4>
+    <button type="reset" id="btnReset" class="btn btn-warning d-block ms-auto">Nhập lại</button>
+</div>
+<form id="mainForm" class="row g-3 needs-validation" novalidate>
+    <div class="col-md-6 col-lg-3 col-xl-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="text-center">Ảnh nhân viên</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="w-100 ratio ratio-1x1">
+                    <div class="position-absolute top-0 start-0 w-100 h-100">
+                        <div class="dropzone dropzone-single dz-file-complete p-0 h-100" data-dropzone="data-dropzone" data-options='{"url":"valid/url","maxFiles":1,"dictDefaultMessage":"Choose or Drop a file here"}'>
+                            <div class="fallback">
+                                <input type="file" name="file"/>
+                            </div>
+                            <div class="dz-preview dz-preview-single">
+                                <div class="dz-preview-cover dz-complete">
+                                    <img class="dz-preview-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="..." data-dz-thumbnail=""/>
+                                    <a class="dz-remove text-danger d-flex align-items-center justify-content-center rounded-circle" href="#!" data-dz-remove="data-dz-remove" style="background-color: #ffffffbb">
+                                        <span class="iconify-inline fs-0" data-icon="fluent:dismiss-12-filled"></span>
+                                    </a>
+                                    <div class="dz-progress">
+                                        <span class="dz-upload" data-dz-uploadprogress=""></span>
+                                    </div>
+                                    <div class="dz-errormessage m-1">
+                                        <span data-dz-errormessage="data-dz-errormessage"></span>
+                                    </div>
+                                </div>
+                                <div class="dz-progress">
+                                    <span class="dz-upload" data-dz-uploadprogress=""></span>
+                                </div>
+                            </div>
+                            <div class="dz-message h-100" data-dz-message="data-dz-message">
+                                <div class="dz-message-text d-flex h-100 align-items-center justify-content-center">
+                                    <p class="fs-1 m-0">
+                                        <span class="iconify-inline" data-icon="fluent:arrow-upload-24-filled"></span>
+                                        <span class="fw-medium">Tải ảnh lên</span>
+                                        hoặc kéo thả
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="row g-3">
+                    <div class="mb-3 d-flex gap-3">
+                        <div class="flex-1">
+                            <label for="empName" class="form-label">Tên nhân viên</label>
+                            <input maxlength="50" tabindex="0" required type="text" name="empName" id="empName" class="form-control" autocomplete="off" spellcheck="false">
+                            <div class="invalid-feedback">Tên không được để trống</div>
+                        </div>
+                        <div class="flex-1">
+                            <label class="form-label">Giới tính</label>
+                            <div class="d-flex pt-1 justify-content-evenly">
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" id="genderMale" type="radio" name="gender" checked/>
+                                    <label class="form-check-label" for="genderMale">Nam</label>
+                                </div>
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" id="genderFemale" type="radio" name="gender"/>
+                                    <label class="form-check-label" for="genderFemale">Nữ</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex gap-3">
+                    <div class="flex-1">
+                        <label for="empCode" class="form-label">Mã nhân viên</label>
+                        <input maxlength="50" required type="text" name="empCode" id="empCode" class="form-control" autocomplete="off" spellcheck="false">
+                        <div class="invalid-feedback">Mã không được để trống</div>
+                    </div>
+                    <div class="flex-1">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input maxlength="50" required type="email" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Sai định dạng Email</div>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Địa chỉ</label>
+                    <input maxlength="50" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 col-xl-3 ms-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5>Thông tin nghề nghiệp</h5>
+            </div>
+            <div class="card-body bg-light py-3">
+                <div class="mb-3">
+                    <label for="position" class="form-label">Chức vụ</label>
+                    <input required type="text" name="position" id="position" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Chức vụ không được để trống</div>
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">Phòng ban</label>
+                    <input required type="text" name="department" id="department" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Phòng ban không được để trống</div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex gap-2">
+                        <label for="entranceDate" class="form-label">Ngày vào công ty</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="entranceDateSwitch" type="checkbox"/>
+                        </div>
+                    </div>
+                    <input class="form-control datetimepicker fw-medium" id="entranceDate" type="text" placeholder="d/m/y" autocomplete="off" spellcheck="false"/>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex gap-2">
+                        <label for="exitDate" class="form-label">Ngày ra công ty</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="exitDateSwitch" type="checkbox"/>
+                        </div>
+                    </div>
+                    <input class="form-control datetimepicker fw-medium" id="exitDate" type="text" placeholder="d/m/y" autocomplete="off" spellcheck="false"/>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-body card-header bg-light">
+                <button class="btn btn-primary w-100 mb-3" type="submit">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Thêm</span>
+                </button>
+                <a class="btn btn-falcon-default w-100" asp-controller="Employee" asp-action="Index">Huỷ</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section ScriptBefore {
+    <script src="~/lib/dropzone/dropzone.min.js"></script>
+}
+
+@section Scripts {
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
+    <script src="~/js/employee/employee-create.js"></script>
+}
