@@ -1,17 +1,51 @@
-.empContent {
+/* -------------------------------------------------------------------------- */
+/*                                Falcon Button                               */
+/* -------------------------------------------------------------------------- */
+/* prettier-ignore */
+.emp-content {
   min-height: 400px;
 }
-.empContent .avatar-wrapper {
-  width: 16rem;
+.emp-content .avatar-wrapper {
+  width: 100%;
+  max-width: 16rem;
   aspect-ratio: 1;
   top: -6rem;
 }
-.empContent .emp-name {
+@media (max-width: 767.98px) {
+  .emp-content .avatar-wrapper {
+    box-shadow: none !important;
+  }
+}
+.emp-content .emp-name {
   left: 16rem;
   top: -3.5rem;
 }
-.empContent .emp-info {
-  margin-left: 14.2rem;
+.emp-content .emp-timeline {
+  width: 16rem;
+  margin-top: 9rem;
+}
+@media (max-width: 767.98px) {
+  .emp-content .emp-timeline {
+    width: 100%;
+    margin-top: 0;
+    order: 1;
+  }
+}
+.emp-content .emp-timeline .emp-timeline-separator {
+  height: 3rem;
+  width: 0;
+  border-left: 2px dashed;
+  margin-top: -1.5rem;
+  margin-left: 0.66rem;
+  margin-bottom: -0.5rem;
+}
+.emp-content .emp-info {
+  padding-left: 1.2rem;
+}
+@media (max-width: 767.98px) {
+  .emp-content .emp-action {
+    order: 2;
+  }
 }
 
 /*# sourceMappingURL=employee-detail.css.map */
