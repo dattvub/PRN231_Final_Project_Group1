@@ -2,6 +2,7 @@
 
 public class Employee {
     public int EmpId { get; set; }
+    public string UserId { get; set; }
     public string EmpCode { get; set; }
     public string EmpName { get; set; }
     public bool Status { get; set; }
@@ -23,4 +24,6 @@ public class Employee {
     public List<ImportTicket> ImportTickets { get; set; }
     public List<ImportTicket> CreatedImportTickets { get; set; }
     public List<EmpGroup> EmpGroups { get; set; }
+    public User User { get; set; } = null!;
+    public List<Customer> Customers { get; set; } = null!;
 }
