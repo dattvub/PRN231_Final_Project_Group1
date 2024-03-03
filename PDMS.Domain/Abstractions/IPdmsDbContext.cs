@@ -22,7 +22,6 @@ namespace PDMS.Domain.Abstractions {
         public DbSet<ImportTicket> ImportTickets { get; set; }
         public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<EmpGroup> EmpGroups { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -35,7 +35,6 @@ namespace PDMS.Infrastructure.Persistence {
         public DbSet<ImportTicket> ImportTickets { get; set; }
         public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<EmpGroup> EmpGroups { get; set; }
 
         public PdmsDbContext(
             DbContextOptions<PdmsDbContext> options,
@@ -62,32 +61,6 @@ namespace PDMS.Infrastructure.Persistence {
             ImportTicketConfog(builder);
             ImportDetailConfig(builder);
             GroupConfig(builder);
-            EmpGroupConfig(builder);
-        }
-
-        private void EmpGroupConfig(ModelBuilder builder) {
-            var empGroup = builder.Entity<EmpGroup>();
-            empGroup
-                .HasKey(
-                    x => new {
-                        x.EmpId,
-                        x.GroupId
-                    }
-                );
-            empGroup.Property(x => x.EmpId)
-                .IsRequired();
-            empGroup.Property(x => x.GroupId)
-                .IsRequired();
-            empGroup
-                .HasOne(x => x.Employee)
-                .WithMany(x => x.EmpGroups)
-                .HasForeignKey(x => x.EmpId)
-                .OnDelete(DeleteBehavior.Restrict);
-            empGroup
-                .HasOne(x => x.Group)
-                .WithMany(x => x.EmpGroups)
-                .HasForeignKey(x => x.GroupId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void GroupConfig(ModelBuilder builder) {
@@ -328,14 +301,6 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             employee.Property(x => x.Status)
                 .IsRequired();
-            employee.Property(x => x.Email)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
-            employee.Property(x => x.Phone)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(20)
-                .IsRequired();
             employee.Property(x => x.Position)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -371,16 +336,14 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasIndex(x => x.EmpCode)
                 .IsUnique();
             employee
-                .HasIndex(x => x.Email)
-                .IsUnique();
-            employee
-                .HasIndex(x => x.Phone)
-                .IsUnique();
-            employee
                 .HasOne(x => x.User)
                 .WithOne(x => x.Employee)
                 .HasForeignKey<Employee>(x => x.UserId)
                 .IsRequired();
+            employee
+                .HasOne(x => x.Group)
+                .WithMany(x => x.Employees)
+                .HasForeignKey(x => x.GroupId);
         }
 
         private void BrandConfig(ModelBuilder builder) {
@@ -531,18 +494,6 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
-            customer.Property(x => x.Email)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
-            customer.Property(x => x.Password)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
-            customer.Property(x => x.Phone)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(20)
-                .IsRequired();
             customer.Property(x => x.Address)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -570,12 +521,6 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsUnique();
             customer
                 .HasIndex(x => x.TaxCode)
-                .IsUnique();
-            customer
-                .HasIndex(x => x.Email)
-                .IsUnique();
-            customer
-                .HasIndex(x => x.Phone)
                 .IsUnique();
             customer
                 .HasOne(x => x.User)
