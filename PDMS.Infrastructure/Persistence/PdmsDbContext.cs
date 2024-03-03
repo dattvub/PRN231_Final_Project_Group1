@@ -314,6 +314,10 @@ namespace PDMS.Infrastructure.Persistence {
             employee.HasKey(x => x.EmpId);
             employee.Property(x => x.EmpId)
                 .UseIdentityColumn();
+            employee.Property(x => x.UserId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(450)
+                .IsRequired();
             employee.Property(x => x.EmpName)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -372,6 +376,11 @@ namespace PDMS.Infrastructure.Persistence {
             employee
                 .HasIndex(x => x.Phone)
                 .IsUnique();
+            employee
+                .HasOne(x => x.User)
+                .WithOne(x => x.Employee)
+                .HasForeignKey<Employee>(x => x.UserId)
+                .IsRequired();
         }
 
         private void BrandConfig(ModelBuilder builder) {
@@ -510,6 +519,10 @@ namespace PDMS.Infrastructure.Persistence {
             customer.HasKey(x => x.CustomerId);
             customer.Property(x => x.CustomerId)
                 .UseIdentityColumn();
+            customer.Property(x => x.UserId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(450)
+                .IsRequired();
             customer.Property(x => x.CustomerCode)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -564,6 +577,15 @@ namespace PDMS.Infrastructure.Persistence {
             customer
                 .HasIndex(x => x.Phone)
                 .IsUnique();
+            customer
+                .HasOne(x => x.User)
+                .WithOne(x => x.Customer)
+                .HasForeignKey<Customer>(x => x.UserId)
+                .IsRequired();
+            customer
+                .HasOne(x => x.Employee)
+                .WithMany(x => x.Customers)
+                .HasForeignKey(x => x.EmpId);
         }
 
         private void IdentityConfig(ModelBuilder builder) {
