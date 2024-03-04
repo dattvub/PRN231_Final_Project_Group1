@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PDMS.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using PDMS.Infrastructure.Persistence;
 namespace PDMS.Infrastructure.Migrations
 {
     [DbContext(typeof(PdmsDbContext))]
-    partial class PdmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240303111050_fixOrderProperty")]
+    partial class fixOrderProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,8 +173,15 @@ namespace PDMS.Infrastructure.Migrations
                     b.Property<int>("CustomerTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -193,7 +202,8 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasIndex("CustomerTypeId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("Phone")
                         .IsUnique();
@@ -939,17 +949,9 @@ namespace PDMS.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PDMS.Domain.Entities.Employee", "Employee")
-                        .WithMany("Customers")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("CustomerGroup");
 
                     b.Navigation("CustomerType");
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("PDMS.Domain.Entities.EmpGroup", b =>
@@ -1165,8 +1167,6 @@ namespace PDMS.Infrastructure.Migrations
                     b.Navigation("CreatedImportTickets");
 
                     b.Navigation("CreatedProducts");
-
-                    b.Navigation("Customers");
 
                     b.Navigation("EmpGroups");
 

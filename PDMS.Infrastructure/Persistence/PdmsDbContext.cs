@@ -518,14 +518,6 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
-            customer.Property(x => x.Email)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
-            customer.Property(x => x.Password)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
             customer.Property(x => x.Phone)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(20)
@@ -548,6 +540,11 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasForeignKey(x => x.CustomerTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
             customer
+                .HasOne(x => x.Employee)
+                .WithMany(x => x.Customers)
+                .HasForeignKey(x => x.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+            customer
                 .HasOne(x => x.CustomerGroup)
                 .WithMany(x => x.Customers)
                 .HasForeignKey(x => x.CustomerGroupId)
@@ -557,9 +554,6 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsUnique();
             customer
                 .HasIndex(x => x.TaxCode)
-                .IsUnique();
-            customer
-                .HasIndex(x => x.Email)
                 .IsUnique();
             customer
                 .HasIndex(x => x.Phone)

@@ -15,4 +15,10 @@ namespace PDMS.Shared.DTO.OrderDetail
         public double Price { get; set; }
         public double Total { get; set; }
     }
+
+    public class SearchOrderDto
+    {
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+    }
 }

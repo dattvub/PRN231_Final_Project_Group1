@@ -6,10 +6,11 @@ public class OrderTicket {
     public int CustomerId { get; set; }
     public DateTime OrderDate { get; set; }
     public DateTime CreatedDate { get; set; }
-    public bool Status { get; set; }
-    public double TotalPay { get; set; }
-    public int Discount { get; set; }
-    public Customer Customer { get; set; }
-    public List<OrderDetail> OrderDetails { get; set; }
-    public List<Notification> Notifications { get; set; }
+    public int Status { get; set; }
+    public double? TotalPay { get; set; }
+    public int? Discount { get; set; }
+    public string? ApproveBy { get; set; }
+    public Customer? Customer { get; set; }
+    public List<OrderDetail>? OrderDetails { get; set; }
+    public List<Notification>? Notifications { get; set; }
 }

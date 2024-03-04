@@ -23,4 +23,5 @@ public class Employee {
     public List<ImportTicket> ImportTickets { get; set; }
     public List<ImportTicket> CreatedImportTickets { get; set; }
     public List<EmpGroup> EmpGroups { get; set; }
+    public List<Customer> Customers { get; set; }
 }
