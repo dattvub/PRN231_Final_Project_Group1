@@ -1,0 +1,256 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Product";
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row flex-between-center">
+            <div class="col-sm-auto mb-2 mb-sm-0">
+                <h6 class="mb-0">Showing 1-24 of 205 Products</h6>
+            </div>
+            <div class="col-sm-auto">
+                <div class="row gx-2 align-items-center">
+                    <div class="col-auto">
+                        <form class="row gx-2">
+                            <div class="col-auto"><small>Sort by:</small></div>
+                            <div class="col-auto">
+                                <select class="form-select form-select-sm" aria-label="Bulk actions">
+                                    <option selected="">Best Match</option>
+                                    <option value="Refund">Newest</option>
+                                    <option value="Delete">Price</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://tamanhhospital.vn/wp-content/uploads/2023/01/thuoc-giam-dau-dau.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Ibuprofen</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $1199.5
+                                <del class="ms-2 fs--1 text-500">$2399 </del>
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://tamanhhospital.vn/wp-content/uploads/2023/01/thuoc-tri-nhuc-dau.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Tramadol</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $7199
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-danger">Sold-Out</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://tamanhhospital.vn/wp-content/uploads/2023/01/thuoc-nhuc-dau.jpg" alt="" /></a>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Acetaminophen</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $562.5
+                                <del class="ms-2 fs--1 text-500">$750 </del>
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$47</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://tamanhhospital.vn/wp-content/uploads/2023/11/thuoc-tri-chong-mat-hieu-qua-nhat.jpg" alt="" /></a>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Astranica</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $1050
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://tamanhhospital.vn/wp-content/uploads/2023/11/uong-thuoc-tri-chong-mat.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Minophemina</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $400
+                                <del class="ms-2 fs--1 text-500">$500 </del>
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$60</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-danger">Sold Out</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://vnras.com/drug/wp-content/uploads/2023/12/dau-nua-dau-1-1.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Sibelium</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $95
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$20</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 mb-lg-0 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://vnras.com/drug/wp-content/uploads/2023/12/dau-nua-dau-2.jpg" alt="" /></a>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Nomigrain</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $2398
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$30</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 mb-lg-0 col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://vnras.com/drug/wp-content/uploads/2023/12/dau-nua-dau-3.jpg" alt="" /></a><span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Diiroergotamina</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $360
+                                <del class="ms-2 fs--1 text-500">$400 </del>
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$24</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="undefined col-md-6 col-lg-4">
+                <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                        <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="https://vnras.com/drug/wp-content/uploads/2023/12/dau-nua-dau-4.jpg" alt="" /></a>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="../../../app/e-commerce/product/product-details.html">Traphaco</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
+                                $956.57
+                            </h5>
+                            <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
+                            <p class="fs--1 mb-1">
+                                Stock: <strong class="text-success">Available</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                        <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="iconify-inline fs--2" data-icon="mdi:heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="iconify-inline fs--2" data-icon="mdi:cart"></span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="paginationBar" class="d-flex justify-content-center mt-3 mb-5">
+        <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
+        </button>
+        <ul class="pagination mb-0 pagination-number-group" data-list></ul>
+        <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
+        </button>
+    </div>
+</div>

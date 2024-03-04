@@ -2,4 +2,22 @@
 
 namespace PDMS.Web.Controllers;
 
-public class ProductController : Controller { }
+[Route("/Category/[controller]")]
+public class ProductController : Controller {
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [Route("create")]
+    public IActionResult CreateProduct()
+    {
+        return View();
+    }
+
+    [Route("{id}")]
+    public IActionResult DetailProduct()
+    {
+        return View();
+    }
+}

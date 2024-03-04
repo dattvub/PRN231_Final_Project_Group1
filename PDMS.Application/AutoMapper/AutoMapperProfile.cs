@@ -11,6 +11,7 @@ using PDMS.Shared.DTO.OrderDetail;
 using PDMS.Shared.DTO.Customer;
 using PDMS.Shared.DTO.Supplier;
 using PDMS.Shared.DTO.Major;
+using PDMS.Shared.DTO.Product;
 using PDMS.Shared.DTO.User;
 
 namespace PDMS.Application.AutoMapper {
@@ -36,6 +37,25 @@ namespace PDMS.Application.AutoMapper {
                 );
 
             CreateMap<CustomerType, CustomerTypeDto>().ReverseMap();
+
+            CreateMap<CreateProductDto, Product>()
+                .AfterMap(
+                ((src, dst, ctx) =>
+                {
+                    dst.Quality = 0;
+                    dst.CreatedTime = DateTime.Now;
+                    dst.LastModifiedTime = DateTime.Now;
+                    dst.Status = true;
+                }));
+
+            CreateMap<UpdateProductDto, Product>()
+                .AfterMap(
+                ((src, dst, ctx) =>
+                {
+                    dst.LastModifiedTime = DateTime.Now;
+                }));
+
+            CreateMap<Product, Shared.DTO.Product.ProductDto>().ReverseMap();
 
             CreateMap<CreateOrderDetailDto, OrderDetail>()
                 .BeforeMap(((src, dst, ctx) =>
@@ -68,6 +88,8 @@ namespace PDMS.Application.AutoMapper {
                        dst.Status = true;
                    })
                );
+
+
         }
     }
 }
