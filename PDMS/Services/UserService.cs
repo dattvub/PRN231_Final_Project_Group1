@@ -33,7 +33,7 @@ public class UserService : IUserService {
                 RolesConstants.CUSTOMER,
                 RolesConstants.DIRECTOR,
                 RolesConstants.SUPERVISOR,
-                RolesConstants.SUPERVISOR
+                RolesConstants.ACCOUNTANT
             }).All(x => x != role)) {
             throw new Exception("Invalid role");
         }
@@ -96,5 +96,9 @@ public class UserService : IUserService {
         };
         var token = _jwtSecurityTokenHandler.CreateToken(tokenDescriptor);
         return _jwtSecurityTokenHandler.WriteToken(token);
+    }
+
+    public async Task<User?> CheckToken(ClaimsPrincipal claimsPrincipal) {
+        return await _userManager.GetUserAsync(claimsPrincipal);
     }
 }
