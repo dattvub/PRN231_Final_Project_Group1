@@ -12,6 +12,8 @@ using PDMS.Domain.Abstractions;
 using PDMS.Infrastructure.Extensions;
 using PDMS.Infrastructure.Persistence;
 using PDMS.Models;
+using PDMS.Security;
+using PDMS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
@@ -35,30 +37,13 @@ builder.Services.AddInfrastructure(builder.Configuration);
 //builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 
 //Jwt
-builder.Services
-    .AddAuthentication(op =>
-    {
-        op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        op.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-        };
-    });
-builder.Services.AddIdentity<User, Role>(options =>
-{
-    options.SignIn.RequireConfirmedEmail = true;
-    options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
-})
+builder.Services.AddScoped<IPasswordHasher<User>, BCryptPasswordHasher>();
+builder.Services.AddIdentity<User, Role>(
+        options => {
+            options.SignIn.RequireConfirmedEmail = true;
+            options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
+        }
+    )
     .AddEntityFrameworkStores<PdmsDbContext>()
     .AddUserStore<UserStore<User, Role, PdmsDbContext, string, IdentityUserClaim<string>,
         UserRole, IdentityUserLogin<string>, IdentityUserToken<string>, IdentityRoleClaim<string>>>()
@@ -71,16 +56,36 @@ builder.Services.Configure<ApiBehaviorOptions>(
         options.InvalidModelStateResponseFactory = ValidationError.GenerateErrorResponse;
     }
 );
+builder.Services
+    .AddAuthentication(
+        op => {
+            op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            op.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }
+    )
+    .AddJwtBearer(
+        options => {
+            options.TokenValidationParameters = new TokenValidationParameters {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            };
+        }
+    );
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerModule();
-
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()) {
     app.UseCors();
     app.UseApplicationSwagger();
 }
+
 IHostApplicationLifetime lifetime = app.Lifetime;
 IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
 app.UseApplicationDatabase<PdmsDbContext>(serviceProvider, app.Environment);
@@ -94,11 +99,9 @@ app.MapControllers();
 app.Run();
 
 
-void AddSerilog(IConfiguration configuration)
-{
+void AddSerilog(IConfiguration configuration) {
     Log.Logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
-    .ReadFrom.Configuration(configuration)
-
-    .CreateLogger();
+        .Enrich.FromLogContext()
+        .ReadFrom.Configuration(configuration)
+        .CreateLogger();
 }

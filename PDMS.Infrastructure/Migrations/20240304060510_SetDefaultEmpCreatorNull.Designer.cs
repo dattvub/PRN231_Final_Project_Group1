@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PDMS.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using PDMS.Infrastructure.Persistence;
 namespace PDMS.Infrastructure.Migrations
 {
     [DbContext(typeof(PdmsDbContext))]
-    partial class PdmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240304060510_SetDefaultEmpCreatorNull")]
+    partial class SetDefaultEmpCreatorNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,10 +273,12 @@ namespace PDMS.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpId"), 1L, 1);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Avatar")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -285,6 +289,7 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Department")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -308,9 +313,11 @@ namespace PDMS.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("GroupId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -940,7 +947,9 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasOne("PDMS.Domain.Entities.Group", "Group")
                         .WithMany("Employees")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PDMS.Domain.Entities.User", "User")
                         .WithOne("Employee")

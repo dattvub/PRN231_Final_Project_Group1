@@ -12,10 +12,13 @@ using PDMS.Shared.DTO.Customer;
 using PDMS.Shared.DTO.Supplier;
 using PDMS.Shared.DTO.Major;
 using PDMS.Shared.DTO.Product;
+using PDMS.Shared.DTO.User;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
         public AutoMapperProfile() {
+            CreateMap<User, UserDto>();
+            
             CreateMap<CreateBrandDto, Brand>()
                 .AfterMap(
                     ((src, dst, ctx) => {
