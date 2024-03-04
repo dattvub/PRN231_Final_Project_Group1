@@ -13,10 +13,10 @@ public class Employee {
     public string Address { get; set; }
     public bool Gender { get; set; }
     public string Avatar { get; set; }
-    public int CreatedById { get; set; }
+    public int? CreatedById { get; set; }
     public int? GroupId { get; set; }
     public DateTime CreateDate { get; set; }
-    public Employee CreatedBy { get; set; }
+    public Employee? CreatedBy { get; set; }
     public List<Employee> CreatedEmployees { get; set; }
     public List<Product> CreatedProducts { get; set; }
     public List<Notification> Notifications { get; set; }

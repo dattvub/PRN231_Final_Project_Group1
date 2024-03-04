@@ -322,8 +322,6 @@ namespace PDMS.Infrastructure.Persistence {
             employee.Property(x => x.Avatar)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
-            employee.Property(x => x.CreatedById)
-                .IsRequired();
             employee.Property(x => x.CreateDate)
                 .HasColumnType("datetime")
                 .IsRequired();
