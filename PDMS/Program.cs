@@ -37,6 +37,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 //builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 
 //Jwt
+builder.Services.AddScoped<IPasswordHasher<User>, BCryptPasswordHasher>();
 builder.Services.AddIdentity<User, Role>(
         options => {
             options.SignIn.RequireConfirmedEmail = true;
@@ -78,7 +79,6 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerModule();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddScoped<IPasswordHasher<User>, BCryptPasswordHasher>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment()) {

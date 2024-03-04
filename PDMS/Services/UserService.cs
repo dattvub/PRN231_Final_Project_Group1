@@ -97,4 +97,8 @@ public class UserService : IUserService {
         var token = _jwtSecurityTokenHandler.CreateToken(tokenDescriptor);
         return _jwtSecurityTokenHandler.WriteToken(token);
     }
+
+    public async Task<User?> CheckToken(ClaimsPrincipal claimsPrincipal) {
+        return await _userManager.GetUserAsync(claimsPrincipal);
+    }
 }
