@@ -113,6 +113,587 @@ namespace PDMS.Infrastructure.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PDMS.Domain.Entities.Brand", b =>
+                {
+                    b.Property<int>("BrandId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandId"), 1L, 1);
+
+                    b.Property<string>("BrandCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("BrandName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("BrandId");
+
+                    b.HasIndex("BrandCode")
+                        .IsUnique();
+
+                    b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CustomerCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CustomerGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CustomerTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TaxCode")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.HasKey("CustomerId");
+
+                    b.HasIndex("CustomerCode")
+                        .IsUnique();
+
+                    b.HasIndex("CustomerGroupId");
+
+                    b.HasIndex("CustomerTypeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.HasIndex("TaxCode")
+                        .IsUnique();
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.CustomerGroup", b =>
+                {
+                    b.Property<int>("CustomerGroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerGroupId"), 1L, 1);
+
+                    b.Property<string>("CustomerGroupCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CustomerGroupName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CustomerGroupId");
+
+                    b.HasIndex("CustomerGroupCode")
+                        .IsUnique();
+
+                    b.ToTable("CustomerGroups");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.CustomerType", b =>
+                {
+                    b.Property<int>("CustomerTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerTypeId"), 1L, 1);
+
+                    b.Property<string>("CustomerTypeCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CustomerTypeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CustomerTypeId");
+
+                    b.HasIndex("CustomerTypeCode")
+                        .IsUnique();
+
+                    b.ToTable("CustomerTypes");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.EmpGroup", b =>
+                {
+                    b.Property<int>("EmpId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmpId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("EmpGroups");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Employee", b =>
+                {
+                    b.Property<int>("EmpId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EmpCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EmpName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("EntranceDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("ExitDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("EmpId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("EmpCode")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Group", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nchar(10)");
+
+                    b.Property<string>("GroupCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GroupId");
+
+                    b.HasIndex("GroupCode")
+                        .IsUnique();
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.ImportDetail", b =>
+                {
+                    b.Property<int>("ImportDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportDetailId"), 1L, 1);
+
+                    b.Property<int>("ImportId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("ImportDetailId");
+
+                    b.HasIndex("ImportId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ImportDetails");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.ImportTicket", b =>
+                {
+                    b.Property<int>("ImportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportId"), 1L, 1);
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ImportDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TicketCode")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalPay")
+                        .HasColumnType("float");
+
+                    b.HasKey("ImportId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("TicketCode")
+                        .IsUnique();
+
+                    b.ToTable("ImportTickets");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Major", b =>
+                {
+                    b.Property<int>("MajorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MajorId"), 1L, 1);
+
+                    b.Property<string>("MajorCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MajorName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MajorId");
+
+                    b.HasIndex("MajorCode")
+                        .IsUnique();
+
+                    b.ToTable("Majors");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Notification", b =>
+                {
+                    b.Property<int>("NotiId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotiId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("CustomerCreateId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("NotiId");
+
+                    b.HasIndex("CustomerCreateId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("OrderDetailId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.OrderTicket", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
+
+                    b.Property<string>("ApproveBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Discount")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderCode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("TotalPay")
+                        .IsRequired()
+                        .HasColumnType("float");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderCode")
+                        .IsUnique();
+
+                    b.ToTable("OrderTickets");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
+
+                    b.Property<string>("BarCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<double>("ImportPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int>("LastModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("MajorId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Quality")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SuppilerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("BarCode")
+                        .IsUnique();
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("LastModifiedById");
+
+                    b.HasIndex("MajorId");
+
+                    b.HasIndex("ProductCode")
+                        .IsUnique();
+
+                    b.HasIndex("SuppilerId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("PDMS.Domain.Entities.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -138,6 +719,35 @@ namespace PDMS.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Supplier", b =>
+                {
+                    b.Property<int>("SupplierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SupplierCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("SupplierId");
+
+                    b.HasIndex("SupplierCode")
+                        .IsUnique();
+
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("PDMS.Domain.Entities.User", b =>
@@ -315,6 +925,198 @@ namespace PDMS.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PDMS.Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.CustomerGroup", "CustomerGroup")
+                        .WithMany("Customers")
+                        .HasForeignKey("CustomerGroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.CustomerType", "CustomerType")
+                        .WithMany("Customers")
+                        .HasForeignKey("CustomerTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Employee", "Employee")
+                        .WithMany("Customers")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CustomerGroup");
+
+                    b.Navigation("CustomerType");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.EmpGroup", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Employee", "Employee")
+                        .WithMany("EmpGroups")
+                        .HasForeignKey("EmpId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Group", "Group")
+                        .WithMany("EmpGroups")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Employee", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Employee", "CreatedBy")
+                        .WithMany("CreatedEmployees")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.ImportDetail", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.ImportTicket", "ImportTicket")
+                        .WithMany("ImportDetails")
+                        .HasForeignKey("ImportId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Product", "Product")
+                        .WithMany("ImportDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ImportTicket");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.ImportTicket", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Employee", "Creator")
+                        .WithMany("CreatedImportTickets")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Employee", "Employee")
+                        .WithMany("ImportTickets")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Customer", "CustomerCreate")
+                        .WithMany("Notifications")
+                        .HasForeignKey("CustomerCreateId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PDMS.Domain.Entities.Employee", "Employee")
+                        .WithMany("Notifications")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PDMS.Domain.Entities.OrderTicket", "OrderTicket")
+                        .WithMany("Notifications")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CustomerCreate");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("OrderTicket");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.OrderTicket", "OrderTicket")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Product", "Product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("OrderTicket");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.OrderTicket", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Customer", "Customer")
+                        .WithMany("OrderTickets")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("PDMS.Domain.Entities.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Employee", "CreatedBy")
+                        .WithMany("CreatedProducts")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Employee", "LastModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("LastModifiedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Major", "Major")
+                        .WithMany("Products")
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PDMS.Domain.Entities.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SuppilerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("LastModifiedBy");
+
+                    b.Navigation("Major");
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("PDMS.Domain.Entities.UserRole", b =>
                 {
                     b.HasOne("PDMS.Domain.Entities.Role", "Role")
@@ -334,9 +1136,82 @@ namespace PDMS.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PDMS.Domain.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Notifications");
+
+                    b.Navigation("OrderTickets");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.CustomerGroup", b =>
+                {
+                    b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.CustomerType", b =>
+                {
+                    b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Employee", b =>
+                {
+                    b.Navigation("CreatedEmployees");
+
+                    b.Navigation("CreatedImportTickets");
+
+                    b.Navigation("CreatedProducts");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("EmpGroups");
+
+                    b.Navigation("ImportTickets");
+
+                    b.Navigation("Notifications");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Group", b =>
+                {
+                    b.Navigation("EmpGroups");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.ImportTicket", b =>
+                {
+                    b.Navigation("ImportDetails");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Major", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.OrderTicket", b =>
+                {
+                    b.Navigation("Notifications");
+
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("ImportDetails");
+
+                    b.Navigation("OrderDetails");
+                });
+
             modelBuilder.Entity("PDMS.Domain.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("PDMS.Domain.Entities.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("PDMS.Domain.Entities.User", b =>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-xl">
+    <div class="card mb-4 w-75 ">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Update Type of Customer</h5>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Type Id</label>
+                    <input type="text" class="form-control"  placeholder="@Model" disabled />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Type Code</label>
+                    <input type="text" class="form-control" id="basic-default-fullname" placeholder="00011" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="basic-default-company">Type Name</label>
+                    <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                </div>
+                <div class="mb-3">
+                    <label for="defaultSelect" class="form-label">Status</label>
+                    <select id="defaultSelect" class="form-select">
+                        <option>Choose to be active or not type of customer</option>
+                        <option value="1">Active</option>
+                        <option value="2">Not Active</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Update type of customer</button>
+            </form>
+        </div>
+    </div>
+</div>
