@@ -13,14 +13,14 @@ namespace PDMS.Shared.DTO.Major
         public string MajorCode { get; set; }
         public string MajorName { get; set; }
         public bool Status { get; set; }
-        public ProductDto? Product { get; set; }
+        //public ProductDto? Product { get; set; }
     }
-    public class ProductDto
-    {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string? ProductCode { get; set; }
-    }
+    //public class ProductDto
+    //{
+    //    public int ProductId { get; set; }
+    //    public string ProductName { get; set; }
+    //    public string? ProductCode { get; set; }
+    //}
     public class MajorRequest
     {
         public int MajorId { get; set; }
