@@ -19,7 +19,7 @@
                             <div class="row flex-between-center">
                                 <h3>Đăng nhập</h3>
                             </div>
-                            <form>
+                            <form id="login-form">
                                 <div class="mb-3">
                                     <label class="form-label user-select-none" for="email">Email</label>
                                     <input class="form-control" id="email" type="email">
@@ -31,8 +31,8 @@
                                 <div class="row flex-between-center">
                                     <div class="col-auto">
                                         <div class="form-check mb-0">
-                                            <input class="form-check-input" type="checkbox" id="split-checkbox">
-                                            <label class="form-check-label mb-0 user-select-none" for="split-checkbox">Ghi nhớ đăng nhập</label>
+                                            <input class="form-check-input" type="checkbox" id="remember-me">
+                                            <label class="form-check-label mb-0 user-select-none" for="remember-me">Ghi nhớ đăng nhập</label>
                                         </div>
                                     </div>
                                 </div>
@@ -47,3 +47,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/auth/login.js"></script>
+}
