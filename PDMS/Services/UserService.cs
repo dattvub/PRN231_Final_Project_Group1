@@ -33,7 +33,7 @@ public class UserService : IUserService {
                 RolesConstants.CUSTOMER,
                 RolesConstants.DIRECTOR,
                 RolesConstants.SUPERVISOR,
-                RolesConstants.SUPERVISOR
+                RolesConstants.ACCOUNTANT
             }).All(x => x != role)) {
             throw new Exception("Invalid role");
         }

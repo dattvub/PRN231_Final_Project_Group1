@@ -1,4 +1,7 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PDMS.Domain.Abstractions;
 using PDMS.Domain.Entities;
 using PDMS.Shared.Constants;
 
@@ -15,7 +18,7 @@ namespace PDMS.Configurations
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
 
                 SeedRoles(roleManager).Wait();
-                SeedUsers(userManager).Wait();
+                SeedUsers(userManager, serviceProvider.GetRequiredService<IPdmsDbContext>()).Wait();
                 SeedUserRoles(userManager).Wait();
             }
 
@@ -73,7 +76,7 @@ namespace PDMS.Configurations
             }
         }
 
-        private static async Task SeedUsers(UserManager<User> userManager)
+        private static async Task SeedUsers(UserManager<User> userManager, IPdmsDbContext dbContext)
         {
             foreach (var user in Users())
             {
@@ -86,7 +89,21 @@ namespace PDMS.Configurations
                 {
                     await userManager.UpdateAsync(dbUser);
                 }
+
+                if (await dbContext.Employees.FirstOrDefaultAsync(x => x.UserId == user.Id) != null) {
+                    continue;
+                }
+                await dbContext.Employees.AddAsync(new Employee() {
+                    EmpName = $"{user.LastName} {user.FirstName}".Trim(),
+                    EmpCode = user.UserName,
+                    UserId = user.Id,
+                    Status = true,
+                    Gender = true,
+                    CreateDate = new DateTime(2000, 1, 1)
+                });
             }
+
+            await dbContext.SaveChangesAsync();
         }
 
         private static async Task SeedUserRoles(UserManager<User> userManager)

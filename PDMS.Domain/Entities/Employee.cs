@@ -6,13 +6,13 @@ public class Employee {
     public string EmpCode { get; set; }
     public string EmpName { get; set; }
     public bool Status { get; set; }
-    public string Position { get; set; }
-    public string Department { get; set; }
+    public string? Position { get; set; }
+    public string? Department { get; set; }
     public DateTime? EntranceDate { get; set; }
     public DateTime? ExitDate { get; set; }
-    public string Address { get; set; }
+    public string? Address { get; set; }
     public bool Gender { get; set; }
-    public string Avatar { get; set; }
+    public string? Avatar { get; set; }
     public int? CreatedById { get; set; }
     public int? GroupId { get; set; }
     public DateTime CreateDate { get; set; }
@@ -24,5 +24,5 @@ public class Employee {
     public List<ImportTicket> CreatedImportTickets { get; set; }
     public User User { get; set; } = null!;
     public List<Customer> Customers { get; set; } = null!;
-    public Group Group { get; set; }
+    public Group? Group { get; set; }
 }
