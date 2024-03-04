@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using PDMS.Domain.Entities;
+using PDMS.Shared.Constants;
 
 namespace PDMS.Configurations
 {
@@ -25,10 +26,11 @@ namespace PDMS.Configurations
         private static IEnumerable<Role> Roles()
         {
             return new List<Role> {
-                new Role {Id = "director", Name = "DIRECTOR"},
-                new Role {Id = "customer",Name = "CUSTOMER"},
-                new Role {Id = "salemans",Name = "SALEMANS"},
-                new Role {Id = "supervisor",Name = "SUPERVISOR"},
+                new Role {Id = "director", Name = RolesConstants.DIRECTOR},
+                new Role {Id = "customer",Name = RolesConstants.CUSTOMER},
+                new Role {Id = "salemans",Name = RolesConstants.SALEMAN},
+                new Role {Id = "supervisor",Name = RolesConstants.SUPERVISOR},
+                new Role {Id = "accountant",Name = RolesConstants.ACCOUNTANT},
             };
         }
 

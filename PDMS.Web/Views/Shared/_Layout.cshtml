@@ -1,5 +1,6 @@
 ﻿@using PDMS.Web.Models.Sidebar
 @{
+    Layout = "_Base";
     var sections = ViewData[SidebarExtension.Key] as List<SidebarSection>;
     var definedSection = IsSectionDefined("SideBar");
 
@@ -43,18 +44,22 @@
     }
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"]</title>
+@section HeadBeforeStyle {
     @await RenderSectionAsync("HeadBeforeStyle", false)
-    <link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css"/>
-    <link rel="stylesheet" href="~/css/common.css"/>
+}
+
+@section Heads {
     @await RenderSectionAsync("Heads", false)
-</head>
-<body>
+}
+
+@section ScriptBefore {
+    @await RenderSectionAsync("ScriptBefore", false)
+}
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", false)
+}
+
 <main class="main" id="top">
     <div class="container">
         @if (definedSection || sections != null) {
@@ -108,15 +113,3 @@
         </div>
     </div>
 </main>
-@await RenderSectionAsync("ScriptBefore", required: false)
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/overlayscrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="~/lib/anchor-js/anchor.min.js"></script>
-<script src="~/lib/is_js/is.min.js"></script>
-<script src="~/lib/lodash/lodash.min.js"></script>
-<script src="~/js/common.js"></script>
-<script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
-@await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
