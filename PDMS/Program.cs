@@ -66,6 +66,12 @@ builder.Services
     )
     .AddJwtBearer(
         options => {
+            options.Events = new JwtBearerEvents() {
+                OnMessageReceived = context => {
+                    context.Token = context.Request.Cookies["accessToken"];
+                    return Task.CompletedTask;
+                }
+            };
             options.TokenValidationParameters = new TokenValidationParameters {
                 ValidateIssuer = true,
                 ValidateAudience = true,

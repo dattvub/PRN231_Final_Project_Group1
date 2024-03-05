@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PDMS.Domain.Entities;
+using PDMS.Models;
 using PDMS.Services;
 using PDMS.Shared.Constants;
 using PDMS.Shared.DTO.Authentication;
 using PDMS.Shared.DTO.User;
+using PDMS.Shared.Exceptions;
 
 namespace PDMS.Controllers;
 
@@ -29,8 +31,46 @@ public class AuthenticationController : ControllerBase {
 
     [EnableCors("allowAll")]
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto) {
-        return await _userService.CreateAccessToken(loginDto.Email, loginDto.Password, loginDto.RememberMe);
+    public async Task<IActionResult> Login([FromForm] LoginDto loginDto) {
+        try {
+            var tokenPair = await _userService.AuthorizeUser(loginDto.Email, loginDto.Password);
+            SetTokenPairToCookies(tokenPair, loginDto.RememberMe);
+
+            return Ok();
+        } catch (Exception e) {
+            return ValidationError.BadRequest400(e.Message);
+        }
+    }
+
+    [EnableCors("allowAll")]
+    [HttpGet("refresh")]
+    public async Task<IActionResult> RefreshToken() {
+        try {
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (string.IsNullOrWhiteSpace(refreshToken)) {
+                throw new InvalidTokenException();
+            }
+
+            var rememberMe = false;
+            if (refreshToken.EndsWith(".")) {
+                rememberMe = true;
+                refreshToken = refreshToken[..^1];
+            }
+
+            var user = await _userService.GetUserFromRefreshToken(refreshToken);
+            if (user == null) {
+                throw new InvalidTokenException();
+            }
+
+            var tokenPair = await _userService.GenerateTokenPair(user);
+            SetTokenPairToCookies(tokenPair, rememberMe);
+
+            return Ok();
+        } catch (InvalidTokenException e) {
+            return Unauthorized(e.Message);
+        } catch (Exception e) {
+            return ValidationError.InternalServerError500(e.Message);
+        }
     }
 
     [EnableCors("allowAll")]
@@ -62,5 +102,23 @@ public class AuthenticationController : ControllerBase {
         }
 
         return _mapper.Map<UserDto>(user);
+    }
+
+    private void SetTokenPairToCookies(TokenPair tokenPair, bool rememberMe) {
+        Response.Cookies.Append(
+            "accessToken", tokenPair.AccessToken, new CookieOptions() {
+                Domain = Request.Host.Host,
+                Secure = true,
+                Expires = rememberMe ? tokenPair.AccessTokenExpiryTime : null
+            }
+        );
+        Response.Cookies.Append(
+            "refreshToken", tokenPair.RefreshToken + (rememberMe ? "." : ""), new CookieOptions() {
+                Domain = Request.Host.Host,
+                Path = "/auth/refresh",
+                Secure = true,
+                Expires = rememberMe ? tokenPair.RefreshTokenExpiryTime : null
+            }
+        );
     }
 }
