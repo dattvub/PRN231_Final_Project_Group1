@@ -74,6 +74,21 @@ public class AuthenticationController : ControllerBase {
     }
 
     [EnableCors("allowAll")]
+    [HttpGet("logout")]
+    [Authorize]
+    public IActionResult Logout() {
+        SetTokenPairToCookies(
+            new TokenPair() {
+                AccessToken = "",
+                RefreshToken = "",
+                AccessTokenExpiryTime = DateTime.UnixEpoch,
+                RefreshTokenExpiryTime = DateTime.UnixEpoch
+            }, true
+        );
+        return Ok();
+    }
+
+    [EnableCors("allowAll")]
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(string username, string email, string phoneNumber, string password) {
         return await _userService.CreateUser(
