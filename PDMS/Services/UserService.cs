@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PDMS.Domain.Entities;
+using PDMS.Services.Interface;
 using PDMS.Shared.Constants;
 using PDMS.Shared.DTO.Authentication;
 using PDMS.Shared.Exceptions;
@@ -33,7 +34,7 @@ public class UserService : IUserService {
         _refreshAuthSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:RefreshKey"]));
     }
 
-    public async Task<User> CreateUser(User userInfo, string rawPassword, string role) {
+    public async Task<User> CreateUser(User userInfo, string rawPassword, string role, User? creator = null) {
         if ((new string[] {
                 RolesConstants.SALEMAN,
                 RolesConstants.CUSTOMER,
@@ -56,8 +57,12 @@ public class UserService : IUserService {
             Email = userInfo.Email,
             PhoneNumber = userInfo.PhoneNumber.Trim(),
             PasswordHash = _passwordHasher.HashPassword(null!, rawPassword),
+            EmailConfirmed = true,
+            ImageUrl = userInfo.ImageUrl,
             LangKey = userInfo.LangKey ?? "vi",
-            Activated = true
+            Activated = true,
+            CreatedDate = DateTime.Now,
+            CreatedBy = creator?.Id
         };
         await _userManager.CreateAsync(newUser);
         await _userManager.AddToRoleAsync(newUser, role);
@@ -76,7 +81,7 @@ public class UserService : IUserService {
     public async Task<TokenPair> AuthorizeUser(string email, string rawPassword) {
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null || !(await _userManager.CheckPasswordAsync(user, rawPassword))) {
-            throw new Exception("Wrong user login infomation!");
+            throw new InvalidLoginException();
         }
 
         return await GenerateTokenPair(user);

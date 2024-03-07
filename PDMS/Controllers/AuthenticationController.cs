@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using PDMS.Domain.Entities;
 using PDMS.Models;
 using PDMS.Services;
+using PDMS.Services.Interface;
 using PDMS.Shared.Constants;
 using PDMS.Shared.DTO.Authentication;
 using PDMS.Shared.DTO.User;
@@ -18,6 +20,7 @@ using PDMS.Shared.Exceptions;
 namespace PDMS.Controllers;
 
 [Route("auth")]
+[ApiController]
 public class AuthenticationController : ControllerBase {
     private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
@@ -37,8 +40,10 @@ public class AuthenticationController : ControllerBase {
             SetTokenPairToCookies(tokenPair, loginDto.RememberMe);
 
             return Ok();
+        } catch (InvalidLoginException) {
+            return ValidationError.BadRequest400("Email hoặc mật khẩu không chính xác");
         } catch (Exception e) {
-            return ValidationError.BadRequest400(e.Message);
+            return ValidationError.InternalServerError500(e.Message);
         }
     }
 
@@ -74,6 +79,20 @@ public class AuthenticationController : ControllerBase {
     }
 
     [EnableCors("allowAll")]
+    [HttpGet("logout")]
+    public IActionResult Logout() {
+        SetTokenPairToCookies(
+            new TokenPair() {
+                AccessToken = "",
+                RefreshToken = "",
+                AccessTokenExpiryTime = DateTime.UnixEpoch,
+                RefreshTokenExpiryTime = DateTime.UnixEpoch
+            }, true
+        );
+        return Ok();
+    }
+
+    [EnableCors("allowAll")]
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(string username, string email, string phoneNumber, string password) {
         return await _userService.CreateUser(
@@ -101,7 +120,9 @@ public class AuthenticationController : ControllerBase {
             return Unauthorized();
         }
 
-        return _mapper.Map<UserDto>(user);
+        var userDto = _mapper.Map<UserDto>(user);
+        userDto.Role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+        return userDto;
     }
 
     private void SetTokenPairToCookies(TokenPair tokenPair, bool rememberMe) {
@@ -114,7 +135,6 @@ public class AuthenticationController : ControllerBase {
         );
         Response.Cookies.Append(
             "refreshToken", tokenPair.RefreshToken + (rememberMe ? "." : ""), new CookieOptions() {
-                Domain = Request.Host.Host,
                 Path = "/auth/refresh",
                 Secure = true,
                 Expires = rememberMe ? tokenPair.RefreshTokenExpiryTime : null

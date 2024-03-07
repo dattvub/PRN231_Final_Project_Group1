@@ -14,6 +14,7 @@ using PDMS.Infrastructure.Persistence;
 using PDMS.Models;
 using PDMS.Security;
 using PDMS.Services;
+using PDMS.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
@@ -21,7 +22,7 @@ builder.Services.AddCors(
     options => {
         options.AddPolicy(
             "allowAll", x => {
-                x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                x.WithOrigins("http://localhost:5238").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             }
         );
     }
@@ -87,8 +88,8 @@ builder.Services.AddSwaggerModule();
 builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
+app.UseCors();
 if (app.Environment.IsDevelopment()) {
-    app.UseCors();
     app.UseApplicationSwagger();
 }
 
