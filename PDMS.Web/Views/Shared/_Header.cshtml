@@ -119,16 +119,33 @@
         <li class="nav-item dropdown">
             <a class="nav-link" id="headerDropdownUser" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="avatar avatar-xl">
-                    <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="">
+                    <img class="rounded-circle" id="header-avatar" alt="">
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownUser">
                 <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <p class="text-primary m-0 text-center fw-bold cursor-default pb-1 text-capitalize" id="header-user-name"></p>
                     <a class="dropdown-item" href="#">View Profile</a>
                     <hr class="dropdown-divider">
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <button class="dropdown-item" id="header-logout-btn">Logout</button>
                 </div>
             </div>
         </li>
     </ul>
 </nav>
+<script id="load-header">
+    document.getElementById('load-header').remove()
+    window.addEventListener('userLoaded', e => {
+        const user = e.detail
+        $('#header-avatar').attr('src', user.imageUrl || '/images/blank_avatar.jpg')
+        $('#header-user-name').text(`${user.lastName} ${user.firstName}`.trim())
+        console.log(e)
+    })
+    document.getElementById('header-logout-btn').addEventListener('click', async () => {
+        fetchWithCredentials('http://localhost:5000/auth/logout', {
+            onSuccess: () => {
+                window.location.replace(document.getElementById('login-route').href)
+            }
+        })
+    })
+</script>

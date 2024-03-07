@@ -14,7 +14,15 @@
     @await RenderSectionAsync("Heads", false)
 </head>
 <body>
+<a id="login-route" class="hidden" asp-controller="Auth" asp-action="Login"></a>
 @RenderBody()
+<script src="~/js/common.js"></script>
+@if (ViewData["Protected"] as bool? == true) {
+    <script id="protect-check">
+        document.getElementById('protect-check').remove()
+        checkToken();
+    </script>
+}
 @await RenderSectionAsync("ScriptBefore", required: false)
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -22,7 +30,7 @@
 <script src="~/lib/anchor-js/anchor.min.js"></script>
 <script src="~/lib/is_js/is.min.js"></script>
 <script src="~/lib/lodash/lodash.min.js"></script>
-<script src="~/js/common.js"></script>
+<script src="~/js/theme.js"></script>
 <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>

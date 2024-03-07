@@ -2,10 +2,10 @@
 using PDMS.Domain.Entities;
 using PDMS.Shared.DTO.Authentication;
 
-namespace PDMS.Services;
+namespace PDMS.Services.Interface;
 
 public interface IUserService {
-    public Task<User> CreateUser(User userInfo, string rawPassword, string role);
+    public Task<User> CreateUser(User userInfo, string rawPassword, string role, User? creator = null);
     public Task DeleteUser(string id);
 
     public Task<TokenPair> AuthorizeUser(string email, string rawPassword);
