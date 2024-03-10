@@ -226,7 +226,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             product.Property(x => x.Price)
                 .IsRequired();
-            product.Property(x => x.Quality)
+            product.Property(x => x.Quantity)
                 .IsRequired();
             product.Property(x => x.BarCode)
                 .HasColumnType("nvarchar")

@@ -42,7 +42,7 @@ namespace PDMS.Application.AutoMapper {
                 .AfterMap(
                 ((src, dst, ctx) =>
                 {
-                    dst.Quality = 0;
+                    dst.Quantity = 0;
                     dst.CreatedTime = DateTime.Now;
                     dst.LastModifiedTime = DateTime.Now;
                     dst.Status = true;
