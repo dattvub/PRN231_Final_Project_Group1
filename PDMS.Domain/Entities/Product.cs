@@ -6,7 +6,7 @@ public class Product {
     public string ProductName { get; set; }
     public double ImportPrice { get; set; }
     public double Price { get; set; }
-    public int Quality { get; set; }
+    public int Quantity { get; set; }
     public string BarCode { get; set; }
     public int CreatedById { get; set; }
     public DateTime CreatedTime { get; set; }

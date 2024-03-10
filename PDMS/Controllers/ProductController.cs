@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PDMS.Domain.Abstractions;
 using PDMS.Domain.Entities;
 using PDMS.Models;
+using PDMS.Shared.DTO;
 using PDMS.Shared.DTO.Brand;
 using PDMS.Shared.DTO.Product;
 
@@ -25,16 +26,34 @@ namespace PDMS.Controllers
 
         [EnableCors("allowAll")]
         [HttpGet("list")]
-        public async Task<ActionResult<List<ProductDto>>> GetProducts(
-            //[FromQuery] GetProductsDto getProductsDto
-            )
+        public async Task<ActionResult<PaginationDto<ProductDto>>> GetProducts([FromQuery] GetProductsDto getProductsDto)
         {
-             var query = await _context.Products
-                .OrderByDescending(x => x.ProductId)
-                .Where(x => x.Status)
-                .Select(x => _mapper.Map<ProductDto>(x))
-                .ToListAsync();
-            return Ok(query);
+            var firstQuery = _context.Products.Where(x => x.Status);
+
+            if(getProductsDto.Query != null) {
+                if (getProductsDto.QueryByName)
+                {
+                    firstQuery = firstQuery.Where(x => x.ProductName.Contains(getProductsDto.Query));
+                }
+                else
+                {
+                    firstQuery = firstQuery.Where(x => x.ProductCode.Contains(getProductsDto.Query));
+                }
+            }
+            var total = await firstQuery.CountAsync();
+            var products = await firstQuery
+            .OrderByDescending(x => x.ProductId)
+            .Skip((getProductsDto.Page - 1) * getProductsDto.Quantity)
+            .Take(getProductsDto.Quantity)
+            .Select(x => _mapper.Map<ProductDto>(x))
+            .ToListAsync();
+
+            return new PaginationDto<ProductDto>(products, total)
+            {
+                Page = getProductsDto.Page,
+                ItemsPerPage = getProductsDto.Quantity,
+                Query = getProductsDto.Query
+            };
         }
 
         [EnableCors("allowAll")]
@@ -75,7 +94,7 @@ namespace PDMS.Controllers
             product.ProductName = newProduct.ProductName;
             product.ImportPrice = newProduct.ImportPrice;
             product.Price = newProduct.Price;
-            product.Quality = newProduct.Quality;
+            product.Quantity = newProduct.Quantity;
             product.BarCode = newProduct.BarCode;
             product.LastModifiedById = newProduct.LastModifiedById;
             product.LastModifiedTime = newProduct.LastModifiedTime;
