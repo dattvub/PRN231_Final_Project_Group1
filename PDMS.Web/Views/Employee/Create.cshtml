@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Thêm nhân viên mới";
+    ViewData["Protected"] = true;
 }
 
 @section HeadBeforeStyle {
@@ -8,9 +9,36 @@
 
 @section Heads {
     <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css"/>
+    <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css"/>
     <link rel="stylesheet" href="~/css/employee/employee-create.css"/>
 }
 
+<div class="modal fade" id="crop-image-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+        <div class="modal-content position-relative">
+            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                    <h4 class="mb-1">Chọn vùng cắt</h4>
+                </div>
+                <div class="ratio ratio-1x1">
+                    <div class="p-4">
+                        <div class="h-100 w-100 img-container d-flex justify-content-center align-items-center position-relative">
+                            <span class="iconify-inline fs-4 position-absolute top-50 start-50 translate-middle" data-icon="svg-spinners:blocks-wave"></span>
+                            <img id="img-crop" class="opacity-0" src="https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-primary" id="confirm-crop-btn" type="button">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="mb-3 d-flex align-items-center mt-2">
     <h4 class="m-0">Thêm nhân viên mới</h4>
     <button type="reset" id="btnReset" class="btn btn-warning d-block ms-auto">Nhập lại</button>
@@ -24,16 +52,19 @@
             <div class="card-body bg-light py-3">
                 <div class="w-100 ratio ratio-1x1">
                     <div class="position-absolute top-0 start-0 w-100 h-100">
-                        <div class="dropzone dropzone-single dz-file-complete p-0 h-100" data-dropzone="data-dropzone" data-options='{"url":"valid/url","maxFiles":1,"dictDefaultMessage":"Choose or Drop a file here"}'>
+                        <div id="img-dropzone" class="dropzone dropzone-single dz-file-complete p-0 h-100" data-dropzone="data-dropzone" data-options='{"url":"valid/url","maxFiles":1,"acceptedFiles":"image/*"}'>
                             <div class="fallback">
                                 <input type="file" name="file"/>
                             </div>
                             <div class="dz-preview dz-preview-single">
                                 <div class="dz-preview-cover dz-complete">
                                     <img class="dz-preview-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="..." data-dz-thumbnail=""/>
-                                    <a class="dz-remove text-danger d-flex align-items-center justify-content-center rounded-circle" href="#!" data-dz-remove="data-dz-remove" style="background-color: #ffffffbb">
+                                    <button type="button" id="crop-btn" data-bs-toggle="modal" data-bs-target="#crop-image-modal" class="dz-remove text-danger d-flex align-items-center justify-content-center rounded-circle" style="background-color: #ffffffbb; right: 3rem">
+                                        <span class="iconify-inline fs-1" data-icon="fluent:crop-16-filled"></span>
+                                    </button>
+                                    <button type="button" class="dz-remove text-danger d-flex align-items-center justify-content-center rounded-circle" data-dz-remove="data-dz-remove" style="background-color: #ffffffbb">
                                         <span class="iconify-inline fs-0" data-icon="fluent:dismiss-12-filled"></span>
-                                    </a>
+                                    </button>
                                     <div class="dz-progress">
                                         <span class="dz-upload" data-dz-uploadprogress=""></span>
                                     </div>
@@ -66,43 +97,56 @@
                 <h5>Thông tin cá nhân</h5>
             </div>
             <div class="card-body bg-light py-3">
-                <div class="row g-3">
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">Họ và tên</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <span class="opacity-75">Họ</span>
+                        </span>
+                        <input maxlength="50" tabindex="0" required type="text" name="lastname" id="lastname" class="form-control" autocomplete="off" spellcheck="false">
+                        <span class="input-group-text">
+                            <span class="opacity-75">Tên</span>
+                        </span>
+                        <input maxlength="50" tabindex="0" required type="text" name="firstname" id="firstname" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="mb-3 d-flex gap-3">
                         <div class="flex-1">
-                            <label for="empName" class="form-label">Tên nhân viên</label>
-                            <input maxlength="50" tabindex="0" required type="text" name="empName" id="empName" class="form-control" autocomplete="off" spellcheck="false">
-                            <div class="invalid-feedback">Tên không được để trống</div>
+                            <label for="emp-code" class="form-label">Mã nhân viên</label>
+                            <input maxlength="50" required type="text" name="emp-code" id="emp-code" class="form-control" autocomplete="off" spellcheck="false">
+                            <div class="invalid-feedback">Mã không được để trống</div>
                         </div>
                         <div class="flex-1">
                             <label class="form-label">Giới tính</label>
-                            <div class="d-flex pt-1 justify-content-evenly">
+                            <div class="d-flex pt-1 justify-content-evenly no-validation">
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" id="genderMale" type="radio" name="gender" checked/>
-                                    <label class="form-check-label" for="genderMale">Nam</label>
+                                    <input class="form-check-input" id="gender-male" type="radio" name="gender" value="true" checked/>
+                                    <label class="form-check-label" for="gender-male">Nam</label>
                                 </div>
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" id="genderFemale" type="radio" name="gender"/>
-                                    <label class="form-check-label" for="genderFemale">Nữ</label>
+                                    <input class="form-check-input" id="gender-female" type="radio" name="gender" value="false"/>
+                                    <label class="form-check-label" for="gender-female">Nữ</label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="mb-3 d-flex gap-3">
-                    <div class="flex-1">
-                        <label for="empCode" class="form-label">Mã nhân viên</label>
-                        <input maxlength="50" required type="text" name="empCode" id="empCode" class="form-control" autocomplete="off" spellcheck="false">
-                        <div class="invalid-feedback">Mã không được để trống</div>
-                    </div>
-                    <div class="flex-1">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input maxlength="50" required type="email" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
                     <div class="invalid-feedback">Sai định dạng Email</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input maxlength="50" required type="password" name="password" id="password" class="form-control" autocomplete="off" spellcheck="false">
+                    <div class="invalid-feedback">Mật khẩu không được để trống</div>
+                </div>
+                <div class="mb-3 d-flex gap-3">
+                    <div class="flex-1">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Địa chỉ</label>
@@ -119,31 +163,31 @@
             <div class="card-body bg-light py-3">
                 <div class="mb-3">
                     <label for="position" class="form-label">Chức vụ</label>
-                    <input required type="text" name="position" id="position" class="form-control" autocomplete="off" spellcheck="false">
+                    <input type="text" name="position" id="position" class="form-control" autocomplete="off" spellcheck="false">
                     <div class="invalid-feedback">Chức vụ không được để trống</div>
                 </div>
                 <div class="mb-3">
                     <label for="department" class="form-label">Phòng ban</label>
-                    <input required type="text" name="department" id="department" class="form-control" autocomplete="off" spellcheck="false">
+                    <input type="text" name="department" id="department" class="form-control" autocomplete="off" spellcheck="false">
                     <div class="invalid-feedback">Phòng ban không được để trống</div>
                 </div>
                 <div class="mb-3">
                     <div class="d-flex gap-2">
                         <label for="entranceDate" class="form-label">Ngày vào công ty</label>
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch no-validation">
                             <input class="form-check-input" id="entranceDateSwitch" type="checkbox"/>
                         </div>
                     </div>
-                    <input class="form-control datetimepicker fw-medium" id="entranceDate" type="text" placeholder="d/m/y" autocomplete="off" spellcheck="false"/>
+                    <input class="form-control datetimepicker fw-medium" id="entranceDate" type="text" placeholder="d-m-Y" autocomplete="off" spellcheck="false"/>
                 </div>
                 <div class="mb-3">
                     <div class="d-flex gap-2">
                         <label for="exitDate" class="form-label">Ngày ra công ty</label>
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch no-validation">
                             <input class="form-check-input" id="exitDateSwitch" type="checkbox"/>
                         </div>
                     </div>
-                    <input class="form-control datetimepicker fw-medium" id="exitDate" type="text" placeholder="d/m/y" autocomplete="off" spellcheck="false"/>
+                    <input class="form-control datetimepicker fw-medium" id="exitDate" type="text" placeholder="d-m-Y" autocomplete="off" spellcheck="false"/>
                 </div>
             </div>
         </div>
@@ -166,5 +210,6 @@
 @section Scripts {
     <script src="~/lib/flatpickr/flatpickr.min.js"></script>
     <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
+    <script src="~/lib/cropperjs/cropper.min.js"></script>
     <script src="~/js/employee/employee-create.js"></script>
 }

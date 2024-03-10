@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PDMS.Domain.Entities;
@@ -25,18 +26,30 @@ public class AuthenticationController : ControllerBase {
     private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
+    private readonly UserManager<User> _userManager;
 
-    public AuthenticationController(IUserService userService, IConfiguration configuration, IMapper mapper) {
+    public AuthenticationController(
+        IUserService userService,
+        IConfiguration configuration,
+        IMapper mapper,
+        UserManager<User> userManager
+    ) {
         _userService = userService;
         _configuration = configuration;
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     [EnableCors("allowAll")]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromForm] LoginDto loginDto) {
         try {
-            var tokenPair = await _userService.AuthorizeUser(loginDto.Email, loginDto.Password);
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            if (user == null || !(await _userManager.CheckPasswordAsync(user, loginDto.Password))) {
+                throw new InvalidLoginException();
+            }
+
+            var tokenPair = await _userService.GenerateTokenPair(user);
             SetTokenPairToCookies(tokenPair, loginDto.RememberMe);
 
             return Ok();
@@ -89,25 +102,6 @@ public class AuthenticationController : ControllerBase {
                 RefreshTokenExpiryTime = DateTime.UnixEpoch
             }, true
         );
-        return Ok();
-    }
-
-    [EnableCors("allowAll")]
-    [HttpPost("register")]
-    public async Task<ActionResult<User>> Register(string username, string email, string phoneNumber, string password) {
-        return await _userService.CreateUser(
-            new User() {
-                UserName = username,
-                Email = email,
-                PhoneNumber = phoneNumber
-            }, password, RolesConstants.SALEMAN
-        );
-    }
-
-    [EnableCors("allowAll")]
-    [HttpGet("delete")]
-    public async Task<IActionResult> Delete(string id) {
-        await _userService.DeleteUser(id);
         return Ok();
     }
 

@@ -34,20 +34,25 @@ public class UserService : IUserService {
         _refreshAuthSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:RefreshKey"]));
     }
 
-    public async Task<User> CreateUser(User userInfo, string rawPassword, string role, User? creator = null) {
-        if ((new string[] {
+    public async Task<User> CreateUser(
+        User userInfo,
+        string rawPassword,
+        string? role,
+        User creator
+    ) {
+        if (role != null && (new string[] {
                 RolesConstants.SALEMAN,
                 RolesConstants.CUSTOMER,
                 RolesConstants.DIRECTOR,
                 RolesConstants.SUPERVISOR,
                 RolesConstants.ACCOUNTANT
             }).All(x => x != role)) {
-            throw new Exception("Invalid role");
+            throw new BlameClient("Role không hợp lệ.");
         }
 
         var duppUser = await _userManager.FindByEmailAsync(userInfo.Email);
         if (duppUser != null) {
-            throw new Exception($"User with email {userInfo.Email} already exist.");
+            throw new BlameClient($"Tài khoản có email {userInfo.Email} đã tồn tại, vui lòng chọn email khác.");
         }
 
         var newUser = new User() {
@@ -65,7 +70,10 @@ public class UserService : IUserService {
             CreatedBy = creator?.Id
         };
         await _userManager.CreateAsync(newUser);
-        await _userManager.AddToRoleAsync(newUser, role);
+        if (role != null) {
+            await _userManager.AddToRoleAsync(newUser, role);
+        }
+
         return newUser;
     }
 
@@ -76,15 +84,6 @@ public class UserService : IUserService {
         }
 
         await _userManager.DeleteAsync(user);
-    }
-
-    public async Task<TokenPair> AuthorizeUser(string email, string rawPassword) {
-        var user = await _userManager.FindByEmailAsync(email);
-        if (user == null || !(await _userManager.CheckPasswordAsync(user, rawPassword))) {
-            throw new InvalidLoginException();
-        }
-
-        return await GenerateTokenPair(user);
     }
 
     public async Task<TokenPair> GenerateTokenPair(User user) {

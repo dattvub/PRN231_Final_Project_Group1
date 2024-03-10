@@ -71,7 +71,7 @@ async function fetchWithCredentials(url, options = {}) {
             ...options
         })
         if (secondResponse.ok) {
-            return successHandler(firstResponse)
+            return successHandler(secondResponse)
         }
         return failHandler(secondResponse)
     }
