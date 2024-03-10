@@ -47,6 +47,10 @@
     {
       "library": "dropzone@5.9.3",
       "destination": "wwwroot/lib/dropzone/"
+    },
+    {
+      "library": "cropperjs@1.6.1",
+      "destination": "wwwroot/lib/cropperjs/"
     }
   ]
 }

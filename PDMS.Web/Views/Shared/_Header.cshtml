@@ -137,9 +137,8 @@
     document.getElementById('load-header').remove()
     window.addEventListener('userLoaded', e => {
         const user = e.detail
-        $('#header-avatar').attr('src', user.imageUrl || '/images/blank_avatar.jpg')
+        $('#header-avatar').attr('src', `http://localhost:5000/${user.imageUrl}` || '/images/blank_avatar.jpg')
         $('#header-user-name').text(`${user.lastName} ${user.firstName}`.trim())
-        console.log(e)
     })
     document.getElementById('header-logout-btn').addEventListener('click', async () => {
         fetchWithCredentials('http://localhost:5000/auth/logout', {

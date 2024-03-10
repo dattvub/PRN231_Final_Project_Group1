@@ -1073,6 +1073,8 @@ var dropzoneInit = function dropzoneInit() {
       item.classList.add(ClassName.DZ_FILE_COMPLETE);
     });
   });
+  const event = new Event('dropzoneInit')
+  window.dispatchEvent(event)
 };
 /* -------------------------------------------------------------------------- */
 

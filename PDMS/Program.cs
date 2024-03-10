@@ -7,7 +7,9 @@ using PDMS.Configurations;
 using PDMS.Domain.Entities;
 using Serilog;
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using PDMS.Domain.Abstractions;
 using PDMS.Infrastructure.Extensions;
 using PDMS.Infrastructure.Persistence;
@@ -15,6 +17,22 @@ using PDMS.Models;
 using PDMS.Security;
 using PDMS.Services;
 using PDMS.Services.Interface;
+
+var userProfileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+var staticRootDir = Path.Combine(userProfileDir, "PDMS");
+if (!Directory.Exists(staticRootDir)) {
+    Directory.CreateDirectory(staticRootDir);
+}
+
+var defaultDirs = new List<string>() {
+    "images"
+};
+foreach (var dir in defaultDirs) {
+    var fullPath = Path.Combine(staticRootDir, dir);
+    if (!Directory.Exists(fullPath)) {
+        Directory.CreateDirectory(fullPath);
+    }
+}
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
@@ -51,7 +69,12 @@ builder.Services.AddIdentity<User, Role>(
     .AddRoleStore<RoleStore<Role, PdmsDbContext, string, UserRole, IdentityRoleClaim<string>>
     >()
     .AddDefaultTokenProviders();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(
+        options => {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        }
+    );
 builder.Services.Configure<ApiBehaviorOptions>(
     options => {
         options.InvalidModelStateResponseFactory = ValidationError.GenerateErrorResponse;
@@ -88,7 +111,7 @@ builder.Services.AddSwaggerModule();
 builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
-app.UseCors();
+app.UseCors("allowAll");
 if (app.Environment.IsDevelopment()) {
     app.UseApplicationSwagger();
 }
@@ -103,6 +126,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles(
+    new StaticFileOptions() {
+        FileProvider = new PhysicalFileProvider(staticRootDir),
+        RequestPath = "/files"
+    }
+);
 app.Run();
 
 
