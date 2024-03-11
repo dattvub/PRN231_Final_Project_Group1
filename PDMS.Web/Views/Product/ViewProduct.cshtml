@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row flex-between-center">
+            <div class="col-sm-auto mb-2 mb-sm-0">
+                <h6 class="mb-0">Showing 1-24 of 205 Products</h6>
+            </div>
+            <div class="col-sm-auto">
+                <div class="row gx-2 align-items-center">
+                    <div class="col-auto">
+                        <form class="row gx-2">
+                            <div class="col-auto"><small>Sort by: </small></div>
+                            <div class="col-auto">
+                                <select class="form-select form-select-sm" aria-label="Bulk actions">
+                                    <option selected="">Best Match</option>
+                                    <option value="Refund">Newest</option>
+                                    <option value="Delete">Price</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-auto pe-0"><a class="text-600 px-1" href="../../../app/e-commerce/product/product-grid.html" data-bs-toggle="tooltip" title="Product Grid"><span class="fas fa-th"></span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body p-0 overflow-hidden" id="productList">
+        <ul class="list list-unstyled row g-0">
+            <li class="col-12 p-card">
+                <div class="row">
+                    <div class="col-sm-5 col-md-4">
+                        <div class="position-relative h-sm-100">
+                            <a class="d-block h-100 thumb-wrapper" asp-controller="Product" asp-action="DetailProduct" asp-route-id="0"><img class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="https://tamanhhospital.vn/wp-content/uploads/2023/01/thuoc-giam-dau-dau.jpg" alt="" /></a>
+                            <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">New</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-8">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h5 class="mt-3 mt-sm-0"><a class="productName text-dark fs-0 fs-lg-1 thumb-wrapper" asp-controller="Product" asp-action="DetailProduct" asp-route-id="0"></a></h5>
+                                <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Thuốc và dược liệu</a></p>
+                                <ul class="list-unstyled d-none d-lg-block">
+                                    <li><span class="fas fa-circle" data-fa-transform="shrink-12">Brand: </span><span class="brandId"></span></li>
+                                    <li><span class="fas fa-circle" data-fa-transform="shrink-12">Supplier: </span><span class="supplierId">1TB SSD Hard Drive</span></li>
+                                    <li><span class="fas fa-circle" data-fa-transform="shrink-12">Major: </span><span class="majorId">1TB SSD Hard Drive</span></li>
+                                    <li><span class="fas fa-circle" data-fa-transform="shrink-12">Barcode: </span><span class="barCode">1TB SSD Hard Drive</span></li>
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 d-flex justify-content-between flex-column">
+                                <div>
+                                    <div class="fs-1 fs-md-2 text-warning mb-0">$<div class="d-inline-block price"></div></div>
+                                    <h5 class="fs--1 text-500 mb-0 mt-1">
+                                        $<del class="importPrice">2399 </del>
+                                    </h5>
+                                    <div class="mb-2 mt-3">
+                                    </div>
+                                    <div class="d-none d-lg-block">
+                                        <p class="fs--1 mb-1">Created by: <strong class="createdById">$50</strong></p>
+                                        <p class="fs--1 mb-1">Created time: <strong class="createdTime">$50</strong></p>
+                                        <p class="fs--1 mb-1">Last modified time: <strong class="lastModifiedTime">$50</strong></p>
+                                        <p class="fs--1 mb-1">
+                                            Stock: <strong class="text-success quantity">50</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0 update-wrapper" asp-controller="Product" asp-action="EditProduct" asp-route-id="0">
+                                        <span class="iconify-inline fs--2" data-icon="material-symbols:update"></span>
+                                        <span class="ms-2 d-none d-md-inline-block">Update</span>
+                                    </a><button class="btn btn-sm btn-primary d-lg-block mt-lg-2 w-100 delete-wrapper" id="deleteButton">
+                                        <span class="iconify-inline fs--2" data-icon="material-symbols:delete"> </span>
+                                        <span class="ms-2 d-none d-md-inline-block">Delete</span></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="paginationBar" class="d-flex justify-content-center mt-3 mb-5">
+        <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
+        </button>
+        <ul class="pagination mb-0 pagination-number-group" data-list></ul>
+        <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
+        </button>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/js/product/product-list.js"></script>
+}

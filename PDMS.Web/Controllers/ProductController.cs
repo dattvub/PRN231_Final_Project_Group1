@@ -20,4 +20,16 @@ public class ProductController : Controller {
     {
         return View();
     }
+
+    [Route("director/edit/{id}")]
+    public IActionResult EditProduct()
+    {
+        return View();
+    }
+
+    [Route("director/view")]
+    public IActionResult ViewProduct()
+    {
+        return View();
+    }
 }

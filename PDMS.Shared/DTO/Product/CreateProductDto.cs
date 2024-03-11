@@ -9,7 +9,6 @@ namespace PDMS.Shared.DTO.Product
 {
     public class CreateProductDto
     {
-        private string _productCode;
         private string _productName;
         private double _importPrice;
         private double _price;
@@ -24,15 +23,6 @@ namespace PDMS.Shared.DTO.Product
         private int _suppilerId;
         private int _majorId;
         //private bool _status;
-
-        [Required]
-        [MaxLength(50)]
-        [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Product code must be alphanumeric")]
-        public string ProductCode
-        {
-            get => _productCode;
-            set => _productCode = value.Trim().ToUpper();
-        }
 
         [Required]
         [MaxLength(50)]

@@ -3,3 +3,66 @@
 *@
 @{
 }
+<div class="card-body bg-light">
+    <div class="tab-content">
+        <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-d4ebf6c5-74b4-4308-8c64-cda718c9b324" id="dom-d4ebf6c5-74b4-4308-8c64-cda718c9b324">
+
+<form id="productForm">
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-name">Product Name</label>
+                    <input class="form-control" id="productName" name="productName" type="text" placeholder="Enter product name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-email">Import Price</label>
+                    <input class="form-control" id="importPrice" name="importPrice" type="text" placeholder="Import price" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-email">Price</label>
+                    <input class="form-control" id="price" name="price" type="text" placeholder="price" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">BarCode</label>
+                    <input class="form-control" id="bar" name="bar" type="text" placeholder="BarCode" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Created By Id</label>
+                    <input class="form-control" id="createdBy" name="createdBy" type="text" placeholder="Created By Id" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Last Modified By Id</label>
+                    <input class="form-control" id="lastModified" name="lastModified" type="text" placeholder="Last Modified By Id" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Image</label>
+                    <input class="form-control" id="image" name="image" type="text" placeholder="Image" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Brand Id</label>
+                    <input class="form-control" id="brand" name="brand" type="text" placeholder="Brand Id" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Suppiler Id</label>
+                    <input class="form-control" id="supplier" name="supplier" type="text" placeholder="Suppiler Id" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-password">Major Id</label>
+                    <input class="form-control" id="major" name="major" type="text" placeholder="Major Id" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-form-gender">Gender</label>
+        <select class="form-select" id="basic-form-gender" aria-label="Default select example">
+            <option selected="selected">Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/product/create-product.js"></script>
+}
