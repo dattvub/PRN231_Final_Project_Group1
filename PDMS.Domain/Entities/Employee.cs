@@ -25,4 +25,5 @@ public class Employee {
     public User User { get; set; } = null!;
     public List<Customer> Customers { get; set; } = null!;
     public Group? Group { get; set; }
+    public List<Group> ManageGroups { get; set; }
 }

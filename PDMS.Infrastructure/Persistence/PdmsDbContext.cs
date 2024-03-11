@@ -85,6 +85,10 @@ namespace PDMS.Infrastructure.Persistence {
             group
                 .HasIndex(x => x.GroupCode)
                 .IsUnique();
+            group
+                .HasOne(x => x.Manager)
+                .WithMany(x => x.ManageGroups)
+                .HasForeignKey(x => x.ManagerId);
         }
 
         private void ImportDetailConfig(ModelBuilder builder) {
@@ -339,6 +343,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasOne(x => x.Group)
                 .WithMany(x => x.Employees)
                 .HasForeignKey(x => x.GroupId);
+            employee
+                .HasIndex(x => x.UserId)
+                .IsUnique();
         }
 
         private void BrandConfig(ModelBuilder builder) {
@@ -526,6 +533,9 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasOne(x => x.Employee)
                 .WithMany(x => x.Customers)
                 .HasForeignKey(x => x.EmpId);
+            customer
+                .HasIndex(x => x.UserId)
+                .IsUnique();
         }
 
         private void IdentityConfig(ModelBuilder builder) {
