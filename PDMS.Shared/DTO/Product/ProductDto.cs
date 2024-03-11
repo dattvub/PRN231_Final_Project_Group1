@@ -16,9 +16,9 @@ namespace PDMS.Shared.DTO.Product
         public int Quantity { get; set; }
         public string BarCode { get; set; } = null!;
         public int CreatedById { get; set; }
-        //public DateTime CreatedTime { get; set; }
+        public DateTime CreatedTime { get; set; }
         public int LastModifiedById { get; set; }
-        //public DateTime LastModifiedTime { get; set; }
+        public DateTime LastModifiedTime { get; set; }
         public string Image { get; set; } = null!;
         public int BrandId { get; set; }
         public int SuppilerId { get; set; }

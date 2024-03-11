@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -90,7 +91,7 @@ namespace PDMS.Controllers
             }
 
             var newProduct = _mapper.Map<Product>(updateProductDto);
-            product.ProductCode = newProduct.ProductCode;
+            //product.ProductCode = newProduct.ProductCode;
             product.ProductName = newProduct.ProductName;
             product.ImportPrice = newProduct.ImportPrice;
             product.Price = newProduct.Price;
@@ -136,6 +137,18 @@ namespace PDMS.Controllers
                 return ValidationError.InternalServerError500("Error occur while delete product");
             }
 
+            return Ok(_mapper.Map<ProductDto>(product));
+        }
+
+        [EnableCors("allowAll")]
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProductDto>> DetailProduct([FromRoute] int id)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id && x.Status);
+            if (product == null)
+            {
+                return ValidationError.BadRequest400($"Product with id {id} is not exist");
+            }
             return Ok(_mapper.Map<ProductDto>(product));
         }
     }

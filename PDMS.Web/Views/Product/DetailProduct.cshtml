@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <h5>Paracetamol</h5><a class="fs--1 mb-2 d-block" href="#!">Thuốc và giảm đau</a>
+                <h5 id="productName"></h5><a class="fs--1 mb-2 d-block" href="#!">Thuốc và giảm đau</a>
                 <div class="fs--2 mb-3 d-inline-block text-decoration-none">
                     <span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1 text-600">(8)</span>
                 </div>
@@ -42,11 +42,11 @@
                     Thuốc điều trị triệu chứng làm giảm cơn đau nửa đầu luôn là lựa chọn đầu tiên trong điều trị căn bệnh này. Dưới đây là các tiêu chí lựa chọn thuốc điều trị hiện nay.
                 </p>
                 <h4 class="d-flex align-items-center">
-                    <span class="text-warning me-2">$1200</span><span class="me-1 fs--1 text-500">
+                    <span class="text-warning me-2" id="price">$1200</span><span class="me-1 fs--1 text-500">
                         <del class="me-1">$2400</del><strong>-50%</strong>
                     </span>
                 </h4>
-                <p class="fs--1 mb-1"> <span>Shipping Cost: </span><strong>$50</strong></p>
+                <p class="fs--1 mb-1"> <span>Update on: </span><strong id="lastModified"></strong></p>
                 <p class="fs--1">Stock: <strong class="text-success">Available</strong></p>
                 <div class="row">
                     <div class="col-auto pe-0">
@@ -71,10 +71,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="tab-description" role="tabpanel" aria-labelledby="description-tab">
                             <div class="mt-3">
-                                <p>
-                                    Đau nửa đầu là bệnh lý chỉ ảnh hưởng đến một bên đầu. Người bệnh có thể bị đau nửa đầu bên trái hoặc đau ở nửa đầu phía bên phải. Bệnh có tên gọi trong tiếng anh là Migraine. Đây là căn bệnh xuất hiện khá phổ biến hiện nay, tỷ lệ người mắc bệnh là nữ giới nhiều hơn nam giới.
-
-                                    Tính chất cơn đau trong bệnh đau đầu Migraine là đau đầu một bên đột ngột và dữ dội, có thể đi kèm các triệu chứng như: buồn nôn, nôn mửa, nhạy cảm với ánh sáng và tiếng ồn.
+                                <p id="barCode">
                                 </p>
                             </div>
                         </div>
@@ -123,3 +120,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/product/product-detail.js"></script>
+}
