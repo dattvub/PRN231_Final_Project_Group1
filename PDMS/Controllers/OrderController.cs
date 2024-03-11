@@ -37,7 +37,7 @@ namespace PDMS.Controllers
             //Lấy order theo listCustomerId
             else if (role == "Sale")
             {
-                var listCustomerId = await _context.Customers.Where(i => i.EmployeeId == userId).Select(i => i.CustomerId).ToListAsync();
+                var listCustomerId = await _context.Customers.Where(i => i.Employee == userId).Select(i => i.CustomerId).ToListAsync();
                 listOrder = await query.Where(i => listCustomerId.Contains(i.CustomerId)).ToListAsync();
             }
             //Quản lý thấy order của customer thuộc các employee trong nhóm
