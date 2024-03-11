@@ -124,6 +124,7 @@ public class AuthenticationController : ControllerBase {
             "accessToken", tokenPair.AccessToken, new CookieOptions() {
                 Domain = Request.Host.Host,
                 Secure = true,
+                SameSite = SameSiteMode.None,
                 Expires = rememberMe ? tokenPair.AccessTokenExpiryTime : null
             }
         );
@@ -131,6 +132,7 @@ public class AuthenticationController : ControllerBase {
             "refreshToken", tokenPair.RefreshToken + (rememberMe ? "." : ""), new CookieOptions() {
                 Path = "/auth/refresh",
                 Secure = true,
+                SameSite = SameSiteMode.None,
                 Expires = rememberMe ? tokenPair.RefreshTokenExpiryTime : null
             }
         );
