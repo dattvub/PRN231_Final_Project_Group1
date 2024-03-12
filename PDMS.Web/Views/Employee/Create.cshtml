@@ -4,6 +4,7 @@
 }
 
 @section HeadBeforeStyle {
+    <link rel="stylesheet" href="~/lib/choices.js/choices.min.css"/>
     <link rel="stylesheet" href="~/lib/dropzone/dropzone.min.css"/>
 }
 
@@ -172,6 +173,16 @@
                     <div class="invalid-feedback">Phòng ban không được để trống</div>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Vai trò</label>
+                    <select id="role-select" size="1" name="role-select">
+                        <option value="">Chọn role...</option>
+                        <option value="DIRECTOR">Director</option>
+                        <option value="SUPERVISOR">Supervisor</option>
+                        <option value="ACCOUNTANT">Accountant</option>
+                        <option value="SALEMAN">Saleman</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <div class="d-flex gap-2">
                         <label for="entranceDate" class="form-label">Ngày vào công ty</label>
                         <div class="form-check form-switch no-validation">
@@ -208,6 +219,7 @@
 }
 
 @section Scripts {
+    <script src="~/lib/choices.js/choices.min.js"></script>
     <script src="~/lib/flatpickr/flatpickr.min.js"></script>
     <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
     <script src="~/lib/cropperjs/cropper.min.js"></script>
