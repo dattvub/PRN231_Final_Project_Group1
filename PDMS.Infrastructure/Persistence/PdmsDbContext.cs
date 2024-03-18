@@ -79,16 +79,12 @@ namespace PDMS.Infrastructure.Persistence {
             group.Property(x => x.Status)
                 .IsRequired();
             group.Property(x => x.Address)
-                .HasColumnType("nchar")
-                .HasMaxLength(10)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(100)
                 .IsRequired();
             group
                 .HasIndex(x => x.GroupCode)
                 .IsUnique();
-            group
-                .HasOne(x => x.Manager)
-                .WithMany(x => x.ManageGroups)
-                .HasForeignKey(x => x.ManagerId);
         }
 
         private void ImportDetailConfig(ModelBuilder builder) {

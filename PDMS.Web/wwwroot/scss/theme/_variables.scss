@@ -573,10 +573,10 @@ $data-table-pagination-button-color: $black !default;
 //-----------------------------------------------*/
 
 $navbar-vertical-breakpoints: mapReverse($grid-breakpoints) !default;
-$navbar-vertical-width: 12.625rem !default;
+$navbar-vertical-width: 16.625rem !default;
 $navbar-vertical-icon-width: 1.5rem !default;
 $navbar-vertical-collapsed-width: 3.125rem !default;
-$navbar-vertical-hover-width: 12.625rem !default;
+$navbar-vertical-hover-width: 16.625rem !default;
 $navbar-vertical-collapsed-hover-shadow: 0.625rem 0 0.625rem -0.5625rem var(--#{$variable-prefix}navbar-vertical-collapsed-hover-shadow-color) !default;
 $navbar-vertical-variation-width: 14.5rem !default;
 $navbar-vertical-variation-collapsed-width: 4.125rem !default;

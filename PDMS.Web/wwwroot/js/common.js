@@ -3,9 +3,13 @@
         redirectOnUnauthorized: true,
         onSuccess: async (response) => {
             window.user = await response.json()
+            if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
+                window.location.replace(document.getElementById('login-route').href)
+            }
             const event = new CustomEvent('userLoaded', {
                 detail: window.user
             })
+            document.getElementById('top').classList.remove('d-none')
             window.dispatchEvent(event)
         }
     })
@@ -64,7 +68,7 @@ async function fetchWithCredentials(url, options = {}) {
             credentials: 'include',
         })
         if (!refreshResponse.ok) {
-            return failHandler(refreshResponse)
+            return failHandler(firstResponse)
         }
         const secondResponse = await fetch(url, {
             credentials: 'include',
@@ -76,4 +80,43 @@ async function fetchWithCredentials(url, options = {}) {
         return failHandler(secondResponse)
     }
     return failHandler(firstResponse)
+}
+
+/**
+ * @param {String} title
+ * @param {String} content
+ * @returns {void}
+ */
+function showToast(title, content) {
+    const toastElm = $('<div class="toast"></div>').append([
+        $('<div class="toast-header"></div>').append([
+            $('<div class="me-2"></div>').append(
+                $('<i class="iconify-inline" data-icon="ooui:notice"></i>')
+            ),
+            $('<strong class="me-auto"></strong>').text(title),
+            $('<button type="button" class="btn-close m-0" data-bs-dismiss="toast" aria-label="Close"></button>')
+        ]),
+        $('<div class="toast-body"></div>').text(content)
+    ]).one('hidden.bs.toast', () => {
+        bootstrap.Toast.getOrCreateInstance(toastElm)?.dispose()
+        toastElm.remove()
+    })
+    $('#toast-container')?.prepend(toastElm)
+    bootstrap.Toast.getOrCreateInstance(toastElm).show()
+}
+
+/**
+ * @param {{route: string,href: string} | string} routes
+ */
+function setBreadcrumb(...routes) {
+    $('#breadcrumb > ol.breadcrumb').html('').append(
+        routes.map(route => {
+            if (typeof route === 'string') {
+                return $('<li class="breadcrumb-item active cursor-default" aria-current="page"></li>').text(route)
+            }
+            return $('<li class="breadcrumb-item"></li>').append(
+                $(`<a href="${route.href}"></a>`).text(route.route)
+            )
+        })
+    )
 }

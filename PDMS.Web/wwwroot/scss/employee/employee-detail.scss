@@ -51,3 +51,7 @@ $avatar-wrapper-width: 16rem;
     }
   }
 }
+
+.hide-if-empty:has(.empty-check-target:empty), .hide-if-empty:empty {
+  display: none !important;
+}

@@ -60,7 +60,8 @@
     @await RenderSectionAsync("Scripts", false)
 }
 
-<main class="main" id="top">
+<main class="@(ViewData["Protected"] as bool? == true ? "main d-none" : "main")" id="top">
+    <div id="toast-container" class="toast-container top-0 end-0 position-absolute p-3" style="z-index: 9999"></div>
     <div class="container">
         @if (definedSection || sections != null) {
             <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
@@ -109,6 +110,9 @@
         }
         <div class="content">
             @await Html.PartialAsync("_Header")
+            <nav id="breadcrumb" class="fw-medium my-3" aria-label="breadcrumb">
+                <ol class="breadcrumb"></ol>
+            </nav>
             @RenderBody()
         </div>
     </div>
