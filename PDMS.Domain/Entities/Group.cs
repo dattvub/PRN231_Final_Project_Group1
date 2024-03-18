@@ -6,7 +6,5 @@ public class Group {
     public string GroupName { get; set; }
     public bool Status { get; set; }
     public string Address { get; set; }
-    public int? ManagerId { get; set; }
     public List<Employee> Employees { get; set; }
-    public Employee? Manager { get; set; }
 }

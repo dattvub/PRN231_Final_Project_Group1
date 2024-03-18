@@ -49,3 +49,7 @@
     }
   }
 }
+
+#breadcrumb:not(:has(> .breadcrumb > :first-child)) {
+  display: none;
+}

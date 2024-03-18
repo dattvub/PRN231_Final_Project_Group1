@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var acceptRoles = ViewData["AcceptRoles"] as string[];
 }
 
 <!DOCTYPE html>
@@ -8,6 +9,11 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"]</title>
+    @if (acceptRoles is { Length: > 0 }) {
+        <script>
+            window.acceptRoles = @Html.Raw($"['{string.Join("', '", acceptRoles)}']")
+        </script>
+    }
     @await RenderSectionAsync("HeadBeforeStyle", false)
     <link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css"/>
     <link rel="stylesheet" href="~/css/common.css"/>

@@ -51,6 +51,14 @@
     {
       "library": "cropperjs@1.6.1",
       "destination": "wwwroot/lib/cropperjs/"
+    },
+    {
+      "library": "choices.js@10.2.0",
+      "destination": "wwwroot/lib/choices.js/"
+    },
+    {
+      "library": "jquery-validate@1.20.0",
+      "destination": "wwwroot/lib/jquery-validate/"
     }
   ]
 }

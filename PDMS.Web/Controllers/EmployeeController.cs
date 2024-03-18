@@ -15,6 +15,13 @@ public class EmployeeController : Controller {
 
     [Route("{id:int:min(1)}")]
     public IActionResult EmpDetail([FromRoute] int id) {
+        ViewData["empId"] = id;
+        return View();
+    }
+
+    [Route("{id:int:min(1)}/Edit")]
+    public IActionResult Edit([FromRoute] int id) {
+        ViewData["empId"] = id;
         return View();
     }
 }

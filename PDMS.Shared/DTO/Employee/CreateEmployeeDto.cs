@@ -45,4 +45,6 @@ public class CreateEmployeeDto {
 
     [MaxLength(10)]
     public string? ExitDate { get; set; }
+
+    public int? GroupId { get; set; }
 }

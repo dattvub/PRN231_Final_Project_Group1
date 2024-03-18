@@ -10628,7 +10628,7 @@ docReady(glightboxInit);
 docReady(plyrInit);
 docReady(initMap);
 docReady(dropzoneInit);
-docReady(choicesInit);
+// docReady(choicesInit);
 // docReady(formValidationInit);
 docReady(barChartInit);
 docReady(leafletActiveUserInit);

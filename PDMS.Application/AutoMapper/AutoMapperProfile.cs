@@ -9,6 +9,8 @@ using PDMS.Shared.DTO.Brand;
 using PDMS.Shared.DTO.CustomerType;
 using PDMS.Shared.DTO.OrderDetail;
 using PDMS.Shared.DTO.Customer;
+using PDMS.Shared.DTO.Employee;
+using PDMS.Shared.DTO.Group;
 using PDMS.Shared.DTO.Supplier;
 using PDMS.Shared.DTO.Major;
 using PDMS.Shared.DTO.Product;
@@ -18,7 +20,16 @@ using System.Runtime.InteropServices;
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
         public AutoMapperProfile() {
+            CreateMap<Group, GroupDto>().ReverseMap();
+            
             CreateMap<User, UserDto>();
+            
+            CreateMap<User, EmployeeDto>();
+            
+            CreateMap<Group, EmployeeDto>();
+
+            CreateMap<Employee, EmployeeDto>()
+                .IncludeMembers(x => x.User, x => x.Group);
             
             CreateMap<CreateBrandDto, Brand>()
                 .AfterMap(

@@ -347,8 +347,8 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nchar(10)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("GroupCode")
                         .IsRequired()
@@ -360,9 +360,6 @@ namespace PDMS.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -370,8 +367,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.HasIndex("GroupCode")
                         .IsUnique();
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("Groups");
                 });
@@ -960,15 +955,6 @@ namespace PDMS.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PDMS.Domain.Entities.Group", b =>
-                {
-                    b.HasOne("PDMS.Domain.Entities.Employee", "Manager")
-                        .WithMany("ManageGroups")
-                        .HasForeignKey("ManagerId");
-
-                    b.Navigation("Manager");
-                });
-
             modelBuilder.Entity("PDMS.Domain.Entities.ImportDetail", b =>
                 {
                     b.HasOne("PDMS.Domain.Entities.ImportTicket", "ImportTicket")
@@ -1156,8 +1142,6 @@ namespace PDMS.Infrastructure.Migrations
                     b.Navigation("Customers");
 
                     b.Navigation("ImportTickets");
-
-                    b.Navigation("ManageGroups");
 
                     b.Navigation("Notifications");
                 });

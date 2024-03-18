@@ -1,20 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "РС-28 Сармат";
+    ViewData["Title"] = "Thông tin nhân viên";
+    ViewData["Protected"] = true;
 }
 
 @section Heads {
     <link rel="stylesheet" href="~/css/employee/employee-detail.css"/>
+    <script>
+        const empId = @ViewData["empId"]
+    </script>
 }
 
 <div class="card p-3 p-sm-4 mt-md-8 emp-content position-relative d-flex flex-column flex-md-row align-items-center align-items-md-start">
     <div class="avatar-wrapper rounded-3 p-2 bg-white shadow position-md-absolute">
         <div class="h-100 w-100 rounded-2 overflow-hidden">
-            <img class="h-100 w-100 fit-cover" src="https://img.freepik.com/premium-photo/painting-mountain-lake-with-lake-mountains-background_14117-17445.jpg" alt="">
+            <img id="user-image" class="h-100 w-100 fit-cover" src="/images/placeholder.png" alt="">
         </div>
     </div>
     <div class="position-md-absolute emp-name ps-md-5">
-        <h2 class="h2 fw-bold">РС-28 Сармат</h2>
-        <p class="fs-0 fw-bold d-md-none d-block text-center">RS28Sarmat</p>
+        <h2 id="emp-name" class="h2 fw-bold"></h2>
+        <p class="fs-0 fw-bold d-md-none d-block text-center emp-code"></p>
     </div>
     <div class="emp-timeline ps-3 flex-shrink-0">
         <div class="d-flex gap-3 mb-3">
@@ -38,7 +42,7 @@
         </div>
     </div>
     <div class="emp-info me-auto">
-        <p class="fs-0 fw-bold d-none d-md-block">RS28Sarmat</p>
+        <p class="fs-0 fw-bold d-none d-md-block emp-code"></p>
         <div class="pt-2">
             <div class="d-flex justify-content-between flex-column flex-lg-row">
                 <div class="d-flex gap-3 mb-3">
@@ -47,16 +51,16 @@
                     </div>
                     <div>
                         <label class="form-label opacity-85 m-0">Giới tính</label>
-                        <p class="fw-medium m-0 fs-1">Nam</p>
+                        <p id="gender" class="fw-medium m-0 fs-1"></p>
                     </div>
                 </div>
-                <div class="d-flex gap-3 mb-3">
+                <div class="d-flex gap-3 mb-3 hide-if-empty">
                     <div>
                         <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:baseline-phone"></span>
                     </div>
                     <div>
                         <label class="form-label opacity-85 m-0">Số điện thoại</label>
-                        <p class="fw-medium m-0 fs-1">098765431</p>
+                        <p id="phone" class="fw-medium m-0 fs-1 empty-check-target"></p>
                     </div>
                 </div>
             </div>
@@ -66,44 +70,57 @@
                 </div>
                 <div>
                     <label class="form-label opacity-85 m-0">Email</label>
-                    <p class="fw-medium m-0 fs-1">example@gmail.com</p>
+                    <p id="email" class="fw-medium m-0 fs-1"></p>
                 </div>
             </div>
-            <div class="d-flex gap-3 mb-3">
+            <div class="d-flex gap-3 mb-3 hide-if-empty">
                 <div>
                     <span class="iconify-inline fs-2 search-box-icon" data-icon="entypo:address"></span>
                 </div>
                 <div>
                     <label class="form-label opacity-85 m-0">Địa chỉ</label>
-                    <p class="fw-medium m-0 fs-1">43193 Cecily Pine, New Landonview, WA 86051</p>
+                    <p id="address" class="fw-medium m-0 fs-1 empty-check-target"></p>
                 </div>
             </div>
-            <div class="d-flex gap-3 mb-3">
+            <div class="d-flex gap-3 mb-3 hide-if-empty">
                 <div>
                     <span class="iconify-inline fs-2 search-box-icon" data-icon="clarity:employee-solid"></span>
                 </div>
                 <div>
                     <label class="form-label opacity-85 m-0">Chức vụ</label>
-                    <p class="fw-medium m-0 fs-1">Guard</p>
+                    <p id="position" class="fw-medium m-0 fs-1 empty-check-target"></p>
                 </div>
             </div>
-            <div class="d-flex gap-3 mb-3">
+            <div class="d-flex gap-3 mb-3 hide-if-empty">
                 <div>
                     <span class="iconify-inline fs-2 search-box-icon" data-icon="fluent-emoji-high-contrast:department-store"></span>
                 </div>
                 <div>
                     <label class="form-label opacity-85 m-0">Phòng ban</label>
-                    <p class="fw-medium m-0 fs-1">Krasnoyarsk</p>
+                    <p id="department" class="fw-medium m-0 fs-1 empty-check-target"></p>
+                </div>
+            </div>
+            <div class="d-flex gap-3 mb-3 hide-if-empty">
+                <div>
+                    <span class="iconify-inline fs-2 search-box-icon" data-icon="fluent-emoji-high-contrast:department-store"></span>
+                </div>
+                <div>
+                    <label class="form-label opacity-85 m-0">Nhóm làm việc</label>
+                    <p id="group" class="fw-medium m-0 fs-1 empty-check-target"></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="emp-action d-flex flex-md-column gap-2 w-100 w-md-auto">
-        <button class="btn btn-primary flex-1 px-2">
+        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@ViewData["empId"]" class="btn btn-primary flex-1 px-2">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="uil:edit"></span>
-        </button>
-        <button class="btn btn-danger px-2">
+        </a>
+        <button id="delete-btn" class="btn btn-danger px-2">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="mi:delete"></span>
         </button>
     </div>
 </div>
+
+@section Scripts {
+    <script src="/js/employee/employee-detail.js"></script>
+}
