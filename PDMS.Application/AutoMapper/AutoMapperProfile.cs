@@ -75,14 +75,7 @@ namespace PDMS.Application.AutoMapper {
                 );
             CreateMap<Supplier, SupplierDto>().ReverseMap();
 
-            CreateMap<CreateCustomerDto, Customer>()
-                .AfterMap(
-                    ((src, dst, ctx) => {
-                        dst.CustomerId = 0;
-                        //dst.Status = true;
-                    })
-                );
-            CreateMap<Customer, CustomerDto>().ReverseMap();
+           
             CreateMap<Major, MajorDTO>().ReverseMap();
             CreateMap<CreateMajorDTO, Major>()
                .AfterMap(

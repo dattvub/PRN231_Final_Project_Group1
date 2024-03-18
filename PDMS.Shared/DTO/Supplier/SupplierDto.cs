@@ -1,4 +1,4 @@
-﻿namespace PDMS.Shared.DTO.Brand;
+﻿namespace PDMS.Shared.DTO.Supplier;
 
 public class SupplierDto {
     public int SupplierId { get; set; }
