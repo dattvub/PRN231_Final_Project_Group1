@@ -246,6 +246,8 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
+            product.Property(x => x.Description)
+                .HasColumnType("text");
             product.Property(x => x.BrandId)
                 .IsRequired();
             product.Property(x => x.SuppilerId)
@@ -414,14 +416,21 @@ namespace PDMS.Infrastructure.Persistence {
             orderTicket.Property(x => x.CustomerId)
                 .IsRequired();
             orderTicket.Property(x => x.OrderDate)
-                .HasColumnType("datetime")
-                .IsRequired();
+                .HasColumnType("datetime");
             orderTicket.Property(x => x.CreatedDate)
                 .HasColumnType("datetime")
                 .IsRequired();
             orderTicket.Property(x => x.Status)
                 .IsRequired();
             orderTicket.Property(x => x.TotalPay)
+                .IsRequired();
+            orderTicket.Property(x => x.ExpectedReceiveDate)
+                .HasColumnType("datetime");
+            orderTicket.Property(x => x.ReceiveDate)
+                .HasColumnType("datetime");
+            orderTicket.Property(x => x.Address)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(100)
                 .IsRequired();
             orderTicket.Property(x => x.Discount)
                 .IsRequired();
