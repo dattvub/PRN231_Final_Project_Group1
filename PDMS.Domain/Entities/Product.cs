@@ -13,6 +13,7 @@ public class Product {
     public int LastModifiedById { get; set; }
     public DateTime LastModifiedTime { get; set; }
     public string Image { get; set; }
+    public string Description { get; set; }
     public int BrandId { get; set; }
     public int SuppilerId { get; set; }
     public int MajorId { get; set; }

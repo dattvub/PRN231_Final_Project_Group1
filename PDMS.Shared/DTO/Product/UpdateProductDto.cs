@@ -20,6 +20,7 @@ namespace PDMS.Shared.DTO.Product
         private int _lastModifiedById;
         //private DateTime _lastModifiedTime;
         private string _image;
+        private string _description;
         private int _brandId;
         private int _suppilerId;
         private int _majorId;
@@ -74,6 +75,7 @@ namespace PDMS.Shared.DTO.Product
         public int LastModifiedById { get => _lastModifiedById; set => _lastModifiedById = value; }
         [Required]
         public string Image { get => _image; set => _image = value; }
+        public string Description { get => _description; set => _description = value; }
         [Required]
         public int BrandId { get => _brandId; set => _brandId = value; }
         [Required]

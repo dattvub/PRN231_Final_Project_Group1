@@ -12,5 +12,6 @@ namespace PDMS.Shared.DTO.Product
         public int Quantity { get; set; } = 10;
         public string? Query { get; set; }
         public bool QueryByName { get; set; } = true;
+        public int[]? OnlyIn { get; set; }
     }
 }

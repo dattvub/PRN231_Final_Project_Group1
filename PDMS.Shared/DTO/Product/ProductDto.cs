@@ -20,9 +20,10 @@ namespace PDMS.Shared.DTO.Product
         public int LastModifiedById { get; set; }
         public DateTime LastModifiedTime { get; set; }
         public string Image { get; set; } = null!;
+        public string Description { get; set; } = null!;
         public int BrandId { get; set; }
         public int SuppilerId { get; set; }
         public int MajorId { get; set; }
-        //public bool Status { get; set; }
+        public bool Status { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PDMS.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using PDMS.Infrastructure.Persistence;
 namespace PDMS.Infrastructure.Migrations
 {
     [DbContext(typeof(PdmsDbContext))]
-    partial class PdmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319160413_ProductUpdateDescription")]
+    partial class ProductUpdateDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -554,11 +556,6 @@ namespace PDMS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
@@ -568,16 +565,10 @@ namespace PDMS.Infrastructure.Migrations
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ExpectedReceiveDate")
-                        .HasColumnType("datetime");
-
                     b.Property<int>("OrderCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("OrderDate")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime?>("ReceiveDate")
+                    b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime");
 
                     b.Property<int>("Status")
