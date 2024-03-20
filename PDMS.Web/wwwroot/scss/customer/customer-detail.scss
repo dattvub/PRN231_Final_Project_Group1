@@ -1,0 +1,52 @@
+﻿@import "../essential";
+
+$avatar-wrapper-width: 16rem;
+
+.cus-content {
+  min-height: 400px;
+
+  .avatar-wrapper {
+    width: 100%;
+    max-width: $avatar-wrapper-width;
+    aspect-ratio: 1;
+    top: -6rem;
+
+    @include media-breakpoint-down(md) {
+      box-shadow: none !important;
+    }
+  }
+
+  .cus-name {
+    top: -3.5rem;
+  }
+
+  .cus-timeline {
+    width: $avatar-wrapper-width;
+    margin-top: 9rem;
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+      margin-top: 0;
+      order: 1;
+    }
+
+    .cus-timeline-separator {
+      height: 3rem;
+      width: 0;
+      border-left: 2px dashed;
+      margin-top: -1.5rem;
+      margin-left: 0.66rem;
+      margin-bottom: -0.5rem;
+    }
+  }
+
+  .cus-info {
+    padding-left: 1.2rem;
+  }
+
+  .cus-action {
+    @include media-breakpoint-down(md) {
+      order: 2;
+    }
+  }
+}

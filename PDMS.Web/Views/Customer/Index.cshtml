@@ -1,6 +1,5 @@
-﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    ViewData["Title"] = "Customer";
+﻿@{
+    ViewData["Title"] = "Danh sách khách hàng";
 }
 
 @section Heads {
@@ -9,116 +8,104 @@
 
 <div id="mainCard" class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5>Danh sách Customer</h5>
+        <h5>@ViewData["Title"]</h5>
         <div id="newBtnGroup">
-            <button id="newBtn" class="btn btn-falcon-success btn-sm" type="button">
-                <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
-                <span>Tạo mới</span>
+            <button id="filterBtn" class="btn btn-sm btn-toggle-primary" type="button">
+                <input class="toggle-state-store" type="checkbox" name="" id="">
+                <span class="iconify-inline" data-icon="fa:filter"></span>
+                <span>Bộ lọc</span>
             </button>
-            <button id="closeNewBtn" class="btn btn-danger btn-sm" type="button">
-                <span class="iconify-inline" data-icon="fluent:dismiss-12-filled"></span>
-                <span>Huỷ</span>
-                <span class="change-new">tạo mới</span>
-                <span class="change-update">cập nhật</span>
-            </button>
+            <a asp-controller="Customer" asp-action="Create">
+                <button id="newBtn" class="btn btn-falcon-success btn-sm" type="button">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Tạo mới</span>
+                </button>
+            </a>
         </div>
     </div>
-    <div class="card-body border-top py-3">
-        <div id="mainGrid" class="d-grid position-relative transition-base">
-            <div class="d-flex align-items-center gap-3">
+    <div class="card-body border-top py-3 pt-0">
+        <div class="d-grid gap-3 filter-box">
+            <div class="overflow-hidden">
                 <div class="search-box">
-                    <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input fw-medium" placeholder="Search..." autocomplete="off" spellcheck="false">
+                    <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input" placeholder="Search..." autocomplete="off" spellcheck="false">
                     <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
                     <button id="clearSearchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
                         <div class="btn-close-falcon" aria-label="Close"></div>
                     </button>
                 </div>
-                <div class="d-none d-sm-flex flex-column d-md-block">
-                    <span class="text-nowrap">Tìm kiếm</span>
-                    <span>theo:</span>
-                </div>
-                <div class="d-md-flex flex-row gap-2">
-                    <div class="form-check m-0">
-                        <input class="form-check-input" value="true" checked id="byName" type="radio" name="searchBy" />
-                        <label class="form-check-label m-0" for="byName">Tên</label>
-                    </div>
-                    <div class="form-check m-0">
-                        <input class="form-check-input" id="byCode" value="false" type="radio" name="searchBy" />
-                        <label class="form-check-label m-0" for="byCode">Mã</label>
-                    </div>
-                </div>
             </div>
-            <div class="ps-3 align-self-center overflow-hidden">
-                <h5 class="text-center text-nowrap" id="formTitle">Customer mới</h5>
-            </div>
-            <div class="mt-3 z-index-2 bg-white" id="CustomerList">
-                <div class="table-responsive scrollbar">
-                    <table class="table table-hover table-striped table-bordered mb-0">
-                        <colgroup>
-                            <col />
-                            <col />
-                            <col style="width: 8rem">
-                        </colgroup>
-                        <thead class="bg-200 text-900">
-                            <tr>
-                                <th class="text-center">Mã</th>
-                                <th>Tên</th>
-                                <th class="text-center"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="list">
-                            <tr>
-                                <td class="CustomerCode text-center text-dark text-nowrap"></td>
-                                <td class="CustomerName text-dark text-nowrap"></td>
-                                <td class="p-0 h-0">
-                                    <div class="h-100 d-flex gap-2 justify-content-center align-items-center actions">
-                                        <button class="btn p-1 fs-2 edit-btn lh-1" title="Cập nhật">
-                                            <span class="iconify-inline" data-icon="uil:edit"></span>
-                                        </button>
-                                        <button class="btn p-1 fs-2 delete-btn lh-1" title="Xoá">
-                                            <span class="iconify-inline" data-icon="mi:delete"></span>
-                                        </button>
+        </div>
+        <div class="z-index-2 bg-white mt-3" id="customerList" data-list>
+            <div class="table-responsive scrollbar">
+                <table class="table table-sm table-hover table-striped mb-0">
+                    <thead class="bg-200 text-900">
+                        <tr>
+                            <th class="text-center sort" data-sort>Mã</th>
+                            <th class="text-center sort" data-sort>Tên</th>
+                            <th class="text-center sort" data-sort>Email</th>
+                            <th class="text-center sort" data-sort>Số điện thoại</th>
+                            <th class="text-center sort" data-sort>Địa chỉ</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <tr class="text-nowrap btn-reveal-trigger">
+                            <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
+                                <a asp-controller="Customer" asp-action="Index" class="cusCode text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center">
+                                <a asp-controller="Customer" asp-action="Index" class="cusName text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap px-3 text-center">
+                                <span class="email"></span>
+                                <button type="button" class="btn btn-close-falcon-container outline-none lh-1 p-1 mb-1">
+                                    <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
+                                </button>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center phone">123</td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center address">13</td>
+                            <td class="align-middle white-space-nowrap py-2 text-end px-lg">
+                                <div class="dropdown position-absolute position-lg-static rounded-1 row-option">
+                                    <div class="position-absolute d-lg-none top-0 end-0 w-100 h-100 rounded-1 shadow-holder"></div>
+                                    <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fas fa-ellipsis-h fs--1"></span>
+                                        <span class="iconify-inline fs--1" data-icon="fa6-solid:ellipsis"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
+                                        <div class="bg-white py-2">
+                                            <a class="dropdown-item" href="#!">Edit</a>
+                                            <a class="dropdown-item text-danger" href="#!">Delete</a>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="paginationBar" class="d-flex justify-content-center mt-3">
-                    <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
-                        <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
-                    </button>
-                    <ul class="pagination mb-0 pagination-number-group" data-list></ul>
-                    <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
-                        <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
-                    </button>
-                </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="ps-0 ps-lg-3 mb-3 mb-lg-0">
-                <form id="customerForm" class="position-relative position-lg-absolute end-0 ps-0 ps-lg-3 my-3 w-100 w-lg-33 z-index-1 needs-validation" novalidate>
-                    <input type="hidden" name="customerId" id="customerId">
-                    <fieldset>
-                        <div class="mb-3">
-                            <label for="customerCode" class="form-label">Mã Customer</label>
-                            <div class="input-group has-validation">
-                                <input required type="text" name="customerCode" id="customerCode" class="form-control" autocomplete="off" spellcheck="false">
-                                <span class="input-group-text">
-                                    <span class="iconify-inline fs-2" data-icon="mdi:format-letter-case-upper"></span>
-                                </span>
-                                <div class="invalid-feedback">Mã Customer không được để trống</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="customerName" class="form-label">Tên Customer</label>
-                            <input required type="text" name="customerName" id="customerName" class="form-control" autocomplete="off" spellcheck="false">
-                            <div class="invalid-feedback">Tên Customer không được để trống</div>
-                        </div>
-                        <button class="btn btn-primary w-100" type="submit">
-                            <span class="change-new">Tạo</span>
-                            <span class="change-update">Cập nhật</span>
-                        </button>
-                    </fieldset>
-                </form>
+            <div id="paginationBar" class="d-flex justify-content-center mt-3 position-relative">
+                <div class="position-absolute top-0 bottom-0 start-0 fs--1 d-flex align-items-center">
+                    <span>
+                        Total:
+                        <span class="text-decoration-underline list-total">115</span>
+                        items
+                    </span>
+                </div>
+                <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
+                    <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
+                </button>
+                <ul class="pagination mb-0 pagination-number-group" data-list>
+                    <li data-page="1" class="active fw-medium text-primary mx-1 px-2 d-flex align-items-center">1</li>
+                    <li data-page="2">
+                        <button type="button" class="page">2</button>
+                    </li>
+                    <li data-page="3">
+                        <button type="button" class="page">3</button>
+                    </li>
+                </ul>
+                <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
+                    <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -128,4 +115,3 @@
     <script src="~/lib/list.js/list.js"></script>
     <script src="~/js/customer/customer-list.js"></script>
 }
-

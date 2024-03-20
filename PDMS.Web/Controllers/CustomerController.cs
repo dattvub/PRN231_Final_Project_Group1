@@ -2,25 +2,22 @@
 
 namespace PDMS.Web.Controllers;
 
-public class CustomerController : Controller {
-    [Route("/[controller]")]
+[Route("[controller]")]
+public class CustomerController : Controller
+{
     public IActionResult Index()
     {
         return View();
     }
-    [Route("/[controller]/Add")]
-    public IActionResult Add()
-    {
-        return View();
-    }
-    [Route("/[controller]/{id}")]
-    public IActionResult Delete()
+
+    [Route("Create")]
+    public IActionResult Create()
     {
         return View();
     }
 
-    [Route("/[controller]/{id}/Update")]
-    public IActionResult Update()
+    [Route("{id:int:min(1)}")]
+    public IActionResult CusDetail([FromRoute] int id)
     {
         return View();
     }
