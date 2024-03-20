@@ -27,7 +27,6 @@ namespace PDMS.Shared.DTO.Product
 
         [Required]
         [MaxLength(50)]
-        [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Product name must be alphanumeric")]
         public string ProductName
         {
             get => _productName;
