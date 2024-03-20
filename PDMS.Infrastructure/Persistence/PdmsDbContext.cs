@@ -243,8 +243,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("datetime")
                 .IsRequired();
             product.Property(x => x.Image)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
+                .HasColumnType("text")
                 .IsRequired();
             product.Property(x => x.Description)
                 .HasColumnType("text");
