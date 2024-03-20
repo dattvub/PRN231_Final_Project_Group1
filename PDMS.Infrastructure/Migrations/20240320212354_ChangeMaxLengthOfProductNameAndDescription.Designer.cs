@@ -12,8 +12,8 @@ using PDMS.Infrastructure.Persistence;
 namespace PDMS.Infrastructure.Migrations
 {
     [DbContext(typeof(PdmsDbContext))]
-    [Migration("20240320200104_ProductNameColummTypeToText")]
-    partial class ProductNameColummTypeToText
+    [Migration("20240320212354_ChangeMaxLengthOfProductNameAndDescription")]
+    partial class ChangeMaxLengthOfProductNameAndDescription
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -622,7 +622,7 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -650,7 +650,8 @@ namespace PDMS.Infrastructure.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

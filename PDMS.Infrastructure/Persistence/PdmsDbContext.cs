@@ -219,7 +219,8 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasMaxLength(50)
                 .IsRequired();
             product.Property(x => x.ProductName)
-                .HasColumnType("text")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(300)
                 .IsRequired();
             product.Property(x => x.ImportPrice)
                 .IsRequired();
@@ -245,7 +246,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("text")
                 .IsRequired();
             product.Property(x => x.Description)
-                .HasColumnType("text");
+                .HasColumnType("nvarchar(max)");
             product.Property(x => x.BrandId)
                 .IsRequired();
             product.Property(x => x.SuppilerId)

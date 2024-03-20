@@ -16,6 +16,7 @@ using PDMS.Shared.DTO.Major;
 using PDMS.Shared.DTO.Product;
 using PDMS.Shared.DTO.User;
 using System.Runtime.InteropServices;
+using PDMS.Shared;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
@@ -58,8 +59,7 @@ namespace PDMS.Application.AutoMapper {
                     dst.CreatedTime = DateTime.Now;
                     dst.LastModifiedTime = DateTime.Now;
                     dst.Status = true;
-                    dst.ProductCode = dst.ProductName + "-" + new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 5)
-        .Select(s => s[new Random().Next(s.Length)]).ToArray());
+                    dst.ProductCode = Utils.RandomString(7, Utils.UppercaseChars, Utils.Numbers); ;
                 }));
 
             CreateMap<UpdateProductDto, Product>()

@@ -26,11 +26,10 @@ namespace PDMS.Shared.DTO.Product
         //private bool _status;
 
         [Required]
-        [MaxLength(50)]
         public string ProductName
         {
             get => _productName;
-            set => _productName = value.Trim().ToUpper();
+            set => _productName = value.Trim();
         }
         [Required]
         public double ImportPrice 
