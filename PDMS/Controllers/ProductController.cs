@@ -123,7 +123,7 @@ namespace PDMS.Controllers
             product.Image = itemsFullPath;
             product.CreatedById = emp.EmpId;
             product.LastModifiedById = emp.EmpId;
-
+            product.Description = product.Description.Trim();
             await _context.Products.AddAsync(product);
             try
             {
