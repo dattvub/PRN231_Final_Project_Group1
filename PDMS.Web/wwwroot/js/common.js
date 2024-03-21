@@ -1,4 +1,33 @@
-﻿async function checkToken() {
+﻿const cart = {}
+
+;(() => {
+    try {
+        const tmp = JSON.parse(localStorage.getItem('cart'))
+        Object.assign(cart, tmp)
+    } catch (e) {
+        Object.keys(cart).forEach(key => {
+            delete cart[key];
+        })
+    }
+})()
+setCartIconQuantity(Object.keys(cart).length)
+
+function setCartIconQuantity(quantity) {
+    const cartIcon = document.querySelector('#cart-btn > a')
+    const cartIndicator = document.querySelector('#cart-indicator')
+    if (cartIcon) {
+        if (quantity > 0) {
+            cartIcon.classList.add('notification-indicator', 'notification-indicator-warning', 'notification-indicator-fill')
+        } else if (quantity == 0) {
+            cartIcon.classList.remove('notification-indicator', 'notification-indicator-warning', 'notification-indicator-fill')
+        }
+    }
+    if (cartIndicator) {
+        cartIndicator.textContent = quantity > 0 ? quantity : ''
+    }
+}
+
+async function checkToken() {
     await fetchWithCredentials('http://localhost:5000/auth/checktoken', {
         redirectOnUnauthorized: true,
         onSuccess: async (response) => {
@@ -119,4 +148,18 @@ function setBreadcrumb(...routes) {
             )
         })
     )
+}
+
+/**
+ * @param {number} productId
+ * @param {number} quantity
+ */
+function addToCart(productId, quantity) {
+    if (cart.hasOwnProperty(productId)) {
+        cart[productId] += quantity
+    } else {
+        cart[productId] = quantity
+    }
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setCartIconQuantity(Object.keys(cart).length)
 }

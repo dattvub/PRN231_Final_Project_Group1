@@ -55,10 +55,16 @@
             </div>
         </li>
     </ul>
-    <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
-        <li class="nav-item dropdown px-1">
-            <a class="nav-link notification-indicator notification-indicator-primary px-1 text-secondary fs-2" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconify-inline" data-icon="mdi:bell"></i>
+    <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center gap-2">
+        <li id="cart-btn" class="nav-item dropdown">
+            <a class="nav-link notification-indicator notification-indicator-warning notification-indicator-fill px-2 text-secondary fs-2" href="#">
+                <i class="iconify-inline" data-icon="fa6-solid:cart-shopping"></i>
+                <span id="cart-indicator" class="notification-indicator-number">1</span>
+            </a>
+        </li>
+        <li id="noti-btn" class="nav-item dropdown">
+            <a class="nav-link notification-indicator notification-indicator-primary px-2 text-secondary fs-2" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconify-inline" data-icon="fa6-solid:bell"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-notification" aria-labelledby="navbarDropdownNotification">
                 <div class="card card-notification shadow-none">
@@ -139,6 +145,11 @@
         const user = e.detail
         $('#header-avatar').attr('src', user.imageUrl ? `http://localhost:5000/${user.imageUrl}` : '/images/blank_avatar.jpg')
         $('#header-user-name').text(`${user.lastName} ${user.firstName}`.trim())
+        if (user.role === 'CUSTOMER') {
+            $('#noti-btn').remove()
+        } else {
+            $('#cart-btn').remove()
+        }
     })
     document.getElementById('header-logout-btn').addEventListener('click', async () => {
         fetchWithCredentials('http://localhost:5000/auth/logout', {
