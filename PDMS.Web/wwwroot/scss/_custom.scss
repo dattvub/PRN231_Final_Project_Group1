@@ -53,3 +53,17 @@
 #breadcrumb:not(:has(> .breadcrumb > :first-child)) {
   display: none;
 }
+
+@for $i from 1 through 10 {
+  .ellipsis-#{$i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $i;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.hide-if-empty:has(.empty-check-target:empty), .hide-if-empty:empty {
+  display: none !important;
+}

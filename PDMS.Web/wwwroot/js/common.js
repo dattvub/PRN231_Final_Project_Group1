@@ -162,4 +162,34 @@ function addToCart(productId, quantity) {
     }
     localStorage.setItem('cart', JSON.stringify(cart))
     setCartIconQuantity(Object.keys(cart).length)
+    $('.total-products').text(Object.keys(cart).length)
+}
+
+function updateCartItem(productId, quantity) {
+    if (!cart.hasOwnProperty(productId)) {
+        return
+    }
+    cart[productId] = quantity
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setCartIconQuantity(Object.keys(cart).length)
+}
+
+function removeFromCart(productId) {
+    if (!cart.hasOwnProperty(productId)) {
+        return
+    }
+    delete cart[productId]
+    localStorage.setItem('cart', JSON.stringify(cart))
+    const cartCount = Object.keys(cart).length
+    setCartIconQuantity(cartCount)
+    $('.total-products').text(cartCount)
+}
+
+function removeAllFromCart() {
+    Object.keys(cart).forEach(key => {
+        delete cart[key];
+    })
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setCartIconQuantity(Object.keys(cart).length)
+    $('.total-products').text(Object.keys(cart).length)
 }

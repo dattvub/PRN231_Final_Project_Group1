@@ -1,24 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
-namespace PDMS.Web.Controllers; 
+namespace PDMS.Web.Controllers;
+
 public class OrderTicketController : Controller {
-    public IActionResult Index()
-    {
+    public IActionResult Index() {
         return View();
     }
 
-  
+    public IActionResult Create() {
+        return View();
+    }
 
-    public IActionResult Create()
-    {
+    public IActionResult Detail() {
         return View();
     }
-    public IActionResult Detail()
-    {
-        return View();
-    }
-    public IActionResult Update()
-    {
+
+    public IActionResult Update() {
         return View();
     }
 }
