@@ -1,92 +1,104 @@
 ﻿@{
-    ViewData["Title"] = "Pham Thanh";
+    ViewData["Title"] = "Thông tin khách hàng";
+    ViewData["Protected"] = true;
 }
 
 @section Heads {
-    <link rel="stylesheet" href="~/css/customer/customer-detail.css"/>
+    <link rel="stylesheet" href="~/css/customer/customer-detail.css" />
+    <script>
+        const cusId = @ViewData["cusId"]
+    </script>
 }
-
-<div class="card p-3 p-sm-4 mt-md-8 cus-content position-relative d-flex flex-column flex-md-row align-items-center align-items-md-start">
-    
-    <div class="position-md-absolute cus-name ">
-        <h2 class="h2 fw-bold">Pham Thanh</h2>
-    </div>
-    
-    <div class="cus-info me-auto">
-        <div class="pt-2">
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:baseline-email"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">Email</label>
-                    <p class="fw-medium m-0 fs-1">pthanh@gmail.com</p>
-                </div>
-            </div>
-
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="pepicons-pop:qr-code"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">Code: KH1</label>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between flex-column flex-lg-row">
-                <div class="d-flex gap-3 mb-3">
-                    <div>
-                        <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:baseline-phone"></span>
-                    </div>
-                    <div>
-                        <label class="form-label opacity-85 m-0">Số điện thoại</label>
-                        <p class="fw-medium m-0 fs-1">0393797828</p>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="entypo:address"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">Địa chỉ</label>
-                    <p class="fw-medium m-0 fs-1">Ha Noi</p>
-                </div>
-            </div>
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:twotone-attach-money"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">Tax Code</label>
-                    <p class="fw-medium m-0 fs-1">0110611386</p>
-                </div>
-            </div>
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="streamline:information-desk-customer"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">CustomerTypeId</label>
-                    <p class="fw-medium m-0 fs-1">1</p>
-                </div>
-            </div>
-            <div class="d-flex gap-3 mb-3">
-                <div>
-                    <span class="iconify-inline fs-2 search-box-icon" data-icon="streamline:information-desk-customer-solid"></span>
-                </div>
-                <div>
-                    <label class="form-label opacity-85 m-0">CustomerGroupId</label>
-                    <p class="fw-medium m-0 fs-1">1</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="cus-action d-flex flex-md-column gap-2 w-100 w-md-auto">
-        <button class="btn btn-primary flex-1 px-2">
+<div class="cus-action d-flex flex-md-row align-items-center mb-3">
+    <h2 id="customerName" class="h2 fw-bold mb-0 me-md-3"></h2>
+    <div class="btn-group btn-group-sm ">
+        <button class="btn btn-primary me-md-3">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="uil:edit"></span>
         </button>
-        <button class="btn btn-danger px-2">
+        <button class="btn btn-danger me-md-3">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="mi:delete"></span>
         </button>
     </div>
 </div>
+<div class="card p-3 p-sm-4 cus-content position-relative d-flex flex-column flex-md-row align-items-center align-items-md-start">
+    <div class="d-flex flex-column align-items-start">
+        <div class="cus-info">
+            <div class="cus-info-left">
+                <div class="pt-2">
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:baseline-email"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">Email</label>
+                            <p class="fw-medium m-0 fs-1" id="email"></p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="pepicons-pop:qr-code"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">Code</label>
+                            <p class="fw-medium m-0 fs-1" id="customerCode"></p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="streamline:information-desk-customer"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">CustomerTypeId</label>
+                            <p class="fw-medium m-0 fs-1" id="customerTypeId"></p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="streamline:information-desk-customer-solid"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">CustomerGroupId</label>
+                            <p class="fw-medium m-0 fs-1" id="customerGroupId"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cus-info-right">
+                <div class="pt-2">
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:baseline-phone"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">Số điện thoại</label>
+                            <p class="fw-medium m-0 fs-1" id="phoneNumber"></p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="entypo:address"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">Địa chỉ</label>
+                            <p class="fw-medium m-0 fs-1" id="address"></p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div>
+                            <span class="iconify-inline fs-2 search-box-icon" data-icon="ic:twotone-attach-money"></span>
+                        </div>
+                        <div>
+                            <label class="form-label opacity-85 m-0">Tax Code</label>
+                            <p class="fw-medium m-0 fs-1" id="taxCode"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/customer/customer-detail.js"></script>
+}

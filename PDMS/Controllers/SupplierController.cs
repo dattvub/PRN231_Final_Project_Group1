@@ -32,7 +32,7 @@ public class SupplierController : ControllerBase
     {
         var query = _context.Suppliers.Where(x => x.Status);
 
-        if (getSuppliersDto.Query != null)
+        if (getSuppliersDto.Query!= null)
         {
             if (getSuppliersDto.QueryByName)
             {
@@ -111,7 +111,7 @@ public class SupplierController : ControllerBase
             var result = await _context.SaveChangesAsync();
             if (result == 0)
             {
-                return ValidationError.BadRequest400("Error occur while update suppier");
+                return ValidationError.BadRequest400("Error occur while update supplier");
             }
         }
         catch (DbUpdateException)

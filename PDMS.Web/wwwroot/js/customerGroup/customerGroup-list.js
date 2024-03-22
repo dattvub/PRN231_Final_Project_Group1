@@ -1,84 +1,84 @@
 ﻿const options = {
     valueNames: [
-        'customerTypeCode',
-        'customerTypeName',
+        'customerGroupCode',
+        'customerGroupName',
         {
-            data: ['customerTypeId'],
+            data: ['customerGroupId'],
         }
     ],
     page: 10
 }
 const initValues = [
     {
-        customerTypeId: 1,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Pfizer',
+        customerGroupId: 1,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Pfizer',
         status: true,
     },
     {
-        customerTypeId: 2,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'AbbVie',
+        customerGroupId: 2,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'AbbVie',
         status: true,
     },
     {
-        customerTypeId: 3,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Johnson & Johnson',
+        customerGroupId: 3,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Johnson & Johnson',
         status: true,
     },
     {
-        customerTypeId: 4,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Merck & Co',
+        customerGroupId: 4,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Merck & Co',
         status: true,
     },
     {
-        customerTypeId: 5,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Novartis',
+        customerGroupId: 5,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Novartis',
         status: true,
     },
     {
-        customerTypeId: 6,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Roche',
+        customerGroupId: 6,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Roche',
         status: true,
     },
     {
-        customerTypeId: 7,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Bristol-Myers Squibb',
+        customerGroupId: 7,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Bristol-Myers Squibb',
         status: true,
     },
     {
-        customerTypeId: 8,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'Sanofi',
+        customerGroupId: 8,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'Sanofi',
         status: true,
     },
     {
-        customerTypeId: 9,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'AstraZeneca',
+        customerGroupId: 9,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'AstraZeneca',
         status: true,
     },
     {
-        customerTypeId: 10,
-        customerTypeCode: 'ABC',
-        customerTypeName: 'GSK',
+        customerGroupId: 10,
+        customerGroupCode: 'ABC',
+        customerGroupName: 'GSK',
         status: true,
     },
 ]
 const formTitle = $('#formTitle')
 const defaultFormTitle = formTitle.text()
-const customerTypeList = new List('customerTypeList', options)
+const customerGroupList = new List('customerGroupList', options)
 const mainCard = $('#mainCard')
 const newBtnGroup = $('#newBtnGroup')
-const customerTypeForm = $('#customerTypeForm')
-const customerTypeIdInput = $('#customerTypeId')
-const customerTypeCodeInput = $('#customerTypeCode')
-const customerTypeNameInput = $('#customerTypeName')
+const customerGroupForm = $('#customerGroupForm')
+const customerGroupIdInput = $('#customerGroupId')
+const customerGroupCodeInput = $('#customerGroupCode')
+const customerGroupNameInput = $('#customerGroupName')
 /** @type {[{id: number, type: string}]} */
 const highlightList = []
 let newOpened = mainCard.hasClass('newOpened');
@@ -88,7 +88,7 @@ let searchKeyword = ''
 let searchTimer
 let handleByPaste = false
 
-async function loadcustomerTypes(page, search) {
+async function loadcustomerGroups(page, search) {
     page = page || 1
     const params = new URLSearchParams()
     params.append('page', page)
@@ -97,19 +97,19 @@ async function loadcustomerTypes(page, search) {
         params.append('query', search)
         params.append('queryByName', $('input[name=searchBy]:checked').val())
     }
-    $.get(`http://localhost:5000/customerType/list?${params}`)
+    $.get(`http://localhost:5000/CustomerGroup/list?${params}`)
         .done(result => {
             currentPage = page
             $('#mainGrid tbody .delete-btn').each((i, elm) => {
                 bootstrap.Popover.getInstance(elm).dispose()
             })
-            customerTypeList.clear()
-            customerTypeList.add(result.items, onLoadcustomerTypeList)
+            customerGroupList.clear()
+            customerGroupList.add(result.items, onLoadcustomerGroupList)
             const totalPage = Math.max(Math.ceil(result.total / result.itemsPerPage), 1)
             currentTotalPage = totalPage
             if (page > totalPage) {
                 page = totalPage
-                loadcustomerTypes(page, search)
+                loadcustomerGroups(page, search)
                 return
             }
             renderPaginationNumber(currentPage, totalPage)
@@ -155,7 +155,7 @@ function renderPaginationNumber(active, totalPage) {
                     class: 'page',
                     type: 'button',
                 }).text(page).on('click', () => {
-                    loadcustomerTypes(page, searchKeyword)
+                    loadcustomerGroups(page, searchKeyword)
                 })
             )
         }
@@ -168,9 +168,9 @@ function renderPaginationNumber(active, totalPage) {
 }
 
 function formClear() {
-    customerTypeForm.removeClass('was-validated')
-    customerTypeIdInput.val('')
-    customerTypeForm[0].reset()
+    customerGroupForm.removeClass('was-validated')
+    customerGroupIdInput.val('')
+    customerGroupForm[0].reset()
 }
 
 function toggleNewForm() {
@@ -179,15 +179,15 @@ function toggleNewForm() {
         formClear()
         mainCard.removeClass('updating')
         formTitle.text(defaultFormTitle)
-        $('#customerTypeList').find('.actions > button').removeClass('disabled')
+        $('#customerGroupList').find('.actions > button').removeClass('disabled')
     }
     mainCard.toggleClass('newOpened', newOpened)
 }
 
-function loadcustomerTypeIntoForm(customerType) {
-    customerTypeIdInput.val(customerType.customerTypeId)
-    customerTypeCodeInput.val(customerType.customerTypeCode)
-    customerTypeNameInput.val(customerType.customerTypeName)
+function loadcustomerGroupIntoForm(customerGroup) {
+    customerGroupIdInput.val(customerGroup.customerGroupId)
+    customerGroupCodeInput.val(customerGroup.customerGroupCode)
+    customerGroupNameInput.val(customerGroup.customerGroupName)
 }
 
 function trimInputElement(e) {
@@ -202,38 +202,38 @@ function trimInputElement(e) {
     }
 }
 
-function onLoadcustomerTypeList(items) {
+function onLoadcustomerGroupList(items) {
     items.forEach(item => {
-        const itemId = item.values().customerTypeId
+        const itemId = item.values().customerGroupId
         const rowElm = $(item.elm)
 
         rowElm.find('.edit-btn').on('click', () => {
-            if (newOpened && !customerTypeIdInput.val()) {
+            if (newOpened && !customerGroupIdInput.val()) {
                 return
             }
 
-            $('#formTitle').text(`Cập nhật: ${item.values().customerTypeName}`)
-            loadcustomerTypeIntoForm(item.values())
-            $('#customerTypeList').find('.delete-btn').addClass('disabled')
+            $('#formTitle').text(`Cập nhật: ${item.values().customerGroupName}`)
+            loadcustomerGroupIntoForm(item.values())
+            $('#customerGroupList').find('.delete-btn').addClass('disabled')
             if (!newOpened) {
                 mainCard.addClass('updating')
                 toggleNewForm()
             }
         })
 
-        function deletecustomerType() {
+        function deletecustomerGroup() {
             if (!popOver) {
                 return
             }
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:5000/customerType/${itemId}`,
+                url: `http://localhost:5000/CustomerGroup/${itemId}`,
                 dataType: 'json',
                 contentType: 'application/json',
             })
                 .done(result => {
                     console.log(result)
-                    loadcustomerTypes(currentPage, searchKeyword)
+                    loadcustomerGroups(currentPage, searchKeyword)
                 })
                 .fail(err => {
                     console.log(err)
@@ -242,9 +242,9 @@ function onLoadcustomerTypeList(items) {
 
         const popOverElement = $('<div></div>').append([
             $('<p class="mb-2"></p>')
-                .append($('<span></span>').text('Xác nhận xoá customerType '))
-                .append($('<strong></strong>').text(item.values().customerTypeCode)),
-            $('<button class="btn btn-sm btn-danger w-50 mx-auto d-block">Xoá</button>').on('click', deletecustomerType),
+                .append($('<span></span>').text('Xác nhận xoá customerGroup '))
+                .append($('<strong></strong>').text(item.values().customerGroupCode)),
+            $('<button class="btn btn-sm btn-danger w-50 mx-auto d-block">Xoá</button>').on('click', deletecustomerGroup),
         ])
         const popOverOptions = {
             html: true,
@@ -266,7 +266,7 @@ function onLoadcustomerTypeList(items) {
     })
 }
 
-customerTypeCodeInput.on({
+customerGroupCodeInput.on({
     keypress: e => {
         const key = String.fromCharCode(e.charCode || e.which)
         if (!/^[a-zA-Z0-9]+$/.test(key)) {
@@ -275,17 +275,17 @@ customerTypeCodeInput.on({
         }
     },
     change: e => {
-        customerTypeCodeInput.val(customerTypeCodeInput.val().replace(/[^a-zA-Z0-9]+/g, ''))
+        customerGroupCodeInput.val(customerGroupCodeInput.val().replace(/[^a-zA-Z0-9]+/g, ''))
     }
 })
 
-customerTypeNameInput.on('input', trimInputElement)
+customerGroupNameInput.on('input', trimInputElement)
 
-customerTypeList.clear()
-loadcustomerTypes()
+customerGroupList.clear()
+loadcustomerGroups()
 
 newBtnGroup.on('click', () => {
-    $('#customerTypeList').find('.actions > button').addClass('disabled')
+    $('#customerGroupList').find('.actions > button').addClass('disabled')
     toggleNewForm()
 })
 
@@ -294,7 +294,7 @@ $('#paginationBar .pagination-prev').on('click', () => {
         return
     }
 
-    loadcustomerTypes(--currentPage, searchKeyword)
+    loadcustomerGroups(--currentPage, searchKeyword)
 })
 
 $('#paginationBar .pagination-next').on('click', () => {
@@ -302,7 +302,7 @@ $('#paginationBar .pagination-next').on('click', () => {
         return
     }
 
-    loadcustomerTypes(++currentPage, searchKeyword)
+    loadcustomerGroups(++currentPage, searchKeyword)
 })
 
 $('#searchInput').on({
@@ -323,7 +323,7 @@ $('#searchInput').on({
                 return
             }
             searchKeyword = keyword
-            loadcustomerTypes(1, searchKeyword)
+            loadcustomerGroups(1, searchKeyword)
         }, keyword ? 400 : 0)
     },
     paste: e => {
@@ -338,7 +338,7 @@ $('#searchInput').on({
         }
 
         searchKeyword = e.originalEvent.clipboardData.getData('Text')
-        loadcustomerTypes(1, searchKeyword)
+        loadcustomerGroups(1, searchKeyword)
     }
 })
 
@@ -350,31 +350,31 @@ $(':is(#byName, #byCode)').on('change', () => {
     if (!searchKeyword) {
         return
     }
-    loadcustomerTypes(1, searchKeyword)
+    loadcustomerGroups(1, searchKeyword)
 })
 
-customerTypeForm.submit((e) => {
+customerGroupForm.submit((e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (customerTypeForm.find(':invalid').length > 0) {
-        customerTypeForm.addClass('was-validated')
+    if (customerGroupForm.find(':invalid').length > 0) {
+        customerGroupForm.addClass('was-validated')
         return
     }
 
     const data = {
-        customerTypeCode: customerTypeCodeInput.val().trim().toUpperCase(),
-        customerTypeName: customerTypeNameInput.val().trim()
+        customerGroupCode: customerGroupCodeInput.val().trim().toUpperCase(),
+        customerGroupName: customerGroupNameInput.val().trim()
     }
-    const customerTypeId = parseInt($('#customerTypeId').val())
-    const url = customerTypeId ? `http://localhost:5000/customerType/${customerTypeId}` : 'http://localhost:5000/customerType/create'
-    const method = customerTypeId ? 'PUT' : 'POST'
+    const customerGroupId = parseInt($('#customerGroupId').val())
+    const url = customerGroupId ? `http://localhost:5000/CustomerGroup/${customerGroupId}` : 'http://localhost:5000/CustomerGroup/create'
+    const method = customerGroupId ? 'PUT' : 'POST'
 
-    if (data.customerTypeCode.length === 0 || data.customerTypeName.length === 0) {
+    if (data.customerGroupCode.length === 0 || data.customerGroupName.length === 0) {
         return
     }
 
-    $('#customerTypeForm > fieldset').prop('disabled', true)
+    $('#customerGroupForm > fieldset').prop('disabled', true)
     $.ajax({
         type: method,
         url,
@@ -389,15 +389,15 @@ customerTypeForm.submit((e) => {
                 formClear()
             }
             highlightList.push({
-                id: result.customerTypeId,
-                type: customerTypeId ? 'info' : 'success'
+                id: result.customerGroupId,
+                type: customerGroupId ? 'info' : 'success'
             })
-            loadcustomerTypes(currentPage, searchKeyword)
+            loadcustomerGroups(currentPage, searchKeyword)
         })
         .fail(err => {
             console.log(err)
         })
         .always(() => {
-            $('#customerTypeForm > fieldset').prop('disabled', false)
+            $('#customerGroupForm > fieldset').prop('disabled', false)
         })
 })

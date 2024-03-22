@@ -1,37 +1,104 @@
-﻿const initialList = Array(10).fill(undefined).map((item, index) => ({
-    cusId: index + 1,
-    cusCode: 'KH1',
-    cusName: 'Pham Thanh',
-    address: 'Ha Noi',
-    TaxCode: '0110611386',
-    email: 'pthanh@gmail.com',
-    phone: '0393797828',
-    CustomerTypeId: 1,
-    CustomerGroupId: 1
-}))
-const options = {
+﻿const options = {
     valueNames: [
-        'cusName',
-        'cusCode',
+        'customerCode',
+        'customerName',
         'email',
-        'phone',
+        'phoneNumber',
         'address',
         {
-            data: ['cusId'],
+            data: ['customerId'],
         }
     ],
     page: 10
 }
 const customerList = new List('customerList', options)
+let currentPage = 1
 
-
+setBreadcrumb(
+    {
+        route: 'Trang chủ',
+        href: '/'
+    },
+    'Danh sách khách hàng'
+)
 customerList.clear()
-customerList.add(initialList, onLoadCustomerList)
+
+function loadCusList() {
+    const searchParams = new URLSearchParams()
+    searchParams.set('Page', currentPage)
+    fetchWithCredentials(`http://localhost:5000/Customer?${searchParams}`, {
+        onSuccess: async r => {
+            const data = await r.json()
+            console.log(data)
+            $('#total-item-counter').text(data.total)
+            customerList.clear()
+            customerList.add(data.items, onLoadCustomerList)
+            console.log(data.item)
+        }
+    })
+}
+
+loadCusList();
+
 
 function onLoadCustomerList(items) {
     items.forEach(item => {
-        $(item.elm).find('.cusCode, .cusName').each((_, anchor) => {
-            anchor.href += `/${item.values().cusId}`
-        })
+        const [editAction, deleteAction] = $(item.elm).find('.customerCode, .customerName').each((_, anchor) => {
+            anchor.href += `/${item.values().customerId}`
+        }).end().find('.delete-btn, .edit-btn')
+        editAction.href = `/Customer/${item.values().customerId}/Edit`
     })
 }
+
+
+//==========================================
+
+function populateCustomerTP() {
+    // Lấy dữ liệu từ API và chèn vào thẻ select cho Customer Type
+    fetch('http://localhost:5000/CustomerType/list')
+        .then(response => response.json())
+        .then(data => {
+            const selectElement = document.getElementById('CustomerTypeId');
+            populateSelectOptions(selectElement, data.items, 'customerTypeId', 'customerTypeName', 'Loại khách hàng');
+        })
+        .catch(error => {
+            console.error('Lỗi khi lấy dữ liệu Customer Type:', error);
+        });
+
+    // Lấy dữ liệu từ API và chèn vào thẻ select cho Customer Group
+    fetch('http://localhost:5000/CustomerGroup/list')
+        .then(response => response.json())
+        .then(data => {
+            const selectElement = document.getElementById('CustomerGroupId');
+            populateSelectOptions(selectElement, data.items, 'customerGroupId', 'customerGroupName', 'Nhóm khách hàng');
+        })
+        .catch(error => {
+            console.error('Lỗi khi lấy dữ liệu Customer Group:', error);
+        });
+}
+
+function populateSelectOptions(selectElement, items, valueKey, textKey, defaultText) {
+    // Xóa tất cả các option hiện có trong thẻ select
+    selectElement.innerHTML = '';
+
+    // Tạo option mặc định
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = defaultText;
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    selectElement.appendChild(defaultOption);
+
+    // Chèn dữ liệu từ API vào thẻ select
+    items.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item[valueKey];
+        option.textContent = item[textKey];
+        selectElement.appendChild(option);
+    });
+}
+
+// Gọi hàm populateCustomerTP khi trang được tải
+window.onload = populateCustomerTP;
+
+    //======================================== SEARCH
