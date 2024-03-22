@@ -16,6 +16,7 @@ using PDMS.Shared.DTO.Major;
 using PDMS.Shared.DTO.Product;
 using PDMS.Shared.DTO.User;
 using System.Runtime.InteropServices;
+using PDMS.Shared.DTO.CustomerGroup;
 using PDMS.Shared;
 
 namespace PDMS.Application.AutoMapper {
@@ -31,7 +32,12 @@ namespace PDMS.Application.AutoMapper {
 
             CreateMap<Employee, EmployeeDto>()
                 .IncludeMembers(x => x.User, x => x.Group);
-            
+
+            CreateMap<User, CustomerDto>();
+
+            CreateMap<Customer, CustomerDto>()
+                .IncludeMembers(x => x.User);
+
             CreateMap<CreateBrandDto, Brand>()
                 .AfterMap(
                     ((src, dst, ctx) => {
@@ -86,7 +92,22 @@ namespace PDMS.Application.AutoMapper {
                 );
             CreateMap<Supplier, SupplierDto>().ReverseMap();
 
-           
+            CreateMap<CreateCustomerGroupsDto, CustomerGroup>()
+                .AfterMap(
+                    ((src, dst, ctx) => {
+                        dst.CustomerGroupId = 0;
+                        dst.Status = true;
+                    })
+                );
+            CreateMap<CustomerGroup, CustomerGroupDto>().ReverseMap();
+
+            CreateMap<CreateCustomerDto, Customer>()
+                .AfterMap(
+                    ((src, dst, ctx) => {
+                        dst.CustomerId = 0;
+                        //dst.Status = true;
+                    })
+                );
             CreateMap<Major, MajorDTO>().ReverseMap();
             CreateMap<CreateMajorDTO, Major>()
                .AfterMap(

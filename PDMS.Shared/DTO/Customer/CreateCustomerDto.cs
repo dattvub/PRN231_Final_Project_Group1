@@ -41,4 +41,6 @@ public class CreateCustomerDto
 
     [Required]
     public int CustomerGroupId { get; set; }
+    [Required]
+    public int EmpId { get; set; }
 }

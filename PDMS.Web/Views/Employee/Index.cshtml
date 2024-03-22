@@ -5,7 +5,7 @@
 }
 
 @section Heads {
-    <link rel="stylesheet" href="~/css/employee/employee-list.css"/>
+    <link rel="stylesheet" href="~/css/employee/employee-list.css" />
 }
 
 @section SideBar {
@@ -26,11 +26,11 @@
             <h4 class="h4 text-center">Thông tin nhóm</h4>
             <div class="mb-3">
                 <label class="form-label" for="group-name">Tên nhóm</label>
-                <input class="form-control" id="group-name" name="group-name" type="text"/>
+                <input class="form-control" id="group-name" name="group-name" type="text" />
             </div>
             <div class="mb-3">
                 <label class="form-label" for="group-address">Địa chỉ</label>
-                <input class="form-control" id="group-address" name="group-address" type="text"/>
+                <input class="form-control" id="group-address" name="group-address" type="text" />
             </div>
             <div class="d-flex gap-3">
                 <button id="cancel-add-group" class="btn btn-falcon-danger w-100 flex-1" type="button">
@@ -116,46 +116,46 @@
             <div class="table-responsive scrollbar">
                 <table class="table table-sm table-hover table-striped mb-0">
                     <thead class="bg-200 text-900">
-                    <tr>
-                        <th class="text-center sort" data-sort>Mã</th>
-                        <th class="text-center sort" data-sort>Tên</th>
-                        <th class="text-center sort" data-sort>Email</th>
-                        <th class="text-center sort" data-sort>Chức vụ</th>
-                        <th class="text-center sort" data-sort>Phòng ban</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th class="text-center sort" data-sort>Mã</th>
+                            <th class="text-center sort" data-sort>Tên</th>
+                            <th class="text-center sort" data-sort>Email</th>
+                            <th class="text-center sort" data-sort>Chức vụ</th>
+                            <th class="text-center sort" data-sort>Phòng ban</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody class="list">
-                    <tr class="text-nowrap btn-reveal-trigger">
-                        <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
-                            <a asp-controller="Employee" asp-action="Index" class="empCode text-secondary"></a>
-                        </td>
-                        <td class="align-middle white-space-nowrap py-2 px-3">
-                            <a asp-controller="Employee" asp-action="Index" class="empName text-secondary"></a>
-                        </td>
-                        <td class="align-middle white-space-nowrap px-3">
-                            <span class="email"></span>
-                            <button type="button" class="btn btn-close-falcon-container outline-none lh-1 p-1 mb-1">
-                                <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
-                            </button>
-                        </td>
-                        <td class="align-middle white-space-nowrap py-2 px-3 text-center position">123</td>
-                        <td class="align-middle white-space-nowrap py-2 px-3 text-center department">13</td>
-                        <td class="align-middle white-space-nowrap py-2 text-end px-lg">
-                            <div class="dropdown position-absolute position-lg-static rounded-1 row-option">
-                                <div class="position-absolute d-lg-none top-0 end-0 w-100 h-100 rounded-1 shadow-holder"></div>
-                                <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
-                                    <span class="iconify-inline fs--1" data-icon="fa6-solid:ellipsis"></span>
+                        <tr class="text-nowrap btn-reveal-trigger">
+                            <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
+                                <a asp-controller="Employee" asp-action="Index" class="empCode text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3">
+                                <a asp-controller="Employee" asp-action="Index" class="empName text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap px-3">
+                                <span class="email"></span>
+                                <button type="button" class="btn btn-close-falcon-container outline-none lh-1 p-1 mb-1">
+                                    <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
-                                    <div class="bg-white py-2">
-                                        <a class="dropdown-item edit-btn" href="#!">Sửa</a>
-                                        <a class="dropdown-item text-danger delete-btn" href="#!">Xoá</a>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center position">123</td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center department">13</td>
+                            <td class="align-middle white-space-nowrap py-2 text-end px-lg">
+                                <div class="dropdown position-absolute position-lg-static rounded-1 row-option">
+                                    <div class="position-absolute d-lg-none top-0 end-0 w-100 h-100 rounded-1 shadow-holder"></div>
+                                    <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
+                                        <span class="iconify-inline fs--1" data-icon="fa6-solid:ellipsis"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
+                                        <div class="bg-white py-2">
+                                            <a class="dropdown-item edit-btn" href="#!">Sửa</a>
+                                            <a class="dropdown-item text-danger delete-btn" href="#!">Xoá</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

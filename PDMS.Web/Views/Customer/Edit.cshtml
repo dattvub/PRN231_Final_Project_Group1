@@ -11,7 +11,10 @@
 @section Heads {
     <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css" />
     <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css" />
-    <link rel="stylesheet" href="~/css/customer/customer-create.css"/>
+    <link rel="stylesheet" href="~/css/customer/customer-create.css" />
+    <script>
+        window.cusId = @ViewData["cusId"]
+    </script>
 }
 @await Html.PartialAsync("_CusModifyInfo")
 
