@@ -12,6 +12,7 @@ using PDMS.Shared.Constants;
 using PDMS.Shared.DTO;
 using PDMS.Shared.DTO.Brand;
 using PDMS.Shared.DTO.Product;
+using PDMS.Shared.Exceptions;
 using System.Text.Json;
 
 namespace PDMS.Controllers
@@ -38,6 +39,7 @@ namespace PDMS.Controllers
 
         [EnableCors("allowAll")]
         [HttpGet("list")]
+        [Authorize(Roles = $"{RolesConstants.DIRECTOR},{RolesConstants.SUPERVISOR},{RolesConstants.ACCOUNTANT},{RolesConstants.SALEMAN},{RolesConstants.CUSTOMER}")]
         public async Task<ActionResult<PaginationDto<ProductDto>>> GetProducts([FromQuery] GetProductsDto getProductsDto)
         {
             var firstQuery = _context.Products.AsQueryable();
@@ -59,6 +61,60 @@ namespace PDMS.Controllers
                     .Select(x => _mapper.Map<ProductDto>(x))
                     .ToListAsync();
                 return new PaginationDto<ProductDto>(onlyInProducts);
+            }else if(getProductsDto.SortAction != null)
+            {
+                var total = await firstQuery.CountAsync();
+
+                switch (getProductsDto.SortAction)
+                {
+                        
+                    case "lowest":
+                        var productL = await firstQuery
+                        .Where(x => x.Status)
+                        .OrderByDescending(x => x.Price)
+                        .Skip((getProductsDto.Page - 1) * getProductsDto.Quantity)
+                        .Take(getProductsDto.Quantity)
+                        .Select(x => _mapper.Map<ProductDto>(x))
+                        .ToListAsync();
+
+                        return new PaginationDto<ProductDto>(productL, total)
+                        {
+                            Page = getProductsDto.Page,
+                            ItemsPerPage = getProductsDto.Quantity,
+                            Query = getProductsDto.Query
+                        };
+                    case "highest":
+                        var productH = await firstQuery
+                        .Where(x => x.Status)
+                        .OrderBy(x => x.Price)
+                        .Skip((getProductsDto.Page - 1) * getProductsDto.Quantity)
+                        .Take(getProductsDto.Quantity)
+                        .Select(x => _mapper.Map<ProductDto>(x))
+                        .ToListAsync();
+
+                        return new PaginationDto<ProductDto>(productH, total)
+                        {
+                            Page = getProductsDto.Page,
+                            ItemsPerPage = getProductsDto.Quantity,
+                            Query = getProductsDto.Query
+                        };
+                    case "newest":
+                    default:
+                        var products = await firstQuery
+                        .Where(x => x.Status)
+                        .OrderByDescending(x => x.ProductId)
+                        .Skip((getProductsDto.Page - 1) * getProductsDto.Quantity)
+                        .Take(getProductsDto.Quantity)
+                        .Select(x => _mapper.Map<ProductDto>(x))
+                        .ToListAsync();
+
+                        return new PaginationDto<ProductDto>(products, total)
+                        {
+                            Page = getProductsDto.Page,
+                            ItemsPerPage = getProductsDto.Quantity,
+                            Query = getProductsDto.Query
+                        };
+                }
             }
             else
             {
@@ -144,47 +200,83 @@ namespace PDMS.Controllers
 
         [EnableCors("allowAll")]
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProductDto>> UpdateProduct([FromRoute] int id, [FromBody] UpdateProductDto updateProductDto)
+        [Authorize(Roles = RolesConstants.DIRECTOR)]
+        public async Task<ActionResult<ProductDto>> UpdateProduct(
+            [FromRoute] int id, 
+            [FromForm] UpdateProductDto updateProductDto,
+            List<IFormFile> images)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id && x.Status);
+            try
+            {
+            string? fullPath = null;
+            string? relImagePath = null;
+            List<string> itemsPath = new List<string>();
+            string? itemsFullPath = null;
+            var userId = _userManager.GetUserId(User);
 
+            var emp = await _context.Employees.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
+            if (emp == null)
+            {
+                return ValidationError.BadRequest400("Không có Employee hợp lệ");
+            }
+
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id && x.Status);
             if (product == null)
             {
                 return ValidationError.BadRequest400($"Product with id {id} is not exist");
             }
+            if (images.Count > 0)
+            {
+                foreach (var image in images)
+                {
+                    var prgImg = new MagickImage(image.OpenReadStream());
+                    prgImg.Format = MagickFormat.Jpg;
+                    prgImg.ColorSpace = ColorSpace.sRGB;
+                    var fileName = $"{Guid.NewGuid():D}.jpg";
+                    fullPath = Path.Combine(StaticRootDir, "images", fileName);
+                    await prgImg.WriteAsync(fullPath, MagickFormat.Jpg);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        relImagePath = Path
+                            .Combine("files", "images", fileName)
+                            .Replace(Path.DirectorySeparatorChar, '/');
+                        itemsPath.Add(relImagePath);
+                    }
+                }
+                itemsFullPath = JsonSerializer.Serialize(itemsPath);
+            }
 
             var newProduct = _mapper.Map<Product>(updateProductDto);
-            //product.ProductCode = newProduct.ProductCode;
             product.ProductName = newProduct.ProductName;
             product.ImportPrice = newProduct.ImportPrice;
             product.Price = newProduct.Price;
             product.Quantity = newProduct.Quantity;
             product.BarCode = newProduct.BarCode;
-            product.LastModifiedById = newProduct.LastModifiedById;
+            product.LastModifiedById = emp.EmpId;
             product.LastModifiedTime = newProduct.LastModifiedTime;
-            product.Image = newProduct.Image;
+            product.Description = newProduct.Description;
             product.BrandId = newProduct.BrandId;
             product.SuppilerId = newProduct.SuppilerId;
             product.MajorId = newProduct.MajorId;
+            product.Image = itemsFullPath;
+            
+            await _context.SaveChangesAsync();
+            return _mapper.Map<ProductDto>(product);
 
-            try
+            }
+            catch (BlameClient e)
             {
-                var result = await _context.SaveChangesAsync();
-                if (result == 0)
-                {
-                    return ValidationError.BadRequest400("Error occur while update product");
-                }
+                return ValidationError.BadRequest400(e.Message);
             }
             catch (Exception e)
             {
                 return ValidationError.InternalServerError500(e.Message);
             }
-
-            return Ok(_mapper.Map<ProductDto>(product));
         }
 
         [EnableCors("allowAll")]
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = RolesConstants.DIRECTOR)]
         public async Task<ActionResult<ProductDto>> DeleteProduct([FromRoute] int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id && x.Status);
@@ -205,6 +297,7 @@ namespace PDMS.Controllers
 
         [EnableCors("allowAll")]
         [HttpGet("{id:int}")]
+        [Authorize(Roles = $"{RolesConstants.DIRECTOR},{RolesConstants.SUPERVISOR},{RolesConstants.ACCOUNTANT},{RolesConstants.SALEMAN},{RolesConstants.CUSTOMER}")]
         public async Task<ActionResult<ProductDto>> DetailProduct([FromRoute] int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id && x.Status);

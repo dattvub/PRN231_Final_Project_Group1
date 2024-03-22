@@ -13,5 +13,6 @@ namespace PDMS.Shared.DTO.Product
         public string? Query { get; set; }
         public bool QueryByName { get; set; } = true;
         public int[]? OnlyIn { get; set; }
+        public string? SortAction { get; set; }
     }
 }

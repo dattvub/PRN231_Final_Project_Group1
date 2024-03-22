@@ -12,18 +12,13 @@ namespace PDMS.Shared.DTO.Product
         private string _productName;
         private double _importPrice;
         private double _price;
-        //private int _quality;
         private string _barCode;
         private int _createdById;
-        //private DateTime _createdTime;
         private int _lastModifiedById;
-        //private DateTime _lastModifiedTime;
-        //private string _image;
         private string _description;
         private int _brandId;
         private int _suppilerId;
         private int _majorId;
-        //private bool _status;
 
         [Required]
         public string ProductName
@@ -54,7 +49,6 @@ namespace PDMS.Shared.DTO.Product
         [Required]
         public int LastModifiedById { get => _lastModifiedById; set => _lastModifiedById = value; }
         [Required]
-        //public string Image { get => _image; set => _image = value; }
         public string Description { get => _description; set => _description = value; }
         [Required]
         public int BrandId { get => _brandId; set => _brandId = value; }
