@@ -18,7 +18,7 @@ namespace PDMS.Shared.DTO.Product
         //private DateTime _createdTime;
         private int _lastModifiedById;
         //private DateTime _lastModifiedTime;
-        private string _image;
+        //private string _image;
         private string _description;
         private int _brandId;
         private int _suppilerId;
@@ -26,12 +26,10 @@ namespace PDMS.Shared.DTO.Product
         //private bool _status;
 
         [Required]
-        [MaxLength(50)]
-        [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Product name must be alphanumeric")]
         public string ProductName
         {
             get => _productName;
-            set => _productName = value.Trim().ToUpper();
+            set => _productName = value.Trim();
         }
         [Required]
         public double ImportPrice 
@@ -56,7 +54,7 @@ namespace PDMS.Shared.DTO.Product
         [Required]
         public int LastModifiedById { get => _lastModifiedById; set => _lastModifiedById = value; }
         [Required]
-        public string Image { get => _image; set => _image = value; }
+        //public string Image { get => _image; set => _image = value; }
         public string Description { get => _description; set => _description = value; }
         [Required]
         public int BrandId { get => _brandId; set => _brandId = value; }

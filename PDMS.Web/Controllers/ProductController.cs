@@ -32,4 +32,10 @@ public class ProductController : Controller {
     {
         return View();
     }
+
+    [Route("testCreate")]
+    public IActionResult CreateTest()
+    {
+        return View();
+    }
 }

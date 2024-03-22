@@ -39,6 +39,15 @@ async function loadProducts(page, search) {
             productList.clear()
             productList.add(result.items, x => {
                 x.forEach(y => {
+                    const index = y.elm.querySelector('.thumb-wrapper').href.split('/')
+                    index.pop()
+                    index.push(y.values().productId)
+                    y.elm.querySelector('.thumb-wrapper').href = index.join('/')
+                    JsBarcode(y.elm.querySelector('.barcodeImg'), y.values().barCode, {
+                        format: "CODE128",
+                        height: 70,
+                        displayValue: false
+                    });
                     if (y.elm.querySelector('.update-wrapper') == null) {
                         return
                     } else {
@@ -66,10 +75,7 @@ async function loadProducts(page, search) {
                                 })
                         })
                     }
-                    const index = y.elm.querySelector('.thumb-wrapper').href.split('/')
-                    index.pop()
-                    index.push(y.values().productId)
-                    y.elm.querySelector('.thumb-wrapper').href = index.join('/')
+
                 })
             })
             const totalPage = Math.max(Math.ceil(result.total / result.itemsPerPage), 1)
@@ -129,7 +135,7 @@ function renderPaginationNumber(active, totalPage) {
                     class: 'page',
                     type: 'button',
                 }).text(page).on('click', () => {
-                    loadBrands(page, searchKeyword)
+                    loadProducts(page)
                 })
             )
         }

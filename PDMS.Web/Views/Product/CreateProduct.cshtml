@@ -2,67 +2,377 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Protected"] = true;
 }
-<div class="card-body bg-light">
-    <div class="tab-content">
-        <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-d4ebf6c5-74b4-4308-8c64-cda718c9b324" id="dom-d4ebf6c5-74b4-4308-8c64-cda718c9b324">
 
+@section HeadBeforeStyle {
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/tom-select/dist/css/tom-select.bootstrap5.css">
+    <link rel="stylesheet" href="~/lib/quill/dist/quill.snow.css">
+    <link rel="stylesheet" href="~/css/product/product.css">
+    <link rel="stylesheet" href="~/lib/choices.js/choices.min.css" />
+    <link rel="stylesheet" href="~/lib/dropzone/dropzone.min.css" />
+}
 <form id="productForm">
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-name">Product Name</label>
-                    <input class="form-control" id="productName" name="productName" type="text" placeholder="Enter product name" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-email">Import Price</label>
-                    <input class="form-control" id="importPrice" name="importPrice" type="text" placeholder="Import price" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-email">Price</label>
-                    <input class="form-control" id="price" name="price" type="text" placeholder="price" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">BarCode</label>
-                    <input class="form-control" id="bar" name="bar" type="text" placeholder="BarCode" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Created By Id</label>
-                    <input class="form-control" id="createdBy" name="createdBy" type="text" placeholder="Created By Id" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Last Modified By Id</label>
-                    <input class="form-control" id="lastModified" name="lastModified" type="text" placeholder="Last Modified By Id" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Image</label>
-                    <input class="form-control" id="image" name="image" type="text" placeholder="Image" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Brand Id</label>
-                    <input class="form-control" id="brand" name="brand" type="text" placeholder="Brand Id" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Suppiler Id</label>
-                    <input class="form-control" id="supplier" name="supplier" type="text" placeholder="Suppiler Id" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-password">Major Id</label>
-                    <input class="form-control" id="major" name="major" type="text" placeholder="Major Id" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="basic-form-gender">Gender</label>
-        <select class="form-select" id="basic-form-gender" aria-label="Default select example">
-            <option selected="selected">Select your gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Thêm sản phẩm </h1>
+
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row">
+            <div class="col-lg-8 mb-3 mb-lg-0">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thông tin sản phẩm</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="productNameLabel" class="form-label">Tên gọi <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Sản phẩm dùng để bán"></i></label>
+
+                            <input type="text" class="form-control" id="productName" name="productName" placeholder="Actadol, Ketoconazol, .v.v " aria-label="Actadol, Ketoconazol, .v.v ">
+                        </div>
+                        <!-- End Form -->
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-4">
+                                    <label for="SKULabel" class="form-label">Barcode</label>
+
+                                    <input type="text" class="form-control" id="bar" name="bar" placeholder="eg. 348121032" aria-label="eg. 348121032">
+                                </div>
+                                <!-- End Form -->
+                            </div>
+                            <!-- End Col -->
+                            @* <div class="col-sm-6">
+                            <!-- Form -->
+                            <div class="mb-4">
+                            <label for="weightLabel" class="form-label">Weight</label>
+
+                            <div class="input-group">
+                            <input type="text" class="form-control" name="weightName" id="weightLabel" placeholder="0.0" aria-label="0.0">
+
+                            <div class="input-group-append">
+                            <!-- Select -->
+                            <div class="tom-select-custom tom-select-custom-end">
+                            <select class="js-select form-select" autocomplete="off" data-hs-tom-select-options='{
+                            "searchInDropdown": false,
+                            "hideSearch": true,
+                            "dropdownWidth": "6rem"
+                            }'>
+                            <option value="lb">lb</option>
+                            <option value="oz">oz</option>
+                            <option value="kg" selected>kg</option>
+                            <option value="g">g</option>
+                            </select>
+                            </div>
+                            <!-- End Select -->
+                            </div>
+                            </div>
+
+                            <small class="form-text">Used to calculate shipping rates at checkout and label prices during fulfillment.</small>
+                            </div>
+                            <!-- End Form -->
+                            </div> *@
+                            <!-- End Col -->
+                        </div>
+                        <!-- End Row -->
+
+                        <label class="form-label">Mô tả <span class="form-label-secondary">(Optional)</span></label>
+
+                        <!-- Quill -->
+                            <div id="quillEditor">
+                            </div>
+                        <!-- End Quill -->
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header card-header-content-between">
+                        <h4 class="card-header-title">Media</h4>
+                        <!-- End Dropdown -->
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body ">
+                        <!-- Dropzone -->
+                        <div id="attachFilesNewProjectLabel" class="js-dropzone dz-dropzone dz-dropzone-card" data-options='{"url":"valid/url","acceptedFiles":"image/*"}'>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                            </div>
+                            <div class="dz-message">
+
+                                <h5>Kéo hoặc thả ảnh tại đây</h5>
+
+                                <p class="mb-2">or</p>
+
+                                <span class="btn btn-light btn-sm">Duyệt ảnh</span>
+                            </div>
+                        </div>
+                        <!-- End Dropzone -->
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+                <!-- Card -->
+                @* <div class="card">
+                <!-- Header -->
+                <div class="card-header">
+                <h4 class="card-header-title">Variants</h4>
+                </div>
+                <!-- End Header -->
+                <!-- Body -->
+                <div class="card-body">
+                <h6 class="text-cap">Options</h6>
+
+                <div class="js-add-field" data-hs-add-field-options='{
+                "template": "#addAnotherOptionFieldTemplate",
+                "container": "#addAnotherOptionFieldContainer",
+                "defaultCreated": 0
+                }'>
+                <div class="row mb-4">
+                <div class="col-sm-4 mb-2 mb-sm-0">
+                <!-- Select -->
+                <div class="tom-select-custom">
+                <select class="js-select form-select" data-hs-tom-select-options='{
+                "searchInDropdown": false,
+                "hideSearch": true
+                }'>
+                <option value="Size">Size</option>
+                <option value="Color">Color</option>
+                <option value="Material">Material</option>
+                <option value="Style">Style</option>
+                <option value="Title">Title</option>
+                </select>
+                </div>
+                <!-- End Select -->
+                </div>
+                <!-- End Col -->
+
+                <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Enter tags" aria-label="Enter tags">
+                </div>
+                <!-- End Col -->
+                </div>
+                <!-- End Row -->
+                <!-- Container For Input Field -->
+                <div id="addAnotherOptionFieldContainer"></div>
+
+                <a href="javascript:;" class="js-create-field form-link">
+                <i class="bi-plus"></i> Add another option
+                </a>
+                </div>
+
+                <!-- Add Another Option Input Field -->
+                <div id="addAnotherOptionFieldTemplate" style="display: none;">
+                <div class="row mb-4">
+                <div class="col-sm-4 mb-2 mb-sm-0">
+                <!-- Select -->
+                <div class="tom-select-custom">
+                <select class="js-select-dynamic form-select" data-hs-tom-select-options='{
+                "searchInDropdown": false,
+                "hideSearch": true
+                }'>
+                <option value="Size">Size</option>
+                <option value="Color">Color</option>
+                <option value="Material">Material</option>
+                <option value="Style">Style</option>
+                <option value="Title">Title</option>
+                </select>
+                </div>
+                <!-- End Select -->
+                </div>
+                <!-- End Col -->
+
+                <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="Enter tags" aria-label="Enter tags">
+                </div>
+                <!-- End Col -->
+                </div>
+                <!-- End Row -->
+                </div>
+                <!-- End Add Another Option Input Field -->
+                </div>
+                <!-- Body -->
+                </div> *@
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-4">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Định giá</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="priceNameLabel" class="form-label">Giá tiền</label>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="price" name="price" placeholder="0.00" aria-label="0.00">
+
+                                <div class="input-group-append">
+                                    <!-- Select -->
+                                    <div class="tom-select-custom">
+                                        <select class="js-select form-select">
+                                            <option value="VND" selected>VND</option>
+                                        </select>
+                                    </div>
+                                    <!-- End Select -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="priceNameLabel" class="form-label">Giá nhập</label>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="importPrice" name="importPrice" placeholder="0.00" aria-label="0.00">
+
+                                <div class="input-group-append">
+                                    <!-- Select -->
+                                    <div class="tom-select-custom">
+                                        <select class="js-select form-select">
+                                            <option value="VND" selected>VND</option>
+                                        </select>
+                                    </div>
+                                    <!-- End Select -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Form -->
+                        @*                         <div class="mb-2">
+                        <a class="d-inline-block" href="javascript:;" data-bs-toggle="modal" data-bs-target="#productsAdvancedFeaturesModal">
+                        <i class="bi-star-fill fs-4 text-warning me-1"></i> Set "Compare to" price
+                        </a>
+                        </div>
+
+                        <a class="d-inline-block" href="javascript:;" data-bs-toggle="modal" data-bs-target="#productsAdvancedFeaturesModal">
+                        <i class="bi-star-fill fs-4 text-warning me-1"></i> Bulk discount pricing
+                        </a> *@
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+                <!-- Card -->
+                <div class="card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Danh mục</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Thương hiệu</label>
+
+                            <!-- Select -->
+                            <select id="brand" size="1" name="brand">
+                                <option value="">Chọn nhóm...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Nguồn cung</label>
+
+                            <!-- Select -->
+                            <select id="supplier" size="1" name="supplier">
+                                <option value="">Chọn nguồn cung...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Ngành hàng</label>
+
+                            <!-- Select -->
+                            <select id="major" size="1" name="major">
+                                <option value="">Chọn ngành hàng...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+
+        <div class="position-fixed start-50 bottom-0 translate-middle-x w-100 zi-99 mb-3" style="max-width: 40rem;">
+            <!-- Card -->
+            <div class="card card-sm bg-dark border-dark mx-2">
+                <div class="card-body">
+                    <div class="row justify-content-center justify-content-sm-between">
+                        <div class="col">
+                            <a type="button" class="btn btn-danger" asp-controller="Product" asp-action="ViewProduct">Cancel</a>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-auto">
+                            <div class="d-flex gap-3">
+                                <button type="button" class="btn btn-secondary">Discard</button>
+                                <button type="submit" class="btn btn-primary" id="saveProduct">Save</button>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+            </div>
+            <!-- End Card -->
         </div>
     </div>
-</div>
+</form>
+
+
+@section ScriptBefore {
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/dropzone/min/dropzone.min.js"></script>
+    <script src="~/lib/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script src="~/lib/quill/dist/quill.min.js"></script>
+}
 
 @section Scripts {
+
+    <script src="~/js/product/theme.min.js"></script>
+    <script src="~/lib/choices.js/choices.min.js"></script>
     <script src="~/js/product/create-product.js"></script>
+    <script>
+        (function () {
+            window.onload = function () {
+                HSCore.components.HSDropzone.init('.js-dropzone')
+                HSCore.components.HSTomSelect.init('.js-select')
+                HSCore.components.HSQuill.init('.js-quill')
+            }
+        })()
+    </script>
 }
+
+
