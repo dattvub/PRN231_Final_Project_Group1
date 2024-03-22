@@ -32,6 +32,7 @@ async function checkToken() {
         redirectOnUnauthorized: true,
         onSuccess: async (response) => {
             window.user = await response.json()
+            document.documentElement.classList.add(window.user.role)
             if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
                 window.location.replace(document.getElementById('login-route').href)
             }
@@ -82,7 +83,9 @@ async function fetchWithCredentials(url, options = {}) {
      */
     function failHandler(response) {
         if (response.status === 401 && redirectOnUnauthorized) {
-            window.location.replace(document.getElementById('login-route').href)
+            const loginUrl = new URL(document.getElementById('login-route').href)
+            loginUrl.searchParams.set('returnUrl', location.pathname)
+            window.location.replace(loginUrl)
         } else if (onFail) {
             onFail(response)
         }

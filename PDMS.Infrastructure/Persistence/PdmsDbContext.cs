@@ -80,7 +80,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             group.Property(x => x.Address)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(100)
+                .HasMaxLength(200)
                 .IsRequired();
             group
                 .HasIndex(x => x.GroupCode)
@@ -314,7 +314,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("datetime");
             employee.Property(x => x.Address)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(50);
+                .HasMaxLength(200);
             employee.Property(x => x.Gender)
                 .IsRequired();
             employee.Property(x => x.Avatar)
@@ -414,6 +414,8 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             orderTicket.Property(x => x.CustomerId)
                 .IsRequired();
+            orderTicket.Property(x => x.ExpectedOrderDate)
+                .HasColumnType("datetime");
             orderTicket.Property(x => x.OrderDate)
                 .HasColumnType("datetime");
             orderTicket.Property(x => x.CreatedDate)
@@ -429,8 +431,14 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("datetime");
             orderTicket.Property(x => x.Address)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(100)
+                .HasMaxLength(200)
                 .IsRequired();
+            orderTicket.Property(x => x.Note)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(400);
+            orderTicket.Property(x => x.Reason)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(400);
             orderTicket.Property(x => x.Discount)
                 .IsRequired();
             orderTicket
@@ -502,7 +510,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             customer.Property(x => x.Address)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsRequired();
             customer.Property(x => x.TaxCode)
                 .HasColumnType("nvarchar")

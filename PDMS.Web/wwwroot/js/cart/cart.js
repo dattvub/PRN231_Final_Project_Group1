@@ -1,4 +1,4 @@
-﻿const options = {
+﻿const cartItemListOptions = {
     valueNames: [
         'productName',
         'unitPrice',
@@ -12,8 +12,22 @@
         }
     ]
 }
-const cartItemList = new List('cart-items-table', options)
+const orderTicketFormItemOptions = {
+    valueNames: [
+        {
+            name: 'productId',
+            attr: 'value'
+        },
+        {
+            name: 'quantity',
+            attr: 'value'
+        }
+    ]
+}
+const cartItemList = new List('cart-items-table', cartItemListOptions)
+const orderTicketFormItemList = new List('create-order-ticket', orderTicketFormItemOptions)
 cartItemList.clear()
+orderTicketFormItemList.clear()
 cartItemList.on('updated', e => {
     if (!addingItem) {
         renderItemsSum()
@@ -45,6 +59,7 @@ if (Object.keys(cart).length > 0) {
                 images: JSON.parse(x.image)
             }))
             addingItem = true
+            cartItemList.clear()
             cartItemList.add(products, onCartLoad)
         }
     })
@@ -86,6 +101,7 @@ function onCartLoad(e) {
                     e.preventDefault()
                     removeFromCart(itemValues.productId)
                     cartItemList.remove('productId', itemValues.productId)
+                    orderTicketFormItemList.remove('productId', itemValues.productId)
                     if (Object.keys(cart).length === 0) {
                         cartItemList.clear()
                         $('.content').append($('<h2 class="h2 text-center my-5">Giỏ hàng trống, vui lòng thêm sản phẩm</h2>'))
@@ -95,6 +111,19 @@ function onCartLoad(e) {
     })
     renderItemsSum()
     addingItem = false
+    orderTicketFormItemList.clear()
+    orderTicketFormItemList.add(e.map(x => x.values()), onOrderTicketItemAdded)
+}
+
+function onOrderTicketItemAdded(e) {
+    e.forEach((item, index) => {
+        $(item.elm)
+            .find('.productId')
+            .prop('name', `cartItems[${index}].ProductId`)
+            .end()
+            .find('.quantity')
+            .prop('name', `cartItems[${index}].Quantity`)
+    })
 }
 
 function onQuantityChange(item) {
@@ -103,6 +132,7 @@ function onQuantityChange(item) {
     itemValues.totalPriceNumber = itemValues.quantity * itemValues.unitPriceNumber
     itemValues.totalPrice = String(itemValues.totalPriceNumber).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     item.values(itemValues)
+    orderTicketFormItemList.get('productId', itemValues.productId)[0].values(itemValues)
     $(item.elm).find('input.quantity').val(itemValues.quantity)
     const totalPrice = cartItemList.items.map(x => x.values().totalPriceNumber).reduce((prev, cur) => prev + cur, 0)
     $('#total-price').text(String(totalPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ','))

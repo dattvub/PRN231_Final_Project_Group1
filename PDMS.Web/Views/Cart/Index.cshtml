@@ -67,6 +67,12 @@
         </div>
     </div>
     <form class="card-footer bg-light d-flex justify-content-end" id="create-order-ticket" asp-controller="OrderTicket" asp-action="Create" method="get">
+        <fieldset class="list">
+            <fieldset>
+                <input type="hidden" class="productId" readonly>
+                <input type="hidden" class="quantity" readonly>
+            </fieldset>
+        </fieldset>
         <button type="submit" class="btn btn-primary">Tạo phiếu đặt hàng</button>
     </form>
 </div>

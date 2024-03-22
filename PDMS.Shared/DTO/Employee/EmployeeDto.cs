@@ -13,8 +13,6 @@ public class EmployeeDto : UserDto {
     public DateTime? ExitDate { get; set; }
     public string? Address { get; set; }
     public bool Gender { get; set; }
-    public int? CreatedById { get; set; }
     public int? GroupId { get; set; }
     public string? GroupName { get; set; }
-    public DateTime CreateDate { get; set; }
 }

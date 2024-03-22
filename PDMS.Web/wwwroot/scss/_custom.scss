@@ -67,3 +67,21 @@
 .hide-if-empty:has(.empty-check-target:empty), .hide-if-empty:empty {
   display: none !important;
 }
+
+@font-face {
+  font-family: 'LexendDeca';
+  src: url('/fonts/LexendDeca-VariableFont_wght.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JosefinSans';
+  src: url('/fonts/JosefinSans-VariableFont_wght.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alata';
+  src: url('/fonts/Alata-Regular.ttf');
+  font-display: swap;
+}
