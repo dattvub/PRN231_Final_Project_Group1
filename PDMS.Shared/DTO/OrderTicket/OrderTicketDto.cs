@@ -1,8 +1,8 @@
-﻿using PDMS.Shared.Enums;
+﻿using PDMS.Shared.DTO.OrderDetail;
 
-namespace PDMS.Domain.Entities;
+namespace PDMS.Shared.DTO.OrderTicket;
 
-public class OrderTicket {
+public class OrderTicketDto {
     public int OrderId { get; set; }
     public string OrderCode { get; set; }
     public int CustomerId { get; set; }
@@ -13,13 +13,11 @@ public class OrderTicket {
     public DateTime? ExpectedReceiveDate { get; set; }
     public DateTime? ReceiveDate { get; set; }
     public DateTime CreatedDate { get; set; }
-    public OrderTicketStatus Status { get; set; }
+    public string Status { get; set; }
     public string? Note { get; set; }
     public string? Reason { get; set; }
     public double TotalPay { get; set; }
     public string Address { get; set; }
     public int Discount { get; set; }
-    public Customer Customer { get; set; }
-    public List<OrderDetail> OrderDetails { get; set; }
-    public List<Notification> Notifications { get; set; }
+    public List<OrderDetailDto> OrderDetails { get; set; }
 }

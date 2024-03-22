@@ -26,7 +26,7 @@
 @if (ViewData["Protected"] as bool? == true) {
     <script id="protect-check">
         document.getElementById('protect-check').remove()
-        checkToken();
+        const waitCheckToken = checkToken();
     </script>
 }
 @await RenderSectionAsync("ScriptBefore", required: false)

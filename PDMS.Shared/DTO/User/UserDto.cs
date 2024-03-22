@@ -9,4 +9,5 @@ public class UserDto {
     public string PhoneNumber { get; set; }
     public string Role { get; set; }
     public string ImageUrl { get; set; }
+    public int? AssociationId { get; set; }
 }

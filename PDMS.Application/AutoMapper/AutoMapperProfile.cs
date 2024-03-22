@@ -18,11 +18,25 @@ using PDMS.Shared.DTO.User;
 using System.Runtime.InteropServices;
 using PDMS.Shared.DTO.CustomerGroup;
 using PDMS.Shared;
+using PDMS.Shared.DTO.OrderTicket;
+using PDMS.Shared.Enums;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
         public AutoMapperProfile() {
             CreateMap<Group, GroupDto>().ReverseMap();
+
+            CreateMap<OrderTicket, OrderTicketDto>()
+                .AfterMap(
+                    (ticket, dto) => {
+                        dto.Status = Enum.GetName(typeof(OrderTicketStatus), ticket.Status);
+                    });
+
+            CreateMap<OrderDetail, OrderDetailDto>()
+                .AfterMap(
+                    (detail, dto) => {
+                        dto.ProductName = detail.Product.ProductName;
+                    });
             
             CreateMap<User, UserDto>();
             
@@ -82,7 +96,6 @@ namespace PDMS.Application.AutoMapper {
                 {
 
                 }));
-            CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
             CreateMap<CreateSupplierDto, Supplier>()
                 .AfterMap(
                     ((src, dst, ctx) => {

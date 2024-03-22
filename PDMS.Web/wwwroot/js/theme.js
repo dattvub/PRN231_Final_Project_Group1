@@ -3834,6 +3834,7 @@ var quantityInit = function quantityInit() {
       }
 
       numberInput.value = value;
+      $(numberInput).trigger('change')
     });
   });
 };

@@ -1,5 +1,190 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Tạo phiếu đặt hàng";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "CUSTOMER" };
+}
+
+@section HeadBeforeStyle {
+    <script>const data = @Html.Raw(ViewData["data"])</script>
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css"/>
+    <style>
+        .sticky-top {
+            top: calc(69px + 1rem);
+        }
+    </style>
+}
+
+<div class="mb-3 d-flex align-items-center mt-2">
+    <h3 class="m-0 h3">Tạo phiếu đặt hàng</h3>
+</div>
+
+<div class="row g-3">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5>Thông tin phiếu</h5>
+            </div>
+            <div class="card-body py-3">
+                <div class="mb-3">
+                    <label for="cus-lastname" class="form-label">Họ và tên khách hàng</label>
+                    <div class="row g-3">
+                        <div class="input-group col">
+                            <span class="input-group-text">
+                                <span class="opacity-75">Họ</span>
+                            </span>
+                            <input readonly tabindex="0" required="" type="text" name="cus-lastname" id="cus-lastname" class="form-control" autocomplete="off" spellcheck="false">
+                        </div>
+                        <div class="input-group col">
+                            <span class="input-group-text">
+                                <span class="opacity-75">Tên</span>
+                            </span>
+                            <input readonly tabindex="0" required="" type="text" name="cus-firstname" id="cus-firstname" class="form-control" autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row g-3">
+                    <div class="col">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input readonly maxlength="50" type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                    <div class="col">
+                        <label for="email" class="form-label">Email</label>
+                        <input readonly maxlength="50" type="text" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-end">
+                        <label for="address" class="form-label">Địa chỉ nhận hàng</label>
+                        <a id="edit-address" href="#" class="fs--1 mb-1 fw-medium">Sửa</a>
+                    </div>
+                    <input readonly maxlength="200" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="mb-3 row g-3">
+                    <div class="col">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <label for="expected-order-date" class="form-label">Ngày gửi hàng mong muốn</label>
+                            <a href="#" id="expected-order-date-clear" class="fs--1 mb-1 fw-medium">Xoá</a>
+                        </div>
+                        <input class="form-control datetimepicker fw-medium flatpickr-input" id="expected-order-date" type="text" placeholder="dd-MM-yyyy" autocomplete="off" spellcheck="false" readonly="readonly">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <label for="expected-receive-date" class="form-label">Ngày nhận hàng mong muốn</label>
+                            <a href="#" id="expected-receive-date-clear" class="fs--1 mb-1 fw-medium">Xoá</a>
+                        </div>
+                        <input class="form-control datetimepicker fw-medium flatpickr-input" id="expected-receive-date" type="text" placeholder="dd-MM-yyyy" autocomplete="off" spellcheck="false" readonly="readonly">
+                    </div>
+                </div>
+                <div class="mb-3 row g-3">
+                    <div class="col">
+                        <label for="note" class="form-label">Ghi chú</label>
+                        <textarea maxlength="400" class="form-control" name="note" id="note" autocomplete="off" spellcheck="false" rows="4"></textarea>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Nhân viên tiếp nhận</label>
+                        <div class="d-flex gap-3">
+                            <img id="emp-img" width="106" height="106" class="fit-cover rounded-1" src="" alt="">
+                            <div>
+                                <div>
+                                    <label class="form-label opacity-85 m-0 fs--1">Họ và tên</label>
+                                    <p id="emp-name" class="fw-medium m-0 fs-1"></p>
+                                </div>
+                                <div class="hide-if-empty">
+                                    <label class="form-label opacity-85 m-0 fs--1">Chức vụ</label>
+                                    <p id="emp-position" class="fw-medium m-0 fs-1 empty-check-target"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="product-list" class="card mt-3">
+            <div class="card-header bg-light">
+                <h5>Danh sách sản phẩm</h5>
+            </div>
+            <div class="card-body p-4 list d-flex flex-column gap-4">
+                <div class="d-flex gap-3">
+                    <img width="106" height="106" class="fit-cover rounded-1 image" src="" alt="">
+                    <div class="flex-1 position-relative">
+                        <h5 class="h5 text-900 ellipsis-2 productName"></h5>
+                        <div class="ps-3 mt-2">
+                            <table class="opacity-85 fs--1">
+                                <tr>
+                                    <td class="pe-3">Mã sản phẩm:</td>
+                                    <td class="fw-medium productCode"></td>
+                                </tr>
+                                <tr>
+                                    <td class="pe-3">Số lượng:</td>
+                                    <td class="fw-medium quantity"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <span class="fs-2 text-warning fw-medium position-absolute end-0 bottom-0">
+                            <span class="totalPrice"></span>
+                            <span class="text-decoration-underline">đ</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card sticky-top">
+            <div class="card-header bg-light">
+                <h5>Tóm tắt phiếu đặt hàng</h5>
+            </div>
+            <div class="card-body p-3">
+                <table class="w-100">
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Họ và tên:</td>
+                        <td id="cus-name-summary" class="text-900 text-end pb-3 empty-check-target"></td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Số điện thoại:</td>
+                        <td id="phone-summary" class="text-900 text-end pb-3 empty-check-target">0868480002</td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Email:</td>
+                        <td id="email-summary" class="text-900 text-end pb-3 empty-check-target">zedovblack@gmail.com</td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Địa chỉ:</td>
+                        <td id="address-summary" class="text-900 text-end pb-3 empty-check-target">thôn 3, xã Lưỡng Vượng, thành phố Tuyên Quang</td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Ghi chú:</td>
+                        <td id="note-summary" class="text-900 text-end pb-3 empty-check-target"></td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Ngày gửi hàng:</td>
+                        <td id="expected-order-date-summary" class="text-900 text-end pb-3 empty-check-target"></td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Ngày nhận hàng:</td>
+                        <td id="expected-receive-date-summary" class="text-900 text-end pb-3 empty-check-target"></td>
+                    </tr>
+                    <tr class="hide-if-empty">
+                        <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Tổng tiền:</td>
+                        <td id="total-price" class="text-warning text-end empty-check-target fs-2"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer p-3 bg-light">
+                <button id="create-btn" class="btn btn-primary mx-auto d-block">Xác nhận tạo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validate/localization/messages_vi.min.js"></script>
+    <script src="~/js/order-ticket/create-order-ticket.js"></script>
 }

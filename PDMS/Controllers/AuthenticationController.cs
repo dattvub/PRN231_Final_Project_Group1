@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PDMS.Domain.Abstractions;
 using PDMS.Domain.Entities;
 using PDMS.Models;
 using PDMS.Services;
@@ -27,17 +29,20 @@ public class AuthenticationController : ControllerBase {
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
+    private readonly IPdmsDbContext _context;
 
     public AuthenticationController(
         IUserService userService,
         IConfiguration configuration,
         IMapper mapper,
-        UserManager<User> userManager
+        UserManager<User> userManager,
+        IPdmsDbContext context
     ) {
         _userService = userService;
         _configuration = configuration;
         _mapper = mapper;
         _userManager = userManager;
+        _context = context;
     }
 
     [EnableCors("allowAll")]
@@ -116,6 +121,19 @@ public class AuthenticationController : ControllerBase {
 
         var userDto = _mapper.Map<UserDto>(user);
         userDto.Role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+        if (userDto.Role == RolesConstants.CUSTOMER) {
+            userDto.AssociationId =
+                await _context.Customers
+                    .Where(x => x.UserId == user.Id)
+                    .Select(x => x.CustomerId)
+                    .FirstOrDefaultAsync();
+        } else {
+            userDto.AssociationId = await _context.Employees
+                .Where(x => x.UserId == user.Id)
+                .Select(x => x.EmpId)
+                .FirstOrDefaultAsync();
+        }
+
         return userDto;
     }
 

@@ -16,12 +16,7 @@ loginForm.on('submit', e => {
     formData.set('email', email);
     formData.set('password', password);
     formData.set('rememberMe', rememberMe)
-    // fetch('http://localhost:5000/auth/login', {
-    //     method: 'POST',
-    //     body: formData,
-    //     credentials: 'include',
-    //     headers: {}
-    // })
+
     $.ajax({
         url: 'http://localhost:5000/auth/login',
         type: 'POST',
@@ -32,7 +27,8 @@ loginForm.on('submit', e => {
             withCredentials: true,
         },
         success: function () {
-            window.location.replace("/")
+            const returnPath = new URL(location.href).searchParams.get('returnUrl') || '/'
+            window.location.replace(returnPath)
         },
         error: function (xhr) {
             $($('#error-list')[0].content.cloneNode(true))

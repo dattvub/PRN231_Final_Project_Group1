@@ -101,11 +101,23 @@ public class EmployeeController : ControllerBase {
         };
     }
 
+    [HttpGet("ByCustomer")]
+    [Authorize(Roles = RolesConstants.CUSTOMER)]
+    public async Task<ActionResult<EmployeeDto>> GetEmployeeByCustomer() {
+        var cusId = _userManager.GetUserId(User);
+        var customer = await _context.Customers
+            .Include(x => x.Employee.Group)
+            .Include(x => x.Employee.User)
+            .FirstOrDefaultAsync(x => x.UserId == cusId);
+        if (customer == null) {
+            return NotFound();
+        }
+
+        return _mapper.Map<EmployeeDto>(customer.Employee);
+    }
+
     [HttpGet("{id:int:min(1)}")]
-    [Authorize(
-        Roles =
-            $"{RolesConstants.DIRECTOR},{RolesConstants.SUPERVISOR},{RolesConstants.SALEMAN},{RolesConstants.ACCOUNTANT}"
-    )]
+    [Authorize()]
     public async Task<ActionResult<EmployeeDto>> GetEmployee([FromRoute] int id) {
         var emp = await _context.Employees
             .Include(x => x.Group)
@@ -118,7 +130,20 @@ public class EmployeeController : ControllerBase {
 
         var requesterRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
         var requesterId = _userManager.GetUserId(User);
-        if (requesterId == null || (requesterRole != RolesConstants.DIRECTOR && emp.UserId != requesterId)) {
+
+        if (string.IsNullOrWhiteSpace(requesterId) || string.IsNullOrWhiteSpace(requesterRole)) {
+            return Unauthorized();
+        }
+
+        if (requesterRole == RolesConstants.CUSTOMER) {
+            var managerId = await _context.Customers
+                .Where(x => x.UserId == requesterId)
+                .Select(x => x.EmpId)
+                .FirstOrDefaultAsync();
+            if (managerId == null || emp.EmpId != managerId) {
+                return Unauthorized();
+            }
+        } else if (requesterRole != RolesConstants.DIRECTOR && emp.UserId != requesterId) {
             return Unauthorized();
         }
 

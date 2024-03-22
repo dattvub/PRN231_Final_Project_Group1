@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "CUSTOMER" };
+}
+
+<div class="card hide-if-empty">
+    <div class="card-header">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-auto">
+                <h5 class="mb-3 mb-md-0">
+                    Giỏ hàng
+                    (<span class="total-products"></span> sản phẩm)
+                </h5>
+            </div>
+            @* <div class="col-md-auto"> *@
+            @*     <a asp-controller="OrderTicket" asp-action="Create" class="btn btn-sm btn-primary">Tạo phiếu đặt hàng</a> *@
+            @* </div> *@
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive scrollbar">
+            <table id="cart-items-table" class="table mb-0">
+                <thead class="bg-200 text-900">
+                <tr>
+                    <th class="fs--1 pt-2 pe-2 pb-2">Tê sản phẩm</th>
+                    <th class="text-center fs--1 p-2">Đơn giá</th>
+                    <th class="text-center fs--1 p-2">Số lượng</th>
+                    <th class="text-end fs--1 pt-2 ps-2 pb-2">Thành tiền</th>
+                </tr>
+                </thead>
+                <tbody class="list empty-check-target">
+                <tr>
+                    <td class="align-middle">
+                        <div class="d-flex gap-3">
+                            <a href="" class="prod-url rounded-1 overflow-hidden">
+                                <img class="fit-cover" width="72" height="72" src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="">
+                            </a>
+                            <div class="flex-1 fs-0">
+                                <h5 class="h5">
+                                    <a href="" class="prod-url text-900 ellipsis-2 productName"></a>
+                                </h5>
+                                <div class="fs--1">
+                                    <a href="#" class="text-danger fw-medium remove-btn">Xoá khỏi giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">
+                        <span class="unitPrice"></span>
+                        <span class="text-decoration-underline fs--1">đ</span>
+                    </td>
+                    <td class="align-middle">
+                        <div class="input-group input-group-sm flex-nowrap">
+                            <button class="btn btn-sm btn-outline-secondary border-300 px-2 minus">-</button>
+                            <input class="form-control text-center px-2 input-spin-none quantity" type="number" min="1" value="1" style="width: 36px">
+                            <button class="btn btn-sm btn-outline-secondary border-300 px-2 plus">+</button>
+                        </div>
+                    </td>
+                    <td class="align-middle text-end fw-medium">
+                        <span class="totalPrice"></span>
+                        <span class="text-decoration-underline fs--1">đ</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form class="card-footer bg-light d-flex justify-content-end" id="create-order-ticket" asp-controller="OrderTicket" asp-action="Create" method="post">
+        <fieldset class="list">
+            <fieldset>
+                <input type="hidden" class="productId" readonly>
+                <input type="hidden" class="quantity" readonly>
+            </fieldset>
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Tạo phiếu đặt hàng</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/js/cart/cart.js"></script>
+}

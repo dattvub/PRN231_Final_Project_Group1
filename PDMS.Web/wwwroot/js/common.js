@@ -28,20 +28,19 @@ function setCartIconQuantity(quantity) {
 }
 
 async function checkToken() {
-    await fetchWithCredentials('http://localhost:5000/auth/checktoken', {
-        redirectOnUnauthorized: true,
-        onSuccess: async (response) => {
-            window.user = await response.json()
-            if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
-                window.location.replace(document.getElementById('login-route').href)
-            }
-            const event = new CustomEvent('userLoaded', {
-                detail: window.user
-            })
-            document.getElementById('top').classList.remove('d-none')
-            window.dispatchEvent(event)
-        }
+    const response = await fetchWithCredentials('http://localhost:5000/auth/checktoken', {
+        redirectOnUnauthorized: true
     })
+    window.user = await response.json()
+    document.documentElement.classList.add(window.user.role)
+    if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
+        window.location.replace(document.getElementById('login-route').href)
+    }
+    const event = new CustomEvent('userLoaded', {
+        detail: window.user
+    })
+    document.getElementById('top').classList.remove('d-none')
+    window.dispatchEvent(event)
 }
 
 /**
@@ -82,7 +81,9 @@ async function fetchWithCredentials(url, options = {}) {
      */
     function failHandler(response) {
         if (response.status === 401 && redirectOnUnauthorized) {
-            window.location.replace(document.getElementById('login-route').href)
+            const loginUrl = new URL(document.getElementById('login-route').href)
+            loginUrl.searchParams.set('returnUrl', location.pathname)
+            window.location.replace(loginUrl)
         } else if (onFail) {
             onFail(response)
         }
@@ -162,4 +163,34 @@ function addToCart(productId, quantity) {
     }
     localStorage.setItem('cart', JSON.stringify(cart))
     setCartIconQuantity(Object.keys(cart).length)
+    $('.total-products').text(Object.keys(cart).length)
+}
+
+function updateCartItem(productId, quantity) {
+    if (!cart.hasOwnProperty(productId)) {
+        return
+    }
+    cart[productId] = quantity
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setCartIconQuantity(Object.keys(cart).length)
+}
+
+function removeFromCart(productId) {
+    if (!cart.hasOwnProperty(productId)) {
+        return
+    }
+    delete cart[productId]
+    localStorage.setItem('cart', JSON.stringify(cart))
+    const cartCount = Object.keys(cart).length
+    setCartIconQuantity(cartCount)
+    $('.total-products').text(cartCount)
+}
+
+function removeAllFromCart() {
+    Object.keys(cart).forEach(key => {
+        delete cart[key];
+    })
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setCartIconQuantity(Object.keys(cart).length)
+    $('.total-products').text(Object.keys(cart).length)
 }
