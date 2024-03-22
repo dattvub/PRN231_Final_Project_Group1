@@ -56,10 +56,23 @@ public class CustomerController : ControllerBase
         {
             return ValidationError.BadRequest400("Khách hàng không tồn tại");
         }
+        var roleTemp = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+        IQueryable<Customer> query;
+        if (roleTemp == RolesConstants.DIRECTOR)
+        {
+            query = _context.Customers
+                .Include(x => x.User)
+                .AsQueryable();
+        }
+        else
+        {
+            var tempCus = await _context.Employees.FirstOrDefaultAsync(x => x.UserId == userId);
+            query = _context.Customers
+                .Include(x => x.User)
+                .Where(x => tempCus.EmpId == x.EmpId)
+                .AsQueryable();
+        }
 
-        var query = _context.Customers
-            .Include(x => x.User)
-            .AsQueryable();
 
         var total = await query.CountAsync();
         var customers = await query
@@ -78,10 +91,7 @@ public class CustomerController : ControllerBase
 
 
     [HttpGet("{id:int:min(1)}")]
-    [Authorize(
-    Roles =
-        $"{RolesConstants.DIRECTOR},{RolesConstants.SUPERVISOR},{RolesConstants.SALEMAN},{RolesConstants.ACCOUNTANT}"
-)]
+    [Authorize()]
     public async Task<ActionResult<CustomerDto>> GetCustomer([FromRoute] int id)
     {
         var customer = await _context.Customers
@@ -99,7 +109,23 @@ public class CustomerController : ControllerBase
         var requesterRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
         var requesterId = _userManager.GetUserId(User);
 
-        if (requesterId == null || (requesterRole == RolesConstants.CUSTOMER && customer.UserId != requesterId))
+        if (string.IsNullOrWhiteSpace(requesterId) || string.IsNullOrWhiteSpace(requesterRole))
+        {
+            return Unauthorized();
+        }
+
+        if (requesterRole != RolesConstants.CUSTOMER && requesterRole != RolesConstants.DIRECTOR)
+        {
+            var managerId = await _context.Employees
+                .Where(x => x.UserId == requesterId)
+                .Select(x => x.EmpId)
+                .FirstOrDefaultAsync();
+            if (managerId == null || customer.EmpId != managerId)
+            {
+                return Unauthorized();
+            }
+        }
+        else if (requesterRole == RolesConstants.CUSTOMER && customer.UserId != requesterId)
         {
             return Unauthorized();
         }
@@ -226,7 +252,7 @@ public class CustomerController : ControllerBase
 
             await _context.SaveChangesAsync();
             return _mapper.Map<CustomerDto>(cus);
-            
+
         }
         catch (BlameClient e)
         {
