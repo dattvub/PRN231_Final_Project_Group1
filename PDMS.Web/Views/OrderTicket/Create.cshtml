@@ -35,32 +35,32 @@
                             <span class="input-group-text">
                                 <span class="opacity-75">Họ</span>
                             </span>
-                            <input tabindex="0" required="" type="text" name="cus-lastname" id="cus-lastname" class="form-control" autocomplete="off" spellcheck="false">
+                            <input readonly tabindex="0" required="" type="text" name="cus-lastname" id="cus-lastname" class="form-control" autocomplete="off" spellcheck="false">
                         </div>
                         <div class="input-group col">
                             <span class="input-group-text">
                                 <span class="opacity-75">Tên</span>
                             </span>
-                            <input tabindex="0" required="" type="text" name="cus-firstname" id="cus-firstname" class="form-control" autocomplete="off" spellcheck="false">
+                            <input readonly tabindex="0" required="" type="text" name="cus-firstname" id="cus-firstname" class="form-control" autocomplete="off" spellcheck="false">
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 row g-3">
                     <div class="col">
                         <label for="phone" class="form-label">Số điện thoại</label>
-                        <input maxlength="50" type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                        <input readonly maxlength="50" type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
                     </div>
                     <div class="col">
                         <label for="email" class="form-label">Email</label>
-                        <input maxlength="50" type="text" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                        <input readonly maxlength="50" type="text" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
                     </div>
                 </div>
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-end">
                         <label for="address" class="form-label">Địa chỉ nhận hàng</label>
-                        <a href="#" class="fs--1 mb-1 fw-medium">Sửa</a>
+                        <a id="edit-address" href="#" class="fs--1 mb-1 fw-medium">Sửa</a>
                     </div>
-                    <input maxlength="50" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
+                    <input readonly maxlength="200" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
                 </div>
                 <div class="mb-3 row g-3">
                     <div class="col">
@@ -81,7 +81,7 @@
                 <div class="mb-3 row g-3">
                     <div class="col">
                         <label for="note" class="form-label">Ghi chú</label>
-                        <textarea class="form-control" name="note" id="note" autocomplete="off" spellcheck="false" rows="4"></textarea>
+                        <textarea maxlength="400" class="form-control" name="note" id="note" autocomplete="off" spellcheck="false" rows="4"></textarea>
                     </div>
                     <div class="col">
                         <label class="form-label">Nhân viên tiếp nhận</label>
@@ -138,26 +138,26 @@
                 <h5>Tóm tắt phiếu đặt hàng</h5>
             </div>
             <div class="card-body p-3">
-                <table>
+                <table class="w-100">
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Họ và tên:</td>
-                        <td class="text-900 text-end pb-3 empty-check-target">Lê Văn Quân</td>
+                        <td id="cus-name-summary" class="text-900 text-end pb-3 empty-check-target"></td>
                     </tr>
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Số điện thoại:</td>
-                        <td class="text-900 text-end pb-3 empty-check-target">0868480002</td>
+                        <td id="phone-summary" class="text-900 text-end pb-3 empty-check-target">0868480002</td>
                     </tr>
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Email:</td>
-                        <td class="text-900 text-end pb-3 empty-check-target">zedovblack@gmail.com</td>
+                        <td id="email-summary" class="text-900 text-end pb-3 empty-check-target">zedovblack@gmail.com</td>
                     </tr>
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Địa chỉ:</td>
-                        <td class="text-900 text-end pb-3 empty-check-target">thôn 3, xã Lưỡng Vượng, thành phố Tuyên Quang</td>
+                        <td id="address-summary" class="text-900 text-end pb-3 empty-check-target">thôn 3, xã Lưỡng Vượng, thành phố Tuyên Quang</td>
                     </tr>
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Ghi chú:</td>
-                        <td class="text-900 text-end pb-3 empty-check-target"></td>
+                        <td id="note-summary" class="text-900 text-end pb-3 empty-check-target"></td>
                     </tr>
                     <tr class="hide-if-empty">
                         <td class="opacity-85 fs--1 align-top white-space-nowrap pe-3">Ngày gửi hàng:</td>
@@ -184,5 +184,7 @@
     <script src="~/lib/list.js/list.js"></script>
     <script src="~/lib/flatpickr/flatpickr.min.js"></script>
     <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validate/localization/messages_vi.min.js"></script>
     <script src="~/js/order-ticket/create-order-ticket.js"></script>
 }

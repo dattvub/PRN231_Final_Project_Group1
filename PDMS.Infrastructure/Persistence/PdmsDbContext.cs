@@ -411,6 +411,8 @@ namespace PDMS.Infrastructure.Persistence {
             orderTicket.Property(x => x.OrderId)
                 .UseIdentityColumn();
             orderTicket.Property(x => x.OrderCode)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
                 .IsRequired();
             orderTicket.Property(x => x.CustomerId)
                 .IsRequired();
@@ -432,6 +434,14 @@ namespace PDMS.Infrastructure.Persistence {
             orderTicket.Property(x => x.Address)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(200)
+                .IsRequired();
+            orderTicket.Property(x => x.CustomerName)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+            orderTicket.Property(x => x.CustomerPhone)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
                 .IsRequired();
             orderTicket.Property(x => x.Note)
                 .HasColumnType("nvarchar")

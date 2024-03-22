@@ -9,7 +9,7 @@ public class OrderTicketController : Controller {
         return View();
     }
 
-    [HttpGet]
+    [HttpPost]
     public IActionResult Create(CartItem[] cartItems) {
         ViewData["data"] = JsonSerializer.Serialize(cartItems);
         return View();

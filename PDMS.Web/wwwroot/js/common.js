@@ -28,21 +28,19 @@ function setCartIconQuantity(quantity) {
 }
 
 async function checkToken() {
-    await fetchWithCredentials('http://localhost:5000/auth/checktoken', {
-        redirectOnUnauthorized: true,
-        onSuccess: async (response) => {
-            window.user = await response.json()
-            document.documentElement.classList.add(window.user.role)
-            if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
-                window.location.replace(document.getElementById('login-route').href)
-            }
-            const event = new CustomEvent('userLoaded', {
-                detail: window.user
-            })
-            document.getElementById('top').classList.remove('d-none')
-            window.dispatchEvent(event)
-        }
+    const response = await fetchWithCredentials('http://localhost:5000/auth/checktoken', {
+        redirectOnUnauthorized: true
     })
+    window.user = await response.json()
+    document.documentElement.classList.add(window.user.role)
+    if (window.acceptRoles && !window.acceptRoles.includes(window.user.role)) {
+        window.location.replace(document.getElementById('login-route').href)
+    }
+    const event = new CustomEvent('userLoaded', {
+        detail: window.user
+    })
+    document.getElementById('top').classList.remove('d-none')
+    window.dispatchEvent(event)
 }
 
 /**
