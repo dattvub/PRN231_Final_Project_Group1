@@ -35,9 +35,9 @@
                         </a>
                         <div class="dropdown-menu py-0">
                             <div class="bg-white dark__bg-1000 py-2 rounded-3">
-                                <a class="dropdown-item" asp-controller="Major">Ngành Hàng</a>
-                                <a class="dropdown-item" asp-controller="Supplier" asp-action="Index">Supplier</a>
-                                <a class="dropdown-item" asp-controller="Brand" asp-action="Index">Brand</a>
+                                <a class="dropdown-item" asp-controller="Major" asp-action="Index">Ngành Hàng</a>
+                                <a class="dropdown-item" asp-controller="Supplier" asp-action="Index">Nhà cung cấp</a>
+                                <a class="dropdown-item" asp-controller="Brand" asp-action="Index">Thương hiệu</a>
                             </div>
                         </div>
                     </div>
@@ -79,41 +79,24 @@
                         </div>
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
-                        <div class="list-group list-group-flush fw-normal fs--1">
-                            <div class="list-group-title border-bottom">NEW</div>
-                            @for (var i = 0; i < 4; i++) {
+                        <div class="list-group list-group-flush fw-normal fs--1 " id="list-notification">
+                            <div class="list-group-title border-bottom" >NEW</div>
+@*                             @for (var i = 0; i < 4; i++) {
                                 <div class="list-group-item">
                                     <a class="notification notification-flush notification-unread" href="#">
                                         <div class="notification-avatar">
                                             <div class="avatar avatar-2xl me-3">
                                                 <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt=""/>
-
                                             </div>
                                         </div>
                                         <div class="notification-body">
-                                            <p class="mb-1">Nguyễn Văn A vừa tạo order</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                                            <p class="mb-1" id="title">Nguyễn Văn A vừa tạo order</p>
+                                            <p class="mb-1" id="content">vừa tạo order</p>
+                                            <span class="notification-time">Just now</span>
                                         </div>
                                     </a>
                                 </div>
-                            }
-                            <div class="list-group-title border-bottom">EARLIER</div>
-                            @for (var i = 0; i < 4; i++) {
-                                <div class="list-group-item">
-                                    <a class="notification notification-flush notification-unread" href="#">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-2xl me-3">
-                                                <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt=""/>
-
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1">Nguyễn Văn A vừa tạo order</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            }
+                            } *@
                         </div>
                     </div>
                     <div class="card-footer text-center border-top">
@@ -158,4 +141,83 @@
             }
         })
     })
+
+    setTimeout(() => {
+        fetchWithCredentials(`http://localhost:5000/Notifications/list`, {
+            onSuccess: async r => {
+                window.fullItems = await r.json()
+                fullItems.forEach(e => {
+                    var listItem = document.createElement("div")
+                    listItem.classList.add("list-group-item")
+
+                    var notificationLink = document.createElement("a")
+                    notificationLink.classList.add("notification", "notification-flush", "notification-unread")
+                    notificationLink.setAttribute("href", "#")
+
+                    var notificationAvatar = document.createElement("div")
+                    notificationAvatar.classList.add("notification-avatar")
+
+                    var avatarDiv = document.createElement("div")
+                    avatarDiv.classList.add("avatar", "avatar-2xl", "me-3")
+
+                    var img = document.createElement("img")
+                    img.classList.add("rounded-circle")
+                    img.setAttribute("src", "/images/blank_avatar.jpg")
+                    img.setAttribute("alt", "")
+
+                    avatarDiv.appendChild(img);
+                    notificationAvatar.appendChild(avatarDiv)
+
+                    var notificationBody = document.createElement("div")
+                    notificationBody.classList.add("notification-body")
+
+                    var paragraphT = document.createElement("em")
+                    paragraphT.classList.add("mb-1")
+                    paragraphT.textContent = e.title
+
+                    var paragraph = document.createElement("p")
+                    paragraph.classList.add("mb-1")
+                    paragraph.textContent = e.content
+
+                    var humanName = document.createElement("strong")
+                    humanName.textContent = " - " + e.customerCreate.customerName
+                    paragraph.appendChild(humanName)
+
+                    var span = document.createElement("span")
+                    span.classList.add("notification-time")
+
+                    let thing = ''
+
+                    const currentMils = new Date().getTime()
+                    const notifyMils = new Date(e.time).getTime()
+                    const secondsBetween = Math.floor(((currentMils - notifyMils) / 1000))
+                    if (secondsBetween < 60) {
+                        thing = 'Mới đây'
+                    } else if (secondsBetween >= 60 && secondsBetween < 3600) {
+                        thing = Math.floor((secondsBetween / 60)) + 'm'
+                    } else if (secondsBetween >= 3600 && secondsBetween < 86400) {
+                        thing = Math.floor((secondsBetween / 3600)) + 'h'
+                    } else {
+                        thing = Math.floor((secondsBetween / 86400)) + 'd'
+                    }
+
+                    span.textContent = thing
+
+
+                    notificationBody.appendChild(paragraphT)
+                    notificationBody.appendChild(paragraph)
+                    notificationBody.appendChild(span)
+
+                    notificationLink.appendChild(notificationAvatar)
+                    notificationLink.appendChild(notificationBody)
+                    listItem.appendChild(notificationLink)
+                    $('#list-notification').append(listItem)
+                })
+            }
+        })
+    }, 500)
+
+    
+
+
 </script>

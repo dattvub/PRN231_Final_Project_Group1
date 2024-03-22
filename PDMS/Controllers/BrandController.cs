@@ -1,12 +1,16 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using PDMS.Domain.Abstractions;
 using PDMS.Domain.Entities;
 using PDMS.Models;
+using PDMS.Shared.Constants;
 using PDMS.Shared.DTO;
 using PDMS.Shared.DTO.Brand;
 
@@ -124,5 +128,17 @@ public class BrandController : ControllerBase {
 
     private async Task<bool> CodeExisted(string code) {
         return await _context.Brands.AnyAsync(x => x.BrandCode == code);
+    }
+
+    [HttpGet("{id:int:min(1)}")]
+    public async Task<ActionResult<BrandDto>> GetBrand([FromRoute] int id)
+    {
+        var brd = await _context.Brands.FirstOrDefaultAsync(x => x.BrandId == id);
+        if (brd == null)
+        {
+            return NotFound();
+        }
+        var dto = _mapper.Map<BrandDto>(brd);
+        return dto;
     }
 }

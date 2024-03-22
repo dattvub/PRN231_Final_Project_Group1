@@ -152,4 +152,16 @@ public class SupplierController : ControllerBase
     {
         return await _context.Suppliers.AnyAsync(x => x.SupplierCode == code);
     }
+
+    [HttpGet("{id:int:min(1)}")]
+    public async Task<ActionResult<SupplierDto>> GetSupplier([FromRoute] int id)
+    {
+        var spr = await _context.Suppliers.FirstOrDefaultAsync(x => x.SupplierId == id);
+        if (spr == null)
+        {
+            return NotFound();
+        }
+        var dto = _mapper.Map<SupplierDto>(spr);
+        return dto;
+    }
 }

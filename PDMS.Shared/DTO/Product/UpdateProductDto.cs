@@ -9,39 +9,23 @@ namespace PDMS.Shared.DTO.Product
 {
     public class UpdateProductDto
     {
-        //private string _productCode;
         private string _productName;
         private double _importPrice;
         private double _price;
-        private int _quality;
+        private int _quantity;
         private string _barCode;
-        //private int _createdById;
-        //private DateTime _createdTime;
         private int _lastModifiedById;
         //private DateTime _lastModifiedTime;
-        private string _image;
         private string _description;
         private int _brandId;
         private int _suppilerId;
         private int _majorId;
-        //private bool _status;
-
-        //[Required]
-        //[MaxLength(50)]
-        //[RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Product code must be alphanumeric")]
-        //public string ProductCode
-        //{
-        //    get => _productCode;
-        //    set => _productCode = value.Trim().ToUpper();
-        //}
 
         [Required]
-        [MaxLength(50)]
-        [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "Product name must be alphanumeric")]
         public string ProductName
         {
             get => _productName;
-            set => _productName = value.Trim().ToUpper();
+            set => _productName = value.Trim();
         }
         [Required]
         public double ImportPrice
@@ -58,10 +42,10 @@ namespace PDMS.Shared.DTO.Product
         }
 
         [Required]
-        public int Quality
+        public int Quantity
         {
-            get => _quality;
-            set => _quality = value;
+            get => _quantity;
+            set => _quantity = value;
         }
 
         [Required]
@@ -74,7 +58,6 @@ namespace PDMS.Shared.DTO.Product
         [Required]
         public int LastModifiedById { get => _lastModifiedById; set => _lastModifiedById = value; }
         [Required]
-        public string Image { get => _image; set => _image = value; }
         public string Description { get => _description; set => _description = value; }
         [Required]
         public int BrandId { get => _brandId; set => _brandId = value; }

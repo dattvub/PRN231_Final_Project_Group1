@@ -18,6 +18,7 @@ using PDMS.Shared.DTO.User;
 using System.Runtime.InteropServices;
 using PDMS.Shared.DTO.CustomerGroup;
 using PDMS.Shared;
+using PDMS.Shared.DTO.Notifications;
 
 namespace PDMS.Application.AutoMapper {
     public class AutoMapperProfile : Profile {
@@ -37,6 +38,20 @@ namespace PDMS.Application.AutoMapper {
 
             CreateMap<Customer, CustomerDto>()
                 .IncludeMembers(x => x.User);
+
+            CreateMap<Employee, NotificationDto>();
+            CreateMap<Customer, NotificationDto>();
+
+            CreateMap<Notification, NotificationDto>()
+                .IncludeMembers(x => x.Employee, x => x.CustomerCreate);
+
+
+            CreateMap<CreateNotificationDto, Notification>()
+                .AfterMap(((src, dst, ctx) =>
+                {
+                    dst.Status = true;
+                    dst.Time = DateTime.Now;
+                }));
 
             CreateMap<CreateBrandDto, Brand>()
                 .AfterMap(
