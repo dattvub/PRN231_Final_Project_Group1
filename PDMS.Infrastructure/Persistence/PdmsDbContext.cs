@@ -220,7 +220,7 @@ namespace PDMS.Infrastructure.Persistence {
                 .IsRequired();
             product.Property(x => x.ProductName)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(50)
+                .HasMaxLength(300)
                 .IsRequired();
             product.Property(x => x.ImportPrice)
                 .IsRequired();
@@ -243,11 +243,10 @@ namespace PDMS.Infrastructure.Persistence {
                 .HasColumnType("datetime")
                 .IsRequired();
             product.Property(x => x.Image)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
+                .HasColumnType("text")
                 .IsRequired();
             product.Property(x => x.Description)
-                .HasColumnType("text");
+                .HasColumnType("nvarchar(max)");
             product.Property(x => x.BrandId)
                 .IsRequired();
             product.Property(x => x.SuppilerId)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ImageMagick;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using PDMS.Shared.Constants;
 using PDMS.Shared.DTO;
 using PDMS.Shared.DTO.Brand;
 using PDMS.Shared.DTO.Product;
+using System.Text.Json;
 
 namespace PDMS.Controllers
 {
@@ -19,9 +21,14 @@ namespace PDMS.Controllers
     public class ProductController : Controller
     {
         private readonly IPdmsDbContext _context;
+        private static readonly string StaticRootDir;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
+        static ProductController()
+        {
+            StaticRootDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "PDMS");
+        }
         public ProductController(IPdmsDbContext context, IMapper mapper, UserManager<User> userManager)
         {
             this._context = context;
@@ -77,8 +84,15 @@ namespace PDMS.Controllers
         [EnableCors("allowAll")]
         [HttpPost("create")]
         [Authorize(Roles = RolesConstants.DIRECTOR)]
-        public async Task<ActionResult<ProductDto>> CreateProduct([FromBody] CreateProductDto createProductDto)
+        public async Task<ActionResult<ProductDto>> CreateProduct(
+            [FromForm] CreateProductDto createProductDto,
+            List<IFormFile> images
+            )
         {
+            string? fullPath = null;
+            string? relImagePath = null;
+            List<string> itemsPath = new List<string>();
+            string? itemsFullPath = null;
             var userId = _userManager.GetUserId(User);
             var emp = await _context.Employees.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
             if (emp == null)
@@ -86,9 +100,30 @@ namespace PDMS.Controllers
                 return ValidationError.BadRequest400("Không có Employee hợp lệ");
             }
             var product = _mapper.Map<Product>(createProductDto);
+            if (images.Count > 0)
+            {
+                foreach (var image in images)
+                {
+                    var prgImg = new MagickImage(image.OpenReadStream());
+                    prgImg.Format = MagickFormat.Jpg;
+                    prgImg.ColorSpace = ColorSpace.sRGB;
+                    var fileName = $"{Guid.NewGuid():D}.jpg";
+                    fullPath = Path.Combine(StaticRootDir, "images", fileName);
+                    await prgImg.WriteAsync(fullPath, MagickFormat.Jpg);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        relImagePath = Path
+                            .Combine("files", "images", fileName)
+                            .Replace(Path.DirectorySeparatorChar, '/');
+                        itemsPath.Add(relImagePath);
+                    }
+                }
+                itemsFullPath = JsonSerializer.Serialize(itemsPath);
+            }
+            product.Image = itemsFullPath;
             product.CreatedById = emp.EmpId;
             product.LastModifiedById = emp.EmpId;
-
+            product.Description = product.Description.Trim();
             await _context.Products.AddAsync(product);
             try
             {
