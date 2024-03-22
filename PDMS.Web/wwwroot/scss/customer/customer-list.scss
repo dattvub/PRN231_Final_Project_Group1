@@ -12,6 +12,20 @@
   margin-top: 1rem;
 }
 
+.select-cusType select,
+.select-cusGroup select {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.select-cusType,
+.select-cusGroup {
+    padding-left: 10px;
+}
+
 @include media-breakpoint-down(lg) {
   .row-option {
     right: -1rem;

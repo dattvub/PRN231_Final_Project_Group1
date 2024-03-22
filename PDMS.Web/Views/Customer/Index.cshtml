@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Danh sách khách hàng";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "DIRECTOR", "SUPERVISOR", "SALEMAN", "ACCOUNTANT" };
 }
 
 @section Heads {
@@ -8,7 +10,7 @@
 
 <div id="mainCard" class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5>@ViewData["Title"]</h5>
+        <h5 id="table-title">@ViewData["Title"]</h5>
         <div id="newBtnGroup">
             <button id="filterBtn" class="btn btn-sm btn-toggle-primary" type="button">
                 <input class="toggle-state-store" type="checkbox" name="" id="">
@@ -24,14 +26,43 @@
         </div>
     </div>
     <div class="card-body border-top py-3 pt-0">
-        <div class="d-grid gap-3 filter-box">
-            <div class="overflow-hidden">
+        <div class="d-grid gap-3 filter-box justify-content-center ">
+            <div class="overflow-hidden d-flex">
+
                 <div class="search-box">
-                    <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input" placeholder="Search..." autocomplete="off" spellcheck="false">
+                    <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input" placeholder="Tìm kiếm theo mã..." autocomplete="off" spellcheck="false">
                     <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
-                    <button id="clearSearchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
-                        <div class="btn-close-falcon" aria-label="Close"></div>
+                    <button id="searchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                        <div class="btn-search" aria-label="Search"></div>
                     </button>
+                    <button id="clearSearchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                        <div class="btn-close-falcon" aria-label="Clear"></div>
+                    </button>
+                </div>
+                @* <div class="search-box">
+                <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input" placeholder="Tìm kiếm theo mã..." autocomplete="off" spellcheck="false">
+                <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
+                <button id="clearSearchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                <div class="btn-close-falcon" aria-label="Close"></div>
+                </button>
+                </div> *@
+
+                <div class="select-cusType" id="select-cusType">
+                    <select id="CustomerTypeId">
+                        <option selected disabled>Kiểu khách hàng</option>
+                        <option value="1">HTML</option>
+                        <option value="2">CSS</option>
+                        <option value="3">Javascript</option>
+                    </select>
+                </div>
+
+                <div class="select-cusGroup">
+                    <select id="CustomerGroupId">
+                        <option selected disabled>Nhóm khách hàng</option>
+                        <option value="1">HTML</option>
+                        <option value="2">CSS</option>
+                        <option value="3">Javascript</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -51,10 +82,10 @@
                     <tbody class="list">
                         <tr class="text-nowrap btn-reveal-trigger">
                             <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
-                                <a asp-controller="Customer" asp-action="Index" class="cusCode text-secondary"></a>
+                                <a asp-controller="Customer" asp-action="Index" class="customerCode text-secondary"></a>
                             </td>
                             <td class="align-middle white-space-nowrap py-2 px-3 text-center">
-                                <a asp-controller="Customer" asp-action="Index" class="cusName text-secondary"></a>
+                                <a asp-controller="Customer" asp-action="Index" class="customerName text-secondary"></a>
                             </td>
                             <td class="align-middle white-space-nowrap px-3 text-center">
                                 <span class="email"></span>
@@ -62,19 +93,19 @@
                                     <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
                                 </button>
                             </td>
-                            <td class="align-middle white-space-nowrap py-2 px-3 text-center phone">123</td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center phoneNumber">123</td>
                             <td class="align-middle white-space-nowrap py-2 px-3 text-center address">13</td>
                             <td class="align-middle white-space-nowrap py-2 text-end px-lg">
                                 <div class="dropdown position-absolute position-lg-static rounded-1 row-option">
                                     <div class="position-absolute d-lg-none top-0 end-0 w-100 h-100 rounded-1 shadow-holder"></div>
-                                    <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal " type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
                                         <span class="fas fa-ellipsis-h fs--1"></span>
                                         <span class="iconify-inline fs--1" data-icon="fa6-solid:ellipsis"></span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
                                         <div class="bg-white py-2">
-                                            <a class="dropdown-item" href="#!">Edit</a>
-                                            <a class="dropdown-item text-danger" href="#!">Delete</a>
+                                            <a class="dropdown-item edit-btn" href="#!">Sửa</a>
+                                            <a class="dropdown-item text-danger delete-btn" href="#!">Xóa</a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +118,7 @@
                 <div class="position-absolute top-0 bottom-0 start-0 fs--1 d-flex align-items-center">
                     <span>
                         Total:
-                        <span class="text-decoration-underline list-total">115</span>
+                        <span id="total-item-counter" class="text-decoration-underline list-total"></span>
                         items
                     </span>
                 </div>
@@ -113,5 +144,6 @@
 
 @section Scripts {
     <script src="~/lib/list.js/list.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
     <script src="~/js/customer/customer-list.js"></script>
 }
