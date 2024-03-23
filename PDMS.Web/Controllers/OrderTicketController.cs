@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace PDMS.Web.Controllers;
 
 public class OrderTicketController : Controller {
-    public IActionResult Index() {
+    public IActionResult Index([FromQuery] int? showOrder) {
+        ViewData["ShowOrder"] = showOrder;
         return View();
     }
 

@@ -4,5 +4,6 @@ public enum OrderTicketStatus {
     Pending,
     Approved,
     Rejected,
-    Received
+    Received,
+    Cancel
 }

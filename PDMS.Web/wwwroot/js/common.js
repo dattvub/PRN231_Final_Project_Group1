@@ -194,3 +194,20 @@ function removeAllFromCart() {
     setCartIconQuantity(Object.keys(cart).length)
     $('.total-products').text(Object.keys(cart).length)
 }
+
+function getOrderStatusText(status) {
+    switch (status) {
+        case 'Pending':
+            return 'Đang chờ xử lý'
+        case 'Approved':
+            return 'Đã chấp nhận'
+        case 'Rejected':
+            return 'Bị từ chối'
+        case 'Received':
+            return 'Đã nhận hàng'
+        case 'Cancel':
+            return 'Đã Huỷ'
+        default:
+            return undefined
+    }
+}
