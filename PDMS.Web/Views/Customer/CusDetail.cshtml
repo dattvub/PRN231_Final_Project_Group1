@@ -11,10 +11,10 @@
 }
 <div class="cus-action d-flex flex-md-row align-items-center mb-3">
     <h2 id="customerName" class="h2 fw-bold mb-0 me-md-3"></h2>
-    <div class="btn-group btn-group-sm ">
-        <button class="btn btn-primary me-md-3">
+    <div>
+        <a asp-controller="Customer" asp-action="Edit" asp-route-id="@ViewData["cusId"]" class="btn-group btn btn-primary btn-group-sm me-md-3">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="uil:edit"></span>
-        </button>
+        </a>
         <button class="btn btn-danger me-md-3">
             <span class="iconify-inline fs-2 search-box-icon" data-icon="mi:delete"></span>
         </button>

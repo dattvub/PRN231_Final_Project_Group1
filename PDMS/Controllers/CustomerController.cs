@@ -40,7 +40,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = $"{RolesConstants.DIRECTOR},{RolesConstants.SUPERVISOR},{RolesConstants.SALEMAN},{RolesConstants.ACCOUNTANT}")]
+    [Authorize(Roles = $"{RolesConstants.DIRECTOR},{RolesConstants.SALEMAN}")]
     public async Task<ActionResult<PaginationDto<CustomerDto>>> GetCustomers([FromQuery] GetCustomersDto dto)
     {
         var userId = _userManager.GetUserId(User);
@@ -154,16 +154,32 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPost("Create")]
-    [Authorize(Roles = RolesConstants.DIRECTOR)]
+    [Authorize(Roles = $"{RolesConstants.DIRECTOR},{RolesConstants.SALEMAN}")]
     public async Task<ActionResult<Customer>> CreateCustomer(
         [FromForm] CreateCustomerDto dto
     )
     {
         string? newUserId = null;
+        int cusTemp = -1;
         try
         {
+            var requesterRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
             var creator = await _userManager.Users.Include(x => x.Employee)
                 .FirstOrDefaultAsync(x => x.Id == _userManager.GetUserId(User));
+            if (requesterRole == RolesConstants.DIRECTOR)
+            {
+                cusTemp = dto.EmpId;
+            }
+            else
+            {
+                cusTemp = creator.Employee.EmpId;
+            }
+
+            if (cusTemp == -1)
+            {
+                return NotFound();
+            }
+
             if (creator?.Employee == null)
             {
                 throw new BlameClient("Yêu cầu tạo từ một tài khoản không tồn tại");
@@ -179,6 +195,7 @@ public class CustomerController : ControllerBase
             var newUser = await _userService.CreateUser(user, dto.Password, RolesConstants.CUSTOMER, creator);
             newUserId = newUser.Id;
 
+            
             var newCus = new Customer()
             {
                 UserId = newUser.Id,
@@ -188,7 +205,7 @@ public class CustomerController : ControllerBase
                 TaxCode = dto.TaxCode.Trim(),
                 CustomerTypeId = dto.CustomerTypeId,
                 CustomerGroupId = dto.CustomerGroupId,
-                EmpId = creator.Employee.EmpId
+                EmpId = cusTemp
             };
             await _context.Customers.AddAsync(newCus);
             await _context.SaveChangesAsync();
@@ -221,6 +238,8 @@ public class CustomerController : ControllerBase
             return NotFound($"Khách hàng với id {id} không tồn tại");
         }
 
+        var requesterRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+
         var user = await _userManager.FindByIdAsync(cus.UserId);
         if (user == null)
         {
@@ -247,7 +266,14 @@ public class CustomerController : ControllerBase
             cus.TaxCode = dto.TaxCode?.Trim();
             cus.CustomerGroupId = dto.CustomerGroupId;
             cus.CustomerTypeId = dto.CustomerTypeId;
-            cus.EmpId = editor.Employee.EmpId;
+            if (requesterRole == RolesConstants.DIRECTOR)
+            {
+                cus.EmpId = dto.EmpId;
+            }
+            else
+            {
+                cus.EmpId = editor.Employee.EmpId;
+            }
             _context.Customers.Update(cus);
 
             await _context.SaveChangesAsync();
