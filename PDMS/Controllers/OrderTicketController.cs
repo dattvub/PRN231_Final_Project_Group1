@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using PDMS.Domain.Entities;
 using PDMS.Models;
 using PDMS.Shared;
 using PDMS.Shared.Constants;
+using PDMS.Shared.DTO;
 using PDMS.Shared.DTO.OrderDetail;
 using PDMS.Shared.DTO.OrderTicket;
 using PDMS.Shared.Enums;
@@ -25,6 +27,104 @@ public class OrderTicketController : Controller {
         _context = context;
         _userManager = userManager;
         _mapper = mapper;
+    }
+
+    [HttpPatch("{id:int:min(1)}")]
+    [Authorize(Roles = $"{RolesConstants.CUSTOMER},{RolesConstants.SALEMAN},{RolesConstants.DIRECTOR}")]
+    public async Task<ActionResult<OrderTicketStatus>> UpdateStatus([FromRoute] int id, [FromQuery] string s) {
+        var userRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+        if (!Enum.TryParse<OrderTicketStatus>(s, out var status)) {
+            return ValidationError.BadRequest400("????");
+        }
+
+        if (userRole == RolesConstants.CUSTOMER
+            && status != OrderTicketStatus.Cancel
+            && status != OrderTicketStatus.Received) {
+            return ValidationError.BadRequest400("????");
+        }
+
+        if (userRole != RolesConstants.CUSTOMER
+            && status != OrderTicketStatus.Approved
+            && status != OrderTicketStatus.Rejected) {
+            return ValidationError.BadRequest400("????");
+        }
+
+        var order = await _context.OrderTickets.FindAsync(id);
+        if (order == null) {
+            return ValidationError.BadRequest400("????");
+        }
+
+        order.Status = status;
+        _context.OrderTickets.Update(order);
+        await _context.SaveChangesAsync();
+        return order.Status;
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<PaginationDto<OrderTicketDto>>> GetOrderTickets([FromQuery] GetOrderTicketDto dto) {
+        var user = await _userManager.GetUserAsync(User);
+        var userRole = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value ?? string.Empty;
+        if (user == null || string.IsNullOrWhiteSpace(userRole)) {
+            return Unauthorized();
+        }
+
+        var query = _context.OrderTickets
+            .Include(x => x.OrderDetails)
+            .ThenInclude(x => x.Product)
+            .AsQueryable();
+
+        if (userRole == RolesConstants.CUSTOMER) {
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            if (customer == null) {
+                return Unauthorized();
+            }
+
+            query = query.Where(x => x.CustomerId == customer.CustomerId);
+        } else if (userRole == RolesConstants.SALEMAN) {
+            var emp = await _context.Employees.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            if (emp == null) {
+                return Unauthorized();
+            }
+
+            var customerIdList = await _context.Customers
+                .Where(x => x.EmpId == emp.EmpId)
+                .Select(x => x.CustomerId)
+                .ToListAsync();
+
+            query = query.Where(x => customerIdList.Contains(x.CustomerId));
+        } else if (userRole == RolesConstants.SUPERVISOR) {
+            var supervisor = await _context.Employees.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            if (supervisor?.GroupId == null) {
+                return Unauthorized();
+            }
+
+            var empIdList = await _context.Employees
+                .Where(x => x.GroupId == supervisor.GroupId)
+                .Select(x => x.EmpId)
+                .ToListAsync();
+
+            var customerIdList = await _context.Customers
+                .Where(x => x.EmpId != null && empIdList.Contains((int)x.EmpId))
+                .Select(x => x.CustomerId)
+                .ToListAsync();
+
+            query = query.Where(x => customerIdList.Contains(x.CustomerId));
+        }
+
+        var total = await query.CountAsync();
+        var orderTickets = await query
+            .Skip((dto.Page - 1) * dto.Quantity)
+            .Take(dto.Quantity)
+            .OrderByDescending(x => x.CreatedDate)
+            .Select(x => _mapper.Map<OrderTicketDto>(x))
+            .ToListAsync();
+
+        return new PaginationDto<OrderTicketDto>(orderTickets, total) {
+            Page = dto.Page,
+            ItemsPerPage = dto.Quantity,
+            Query = dto.Query
+        };
     }
 
     [HttpPost("Create")]

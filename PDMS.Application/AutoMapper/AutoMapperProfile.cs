@@ -37,6 +37,8 @@ namespace PDMS.Application.AutoMapper {
                 .AfterMap(
                     (detail, dto) => {
                         dto.ProductName = detail.Product.ProductName;
+                        dto.ProductCode = detail.Product.ProductCode;
+                        dto.Images = detail.Product.Image;
                     });
             
             CreateMap<User, UserDto>();
