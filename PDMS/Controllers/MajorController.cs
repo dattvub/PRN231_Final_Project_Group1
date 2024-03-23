@@ -79,7 +79,7 @@ namespace PDMS.Controllers
             {
                 if (!await CodeExisted(major.MajorCode)) throw;
 
-                return ValidationError.BadRequest400("Dupplicate brand code");
+                return ValidationError.BadRequest400("Dupplicate major code");
             }
             catch (Exception e)
             {
@@ -108,7 +108,7 @@ namespace PDMS.Controllers
                 var result = await _context.SaveChangesAsync();
                 if (result == 0)
                 {
-                    return ValidationError.BadRequest400("Error occur while update brand");
+                    return ValidationError.BadRequest400("Error occur while update major");
                 }
             }
             catch (DbUpdateException)
@@ -126,7 +126,7 @@ namespace PDMS.Controllers
         }
         [EnableCors("allowAll")]
         [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult<BrandDto>> DeleteMajor([FromRoute] int id)
+        public async Task<ActionResult<MajorDTO>> DeleteMajor([FromRoute] int id)
         {
             var major = await _context.Majors.FirstOrDefaultAsync(x => x.MajorId == id && x.Status);
             if (major == null)
@@ -138,7 +138,7 @@ namespace PDMS.Controllers
             var result = await _context.SaveChangesAsync();
             if (result == 0)
             {
-                return ValidationError.InternalServerError500("Error occur while delete brand");
+                return ValidationError.InternalServerError500("Error occur while delete major");
             }
 
             return Ok(_mapper.Map<MajorDTO>(major));
@@ -146,6 +146,18 @@ namespace PDMS.Controllers
         private async Task<bool> CodeExisted(string code)
         {
             return await _context.Majors.AnyAsync(x => x.MajorCode == code);
+        }
+
+        [HttpGet("{id:int:min(1)}")]
+        public async Task<ActionResult<MajorDTO>> GetBrand([FromRoute] int id)
+        {
+            var mrj = await _context.Majors.FirstOrDefaultAsync(x => x.MajorId == id);
+            if (mrj == null)
+            {
+                return NotFound();
+            }
+            var dto = _mapper.Map<MajorDTO>(mrj);
+            return dto;
         }
     }
 }

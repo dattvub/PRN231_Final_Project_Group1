@@ -1,5 +1,292 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "DIRECTOR" };
 }
+
+@section HeadBeforeStyle {
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/tom-select/dist/css/tom-select.bootstrap5.css">
+    <link rel="stylesheet" href="~/lib/quill/dist/quill.snow.css">
+    <link rel="stylesheet" href="~/css/product/product.css">
+    <link rel="stylesheet" href="~/lib/choices.js/choices.min.css" />
+    <link rel="stylesheet" href="~/lib/dropzone/dropzone.min.css" />
+}
+@section Heads{
+    <script>
+        window.productId = @ViewData["productId"]
+    </script>
+}
+
+<form id="productForm">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Cập nhật sản phẩm </h1>
+
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row">
+            <div class="col-lg-8 mb-3 mb-lg-0">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thông tin sản phẩm</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="productNameLabel" class="form-label">Tên gọi <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Sản phẩm dùng để bán"></i></label>
+
+                            <input type="text" class="form-control" id="productName" name="productName" placeholder="Actadol, Ketoconazol, .v.v " aria-label="Actadol, Ketoconazol, .v.v ">
+                        </div>
+                        <!-- End Form -->
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form -->
+                                <div class="mb-4">
+                                    <label for="SKULabel" class="form-label">Barcode</label>
+
+                                    <input type="text" class="form-control" id="bar" name="bar" placeholder="eg. 348121032" aria-label="eg. 348121032">
+                                </div>
+                                <!-- End Form -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+                        <label class="form-label">Mô tả <span class="form-label-secondary"></span></label>
+
+                        <!-- Quill -->
+                        <div id="quillEditor">
+                        </div>
+                        <!-- End Quill -->
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header card-header-content-between">
+                        <h4 class="card-header-title">Media</h4>
+                        <!-- End Dropdown -->
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body ">
+                        <!-- Dropzone -->
+                        <div id="attachFilesNewProjectLabel" class="js-dropzone dz-dropzone dz-dropzone-card" data-options='{"url":"valid/url","acceptedFiles":"image/*"}'>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                            </div>
+                            <div class="dz-message">
+
+                                <h5>Kéo hoặc thả ảnh tại đây</h5>
+
+                                <p class="mb-2">or</p>
+
+                                <span class="btn btn-light btn-sm">Duyệt ảnh</span>
+                            </div>
+                        </div>
+                        <!-- End Dropzone -->
+                    </div>
+                    <!-- Body -->
+                </div>
+                <div class="card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Số lượng</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <div class="row gx-card mx-0 align-items-center border-bottom border-200">
+                            <div class="col-8 py-3">
+                                <div class="d-flex align-items-center">
+                                    <a><img class="img-fluid rounded-1 me-3 d-none d-md-block" src="https://file.hstatic.net/200000223425/file/thuoc-kich-duc-nu-dang-nuoc-red_dc76e1cde3af44e4b2d1338709ea7b8f_grande.jpg" alt="" width="60"></a>
+                                    <div class="flex-1">
+                                        <h5 class="fs-0"><a class="text-900" id="name-prd">Apple MacBook Pro 15" Z0V20008N: 2.9GHz 6-core 8th-Gen Intel Core i9, 32GB RAM</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 py-3">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 d-flex justify-content-end justify-content-md-center order-1 order-md-0">
+                                        <div>
+                                            <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary border-300 px-2" data-field="input-quantity" data-type="minus">-</button>
+                                                <input class="form-control text-center px-2 input-quantity input-spin-none" id="product-quantity" type="number" min="0" value="0" aria-label="Amount (to the nearest dollar)" style="width: 50px">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary border-300 px-2" data-field="input-quantity" data-type="plus">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-end ps-0 order-0 order-md-1 mb-2 mb-md-0 text-600">$<div class="d-inline" id="price-to-pay">1292</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Body -->
+                </div>
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-4">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Định giá</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="priceNameLabel" class="form-label">Giá tiền</label>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="price" name="price" placeholder="0.00" aria-label="0.00">
+
+                                <div class="input-group-append">
+                                    <!-- Select -->
+                                    <div class="tom-select-custom">
+                                        <select class="js-select form-select">
+                                            <option value="VND" selected>VND</option>
+                                        </select>
+                                    </div>
+                                    <!-- End Select -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="priceNameLabel" class="form-label">Giá nhập</label>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="importPrice" name="importPrice" placeholder="0.00" aria-label="0.00">
+
+                                <div class="input-group-append">
+                                    <!-- Select -->
+                                    <div class="tom-select-custom">
+                                        <select class="js-select form-select">
+                                            <option value="VND" selected>VND</option>
+                                        </select>
+                                    </div>
+                                    <!-- End Select -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+                <!-- Card -->
+                <div class="card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Danh mục</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Ngành hàng</label>
+
+                            <!-- Select -->
+                            <select id="major" size="1" name="major">
+                                <option value="">Chọn ngành hàng...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Nhà cung cấp</label>
+
+                            <!-- Select -->
+                            <select id="supplier" size="1" name="supplier">
+                                <option value="">Chọn nhà cung cấp...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Thương hiệu</label>
+
+                            <!-- Select -->
+                            <select id="brand" size="1" name="brand">
+                                <option value="">Chọn nhóm...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+
+        <div class="position-fixed start-50 bottom-0 translate-middle-x w-100 zi-99 mb-3" style="max-width: 40rem;">
+            <!-- Card -->
+            <div class="card card-sm bg-dark border-dark mx-2">
+                <div class="card-body">
+                    <div class="row justify-content-center justify-content-sm-between">
+                        <div class="col">
+                            <a type="button" class="btn btn-danger" asp-controller="Product" asp-action="ViewProduct">Cancel</a>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-auto">
+                            <div class="d-flex gap-3">
+                                <button type="button" class="btn btn-secondary">Discard</button>
+                                <button type="submit" class="btn btn-primary" id="saveProduct">Save</button>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+    </div>
+</form>
+
+@section ScriptBefore {
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/dropzone/min/dropzone.min.js"></script>
+    <script src="~/lib/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script src="~/lib/quill/dist/quill.min.js"></script>
+}
+
+@section Scripts {
+
+    <script src="~/js/product/theme.min.js"></script>
+    <script src="~/lib/choices.js/choices.min.js"></script>
+    <script src="~/js/product/update-product.js"></script>
+    <script>
+        (function () {
+            window.onload = function () {
+                HSCore.components.HSDropzone.init('.js-dropzone')
+                HSCore.components.HSTomSelect.init('.js-select')
+                HSCore.components.HSQuill.init('.js-quill')
+            }
+        })()
+    </script>
+}
+
+
