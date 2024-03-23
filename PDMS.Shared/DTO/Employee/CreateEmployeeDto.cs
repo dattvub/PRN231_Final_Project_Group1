@@ -29,7 +29,7 @@ public class CreateEmployeeDto {
     [MaxLength(20)]
     public string? Phone { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(200)]
     public string? Address { get; set; }
 
     public string? Role { get; set; }

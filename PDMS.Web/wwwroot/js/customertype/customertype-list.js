@@ -279,7 +279,7 @@ customerTypeCodeInput.on({
     }
 })
 
-customerTypeNameInput.on('input', trimInputElement)
+// customerTypeNameInput.on('input', trimInputElement)
 
 customerTypeList.clear()
 loadcustomerTypes()

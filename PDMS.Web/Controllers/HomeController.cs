@@ -34,7 +34,7 @@ public class HomeController : Controller {
                 new SidebarItem("User", "/"),
             }
         };
-        this.AddSideBar(sections);
+        // this.AddSideBar(sections);
         return View();
     }
 }

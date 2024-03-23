@@ -279,7 +279,7 @@ supplierCodeInput.on({
     }
 })
 
-supplierNameInput.on('input', trimInputElement)
+// supplierNameInput.on('input', trimInputElement)
 
 supplierList.clear()
 loadsuppliers()

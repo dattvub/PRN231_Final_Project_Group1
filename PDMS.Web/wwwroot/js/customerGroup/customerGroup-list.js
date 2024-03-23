@@ -279,7 +279,7 @@ customerGroupCodeInput.on({
     }
 })
 
-customerGroupNameInput.on('input', trimInputElement)
+// customerGroupNameInput.on('input', trimInputElement)
 
 customerGroupList.clear()
 loadcustomerGroups()

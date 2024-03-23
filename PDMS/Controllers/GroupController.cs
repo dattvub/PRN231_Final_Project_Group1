@@ -28,11 +28,12 @@ public class GroupController : ControllerBase {
         List<Group> groups;
         if (string.IsNullOrWhiteSpace(q)) {
             groups = await _context.Groups
+                .Where(x => x.Status)
                 .OrderByDescending(x => x.GroupId)
                 .ToListAsync();
         } else {
             groups = await _context.Groups
-                .Where(x => x.GroupName.Contains(q) || x.GroupCode.Contains(q))
+                .Where(x => (x.GroupName.Contains(q) || x.GroupCode.Contains(q)) && x.Status)
                 .OrderByDescending(x => x.GroupId)
                 .ToListAsync();
         }
@@ -101,10 +102,12 @@ public class GroupController : ControllerBase {
         }
 
         if (group.Employees.Count > 0) {
-            return ValidationError.BadRequest400("Không thể xoá nhóm có nhân viên");
+            // return ValidationError.BadRequest400("Không thể xoá nhóm có nhân viên");
+            group.Status = false;
+        } else {
+            _context.Groups.Remove(group);
         }
 
-        _context.Groups.Remove(group);
         await _context.SaveChangesAsync();
         return Ok();
     }

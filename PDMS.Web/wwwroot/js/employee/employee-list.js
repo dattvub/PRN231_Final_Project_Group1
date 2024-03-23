@@ -200,11 +200,28 @@ function renderGroupsSidebar(groups) {
                         $(`<a draggable="false" href="#update-form-${group.groupId}" class="btn btn-sm btn-primary" role="button" data-bs-toggle="collapse" aria-expanded="false">Sửa</a>`),
                         $('<button class="btn btn-sm btn-danger">Xoá</button>').on({
                             click: () => {
-                                console.log(group)
+                                fetchWithCredentials(`http://localhost:5000/Group/${group.groupId}`, {
+                                    method: 'DELETE',
+                                    onSuccess: () => {
+                                        updated = true
+                                        showToast('Xoá nhóm', 'Xoá nhóm thành công')
+                                        bootstrap.Collapse.getInstance($(`#group-action-${group.groupId}`)).hide()
+                                    },
+                                    onFail: async r => {
+                                        const json = await r.json()
+                                        showToast('Đã xảy ra lỗi', json?.errors?.join('. ') || 'Đã có lỗi xảy ra')
+                                    }
+                                })
                             }
                         })
                     ])
-                ),
+                ).on({
+                    'hidden.bs.collapse': () => {
+                        if (updated) {
+                            loadGroups()
+                        }
+                    }
+                }),
                 $(`<form class="collapse" id="update-form-${group.groupId}"></form>`).on({
                     'show.bs.collapse': () => {
                         const groupActionElm = $(`#group-action-${group.groupId}`)

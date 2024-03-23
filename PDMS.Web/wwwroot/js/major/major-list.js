@@ -217,7 +217,7 @@ majorCodeInput.on({
     }
 })
 
-majorNameInput.on('input', trimInputElement)
+// majorNameInput.on('input', trimInputElement)
 
 majorList.clear()
 loadMajors()

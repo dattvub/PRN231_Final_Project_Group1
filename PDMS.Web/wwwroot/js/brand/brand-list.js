@@ -279,7 +279,7 @@ brandCodeInput.on({
     }
 })
 
-brandNameInput.on('input', trimInputElement)
+// brandNameInput.on('input', trimInputElement)
 
 brandList.clear()
 loadBrands()

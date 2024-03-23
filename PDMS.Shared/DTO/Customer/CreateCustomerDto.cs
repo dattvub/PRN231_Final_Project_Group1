@@ -31,7 +31,7 @@ public class CreateCustomerDto
     [MaxLength(13)]
     public string TaxCode { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(200)]
     public string Address { get; set; }
 
     public string? Role { get; set; }
