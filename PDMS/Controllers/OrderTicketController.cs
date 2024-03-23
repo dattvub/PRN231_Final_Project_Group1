@@ -63,7 +63,7 @@ public class OrderTicketController : Controller {
                     return ValidationError.BadRequest400("Số lượng hàng đặt mua quá số lượng hàng trong kho");
                 }
             }
-            
+
             foreach (var orderDetail in order.OrderDetails) {
                 orderDetail.Product.Quantity -= orderDetail.Quantity;
             }
@@ -206,7 +206,7 @@ public class OrderTicketController : Controller {
                 EmployeeId = customer.EmpId,
                 Title = "Khách hàng đã tạo phiếu đặt hàng",
                 Content = $"{orderTicket.CustomerName} đã tạo phiếu đặt hàng mới",
-                Status = false,
+                Status = true,
                 CustomerCreateId = customer.CustomerId,
                 Time = orderTicket.CreatedDate
             };

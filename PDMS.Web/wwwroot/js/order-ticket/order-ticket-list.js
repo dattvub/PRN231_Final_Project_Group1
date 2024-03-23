@@ -193,7 +193,7 @@ function loadOrder() {
                                     ]),
                                     $('<div class="d-flex gap-3 mb-3"></div>').append([
                                         $('<div></div>').append(
-                                            $('<span class="iconify-inline fs-2 search-box-icon" data-icon="mdi:calendar-end-outlined"></span>')
+                                            $('<span class="iconify-inline fs-2 search-box-icon" data-icon="mdi:calendar-end-outline"></span>')
                                         ),
                                         $('<div></div>').append([
                                             $('<label class="form-label opacity-85 m-0">Thời gian gửi hàng</label>'),

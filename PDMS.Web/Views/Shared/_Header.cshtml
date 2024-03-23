@@ -91,9 +91,13 @@
                     </div>
                     <div class="scrollbar-overlay" style="max-height:19rem">
                         <div class="list-group list-group-flush fw-normal fs--1 " >
-                            <div class="list-group-title border-bottom new-notify" id="list-notification-new">Mới</div>
+                            <div class="list-group-title border-bottom new-notify p-0" id="list-notification-new">
+                                <p class="ps-3 m-0 py-1">Mới</p>
+                            </div>
 
-                            <div class="list-group-title border-bottom new-notify" id="list-notification-ealier">Cũ hơn</div>
+                            <div class="list-group-title border-bottom new-notify p-0" id="list-notification-ealier">
+                                <p class="ps-3 m-0 py-1">Cũ hơn</p>
+                            </div>
 @*                             @for (var i = 0; i < 4; i++) {
                                 <div class="list-group-item">
                                     <a class="notification notification-flush notification-unread" href="#">
@@ -192,10 +196,6 @@
                             var notificationBody = document.createElement("div")
                             notificationBody.classList.add("notification-body")
 
-                            var paragraphT = document.createElement("em")
-                            paragraphT.classList.add("mb-1")
-                            paragraphT.textContent = e.title
-
                             var paragraph = document.createElement("p")
                             paragraph.classList.add("mb-1")
                             paragraph.textContent = e.content
@@ -221,7 +221,6 @@
                             span.textContent = thing
 
 
-                            notificationBody.appendChild(paragraphT)
                             notificationBody.appendChild(paragraph)
                             notificationBody.appendChild(span)
 
