@@ -1,0 +1,104 @@
+﻿<div class="d-flex justify-content-center">
+    <div class="justify-content-center">
+        <div class="mb-3 d-flex align-items-center mt-2">
+            <h4 class="card create-cus-title">@(ViewData["cusId"] == null ? "Thêm khách hàng mới" : "Cập nhật thông tin khách hàng")</h4>
+        </div>
+    </div>
+</div>
+
+<form id="mainForm" class="row g-3 needs-validation" novalidate>
+    <div class="row justify-content-center">
+        <!-- Phần thông tin cá nhân và thông tin nghề nghiệp -->
+        <div class="col-md-6 col-lg-5 col-xl-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Thông tin cá nhân</h5>
+                </div>
+                <div class="card-body bg-light py-3">
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Họ và tên</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="opacity-75">Họ</span>
+                            </span>
+                            <input maxlength="50" tabindex="0" required type="text" name="lastname" id="lastname" class="form-control" autocomplete="off" spellcheck="false">
+
+                            <span class="input-group-text">
+                                <span class="opacity-75">Tên</span>
+                            </span>
+                            <input maxlength="50" tabindex="0" required type="text" name="firstname" id="firstname" class="form-control" autocomplete="off" spellcheck="false">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 d-flex gap-3">
+                            <div class="flex-1">
+                                <label for="cus-code" class="form-label">Mã khách hàng</label>
+                                <input maxlength="50" required type="text" name="cus-code" id="cus-code" class="form-control" autocomplete="off" spellcheck="false">
+                            </div>
+                            <div class="flex-1">
+                                <label for="taxCode" class="form-label">Tax Code</label>
+                                <input maxlength="50" required type="text" name="taxCode" id="taxCode" class="form-control" autocomplete="off" spellcheck="false">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input maxlength="50" required type="email" name="email" id="email" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input maxlength="50" required type="password" name="password" id="password" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                    <div class="mb-3 d-flex gap-3">
+                        <div class="flex-1">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input maxlength="20" required type="text" name="phone" id="phone" class="form-control" autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <input maxlength="200" type="text" name="address" id="address" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                    <div class="mb-3 fixSale">
+                        <label for="salemanId" class="form-label">SalemanId</label>
+                        <input maxlength="50" type="text" required name="salemanId" id="salemanId" class="form-control" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 ">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Loại khách hàng</h5>
+                </div>
+
+                <div class="card-body bg-light py-3">
+                    <label for="CustomerType" class="form-label">Kiểu khách hàng</label>
+                    <div class="select-cusType" id="select-cusType">
+                        <select id="CustomerTypeId">
+                            <option selected disabled>Kiểu khách hàng</option>
+                        </select>
+                    </div>
+
+                    <label for="CustomerGroup" class="form-label">Nhóm khách hàng</label>
+                    <div class="select-cusGroup">
+                        <select id="CustomerGroupId">
+                            <option selected disabled>Nhóm khách hàng</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body card-header bg-light">
+                    <button class="btn btn-primary w-100 mb-3" type="submit">
+                        <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                        <span>Thêm</span>
+                    </button>
+                    <a class="btn btn-falcon-default w-100 mb-3" asp-controller="Customer" asp-action="Index">Huỷ</a>
+                    <button type="reset" id="btnReset" class="btn btn-warning w-100">Nhập lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

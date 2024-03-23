@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Danh sách nhân viên";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "DIRECTOR", "SUPERVISOR" };
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/css/employee/employee-list.css" />
+}
+
+@section SideBar {
+    <li id="sidebar-groups-action">
+        <div class="d-flex gap-2 justify-content-center nav-link-text">
+            <button id="btn-group-add" class="btn btn-sm btn-success d-block my-2 flex-1" role="button" data-bs-toggle="collapse" data-bs-target="#group-create">
+                <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                <span>Thêm nhóm</span>
+            </button>
+            <button class="btn btn-sm btn-dark d-block my-2" role="button" data-bs-toggle="collapse" data-bs-target="#group-search-box">
+                <span class="iconify-inline" data-icon="fa:search"></span>
+                <span>Tìm</span>
+            </button>
+        </div>
+    </li>
+    <form class="nav collapse" id="group-create">
+        <fieldset class="fw-normal p-3 my-2 bg-white rounded-3 shadow-sm border">
+            <h4 class="h4 text-center">Thông tin nhóm</h4>
+            <div class="mb-3">
+                <label class="form-label" for="group-name">Tên nhóm</label>
+                <input class="form-control" id="group-name" name="group-name" type="text" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="group-address">Địa chỉ</label>
+                <input class="form-control" id="group-address" name="group-address" type="text" />
+            </div>
+            <div class="d-flex gap-3">
+                <button id="cancel-add-group" class="btn btn-falcon-danger w-100 flex-1" type="button">
+                    <span class="iconify-inline" data-icon="fluent:dismiss-12-filled"></span>
+                    <span>Huỷ</span>
+                </button>
+                <button class="btn btn-primary w-100 flex-1" type="submit">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Thêm</span>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+    <li class="nav-item">
+        <a id="all-emp" class="nav-link" href="#" role="button" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon lh-1">
+                    <i class="iconify-inline fs-1" data-icon="material-symbols:group"></i>
+                </span>
+                <span class="nav-link-text ps-1 lh-1">Tất cả nhân viên</span>
+            </div>
+        </a>
+        <a id="no-group-emp" class="nav-link" href="#" role="button" aria-expanded="false">
+            <div class="d-flex align-items-center">
+                <span class="nav-link-icon lh-1">
+                    <i class="iconify-inline fs-1" data-icon="material-symbols:group-outline"></i>
+                </span>
+                <span class="nav-link-text ps-1 lh-1">Nhân viên ngoài nhóm</span>
+            </div>
+        </a>
+    </li>
+    <li class="nav-item">
+        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+            <div class="col-auto navbar-vertical-label">Danh sách nhóm</div>
+            <div class="col ps-0">
+                <hr class="mb-0 navbar-vertical-divider">
+            </div>
+        </div>
+        <form class="collapse" id="group-search-box">
+            <div class="search-box w-100 mb-1">
+                <input type="search" name="searchInput" id="search-group-input" maxlength="30" class="form-control search-input" placeholder="Tìm kiếm..." autocomplete="off" spellcheck="false">
+                <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
+                <button type="reset" id="clear-group-search-btn" disabled class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                    <div class="btn-close-falcon" aria-label="Close"></div>
+                </button>
+            </div>
+        </form>
+        <div id="group-container"></div>
+        <p id="group-search-not-found" class="text-center fw-normal d-none">Không có nhóm nào</p>
+    </li>
+}
+
+<div id="mainCard" class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 id="table-title">@ViewData["Title"]</h5>
+        <div id="newBtnGroup">
+            <button id="filterBtn" class="btn btn-sm btn-toggle-primary" type="button">
+                <input class="toggle-state-store" type="checkbox" name="" id="">
+                <span class="iconify-inline" data-icon="fa:filter"></span>
+                <span>Bộ lọc</span>
+            </button>
+            <a asp-controller="Employee" asp-action="Create">
+                <button id="newBtn" class="btn btn-falcon-success btn-sm" type="button">
+                    <span class="iconify-inline" data-icon="fluent:add-12-filled"></span>
+                    <span>Tạo mới</span>
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="card-body border-top py-3 pt-0">
+        <div class="d-grid gap-3 filter-box">
+            <div class="overflow-hidden">
+                <div class="search-box">
+                    <input type="search" name="searchInput" id="searchInput" maxlength="30" class="form-control search-input" placeholder="Tìm kiếm..." autocomplete="off" spellcheck="false">
+                    <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
+                    <button id="clearSearchBtn" class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                        <div class="btn-close-falcon" aria-label="Close"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="z-index-2 bg-white mt-3" id="employeeList" data-list>
+            <div class="table-responsive scrollbar">
+                <table class="table table-sm table-hover table-striped mb-0">
+                    <thead class="bg-200 text-900">
+                        <tr>
+                            <th class="text-center sort" data-sort>Mã</th>
+                            <th class="text-center sort" data-sort>Tên</th>
+                            <th class="text-center sort" data-sort>Email</th>
+                            <th class="text-center sort" data-sort>Chức vụ</th>
+                            <th class="text-center sort" data-sort>Phòng ban</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <tr class="text-nowrap btn-reveal-trigger">
+                            <td class="align-middle white-space-nowrap py-2 pe-3 fs--1 text-center fw-semi-bold">
+                                <a asp-controller="Employee" asp-action="Index" class="empCode text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3">
+                                <a asp-controller="Employee" asp-action="Index" class="empName text-secondary"></a>
+                            </td>
+                            <td class="align-middle white-space-nowrap px-3">
+                                <span class="email"></span>
+                                <button type="button" class="btn btn-close-falcon-container outline-none lh-1 p-1 mb-1">
+                                    <span class="iconify-inline" data-icon="fa6-regular:copy"></span>
+                                </button>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center position">123</td>
+                            <td class="align-middle white-space-nowrap py-2 px-3 text-center department">13</td>
+                            <td class="align-middle white-space-nowrap py-2 text-end px-lg">
+                                <div class="dropdown position-absolute position-lg-static rounded-1 row-option">
+                                    <div class="position-absolute d-lg-none top-0 end-0 w-100 h-100 rounded-1 shadow-holder"></div>
+                                    <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false">
+                                        <span class="iconify-inline fs--1" data-icon="fa6-solid:ellipsis"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
+                                        <div class="bg-white py-2">
+                                            <a class="dropdown-item edit-btn" href="#!">Sửa</a>
+                                            <a class="dropdown-item text-danger delete-btn" href="#!">Xoá</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="paginationBar" class="d-flex justify-content-center mt-3 position-relative">
+                <div class="position-absolute top-0 bottom-0 start-0 fs--1 d-flex align-items-center">
+                    <span>
+                        Total:
+                        <span id="total-item-counter" class="text-decoration-underline list-total"></span>
+                        items
+                    </span>
+                </div>
+                <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
+                    <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
+                </button>
+                <ul class="pagination mb-0 pagination-number-group" data-list>
+                    <li data-page="1" class="active fw-medium text-primary mx-1 px-2 d-flex align-items-center">1</li>
+                    <li data-page="2">
+                        <button type="button" class="page">2</button>
+                    </li>
+                    <li data-page="3">
+                        <button type="button" class="page">3</button>
+                    </li>
+                </ul>
+                <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
+                    <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/js/employee/employee-list.js"></script>
+}

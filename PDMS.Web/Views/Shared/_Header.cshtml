@@ -1,0 +1,257 @@
+﻿<nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
+    <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#headerVerticalCollapse" aria-controls="headerVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+        <span class="navbar-toggle-icon">
+            <span class="toggle-line"></span>
+        </span>
+    </button>
+    <a class="navbar-brand me-1 me-sm-3" href="/">
+        <div class="d-flex align-items-center">
+            <img class="me-2" src="/images/prn231.png" alt="PDMS" width="40">
+            <span class="font-sans-serif">PDMS</span>
+        </div>
+    </a>
+    <ul class="navbar-nav navbar-nav-icons align-items-center d-none d-lg-flex flex-1 justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link fs-0" asp-controller="Customer" asp-action="Index">Khách hàng</a>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownImportExport" role="button" data-bs-toggle="dropdown" aria-expanded="false">Xuất nhập</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownImportExport">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" asp-controller="OrderTicket">Phiếu bán hàng</a>
+                    <a class="dropdown-item" href="#">Phiếu nhập hàng</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh mục</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownCategory">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" asp-controller="Employee" asp-action="Index">Danh sách nhân viên</a>
+                    <a class="dropdown-item" asp-controller="Product" asp-action="Index">Sản phẩm</a>
+                    <div class="drop-hover dropend">
+                        <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center gap-2" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            Danh mục sản phẩm
+                        </a>
+                        <div class="dropdown-menu py-0">
+                            <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                                <a class="dropdown-item" asp-controller="Major" asp-action="Index">Ngành Hàng</a>
+                                <a class="dropdown-item" asp-controller="Supplier" asp-action="Index">Nhà cung cấp</a>
+                                <a class="dropdown-item" asp-controller="Brand" asp-action="Index">Thương hiệu</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="drop-hover dropend">
+                        <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center gap-2" data-bs-toggle="dropdown" aria-expanded="false" asp-controller="Customer" asp-action="Index">Khách hàng</a>
+                        <div class="dropdown-menu py-0">
+                            <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                                <a class="dropdown-item" asp-controller="CustomerGroup" asp-action="Index">Nhóm Khách hàng</a>
+                                <a class="dropdown-item" asp-controller="CustomerType" asp-action="Index">Loại khách hàng</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle fs-0" href="#" id="headerDropdownReport" role="button" data-bs-toggle="dropdown" aria-expanded="false">Báo cáo</a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownReport">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <a class="dropdown-item" href="#">Bán hàng</a>
+                    <a class="dropdown-item" href="#">Nhập hàng</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center gap-2">
+        <li id="cart-btn" class="nav-item dropdown">
+            <a class="nav-link notification-indicator notification-indicator-warning notification-indicator-fill px-2 text-secondary fs-2" asp-controller="Cart" asp-action="Index">
+                <i class="iconify-inline" data-icon="fa6-solid:cart-shopping"></i>
+                <span id="cart-indicator" class="notification-indicator-number">1</span>
+            </a>
+        </li>
+        <li id="noti-btn" class="nav-item dropdown">
+            <a class="nav-link notification-indicator notification-indicator-primary px-2 text-secondary fs-2" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconify-inline" data-icon="fa6-solid:bell"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-notification" aria-labelledby="navbarDropdownNotification">
+                <div class="card card-notification shadow-none">
+                    <div class="card-header">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <h6 class="card-header-title mb-0">Notifications</h6>
+                            </div>
+                            <div class="col-auto ps-0 ps-sm-3">
+                                <a class="card-link fw-normal" id="this-shit">Mark all as read</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scrollbar-overlay" style="max-height:19rem">
+                        <div class="list-group list-group-flush fw-normal fs--1 " >
+                            <div class="list-group-title border-bottom new-notify" id="list-notification-new">Mới</div>
+
+                            <div class="list-group-title border-bottom new-notify" id="list-notification-ealier">Cũ hơn</div>
+@*                             @for (var i = 0; i < 4; i++) {
+                                <div class="list-group-item">
+                                    <a class="notification notification-flush notification-unread" href="#">
+                                        <div class="notification-avatar">
+                                            <div class="avatar avatar-2xl me-3">
+                                                <img class="rounded-circle" src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="notification-body">
+                                            <p class="mb-1" id="title">Nguyễn Văn A vừa tạo order</p>
+                                            <p class="mb-1" id="content">vừa tạo order</p>
+                                            <span class="notification-time">Just now</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            } *@
+                        </div>
+                    </div>
+                    <div class="card-footer text-center border-top">
+                        <a class="card-link d-block" href="/Notifications">View all</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" id="headerDropdownUser" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-xl">
+                    <img class="rounded-circle" id="header-avatar" alt="">
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="headerDropdownUser">
+                <div class="bg-white dark__bg-1000 py-2 rounded-3">
+                    <p class="text-primary m-0 text-center fw-bold cursor-default pb-1 text-capitalize" id="header-user-name"></p>
+                    <a class="dropdown-item" href="#">View Profile</a>
+                    <hr class="dropdown-divider">
+                    <button class="dropdown-item" id="header-logout-btn">Logout</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</nav>
+<script id="load-header">
+    document.getElementById('load-header').remove()
+    window.addEventListener('userLoaded', e => {
+        const user = e.detail
+        $('#header-avatar').attr('src', user.imageUrl ? `http://localhost:5000/${user.imageUrl}` : '/images/blank_avatar.jpg')
+        $('#header-user-name').text(`${user.lastName} ${user.firstName}`.trim())
+        if (user.role === 'CUSTOMER') {
+            $('#noti-btn').remove()
+        } else {
+            $('#cart-btn').remove()
+        }
+    })
+    document.getElementById('header-logout-btn').addEventListener('click', async () => {
+        fetchWithCredentials('http://localhost:5000/auth/logout', {
+            onSuccess: () => {
+                window.location.replace(document.getElementById('login-route').href)
+            }
+        })
+    })
+
+    setTimeout(() => {
+        if (user.role !== "CUSTOMER") {
+            fetchWithCredentials(`http://localhost:5000/Notifications/list`, {
+                onSuccess: async r => {
+
+                    window.fullItems = await r.json()
+                    fullItems.forEach(e => {
+
+                        if (user.associationId === e.employeeId) {
+                            var listItem = document.createElement("div")
+                            listItem.classList.add("list-group-item")
+
+                            var notificationLink = document.createElement("a")
+                            if (e.status === true) {
+                                notificationLink.classList.add("notification", "notification-flush")
+                            } else {
+                                notificationLink.classList.add("notification", "notification-flush", "notification-unread")
+                            }
+                            notificationLink.setAttribute("href", "/OrderTicket?showOrder="+e.orderId)
+
+                            var notificationAvatar = document.createElement("div")
+                            notificationAvatar.classList.add("notification-avatar")
+
+                            var avatarDiv = document.createElement("div")
+                            avatarDiv.classList.add("avatar", "avatar-2xl", "me-3")
+
+                            var img = document.createElement("img")
+                            img.classList.add("rounded-circle")
+                            img.setAttribute("src", "/images/blank_avatar.jpg")
+                            img.setAttribute("alt", "")
+
+                            avatarDiv.appendChild(img);
+                            notificationAvatar.appendChild(avatarDiv)
+
+                            var notificationBody = document.createElement("div")
+                            notificationBody.classList.add("notification-body")
+
+                            var paragraphT = document.createElement("em")
+                            paragraphT.classList.add("mb-1")
+                            paragraphT.textContent = e.title
+
+                            var paragraph = document.createElement("p")
+                            paragraph.classList.add("mb-1")
+                            paragraph.textContent = e.content
+
+                            var span = document.createElement("span")
+                            span.classList.add("notification-time")
+
+                            let thing = ''
+
+                            const currentMils = new Date().getTime()
+                            const notifyMils = new Date(e.time).getTime()
+                            const secondsBetween = Math.floor(((currentMils - notifyMils) / 1000))
+                            if (secondsBetween < 60) {
+                                thing = 'Mới đây'
+                            } else if (secondsBetween >= 60 && secondsBetween < 3600) {
+                                thing = Math.floor((secondsBetween / 60)) + 'm'
+                            } else if (secondsBetween >= 3600 && secondsBetween < 86400) {
+                                thing = Math.floor((secondsBetween / 3600)) + 'h'
+                            } else {
+                                thing = Math.floor((secondsBetween / 86400)) + 'd'
+                            }
+
+                            span.textContent = thing
+
+
+                            notificationBody.appendChild(paragraphT)
+                            notificationBody.appendChild(paragraph)
+                            notificationBody.appendChild(span)
+
+                            notificationLink.appendChild(notificationAvatar)
+                            notificationLink.appendChild(notificationBody)
+                            listItem.appendChild(notificationLink)
+                            if (e.status === true) {
+                                $('#list-notification-new').append(listItem)
+                            } else {
+                                $('#list-notification-ealier').append(listItem)
+                            }
+                        }
+                    })
+                }
+            })
+            $(`#this-shit`).on('click', async () => {
+                const r = await fetchWithCredentials(`http://localhost:5000/Notifications/deleteAll`, {
+                    method: 'DELETE'
+                })
+                if (!r.ok) {
+                    const json = await r.json()
+                    showToast('Notification', json.errors.join('. '))
+                    return
+                }
+            })
+        }
+
+    }, 500)
+
+    
+
+
+</script>

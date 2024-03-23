@@ -1,0 +1,40 @@
+﻿@import '../essential';
+
+.no-validation {
+  .form-check-label {
+    color: inherit !important;
+  }
+
+  .form-check-input {
+    border-color: var(--#{$variable-prefix}form-check-input-border-color) !important;
+
+    &:checked {
+      background-color: $form-check-input-checked-bg-color !important;
+    }
+  }
+}
+
+.img-container > * {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.select-cusType select,
+.select-cusGroup select {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card.create-cus-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: cadetblue; /* Màu chữ */
+    background-color: white; /* Màu nền */
+    padding: 10px 15px; /* Khoảng cách giữa văn bản và viền */
+    border-radius: 5px; /* Đường cong của viền */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    text-align: center; /* Căn giữa văn bản */
+}

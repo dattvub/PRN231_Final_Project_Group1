@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Thêm khách hàng mới";
+    ViewData["Protected"] = true;
+}
+
+@section HeadBeforeStyle {
+    <link rel="stylesheet" href="~/lib/choices.js/choices.min.css" />
+    <link rel="stylesheet" href="~/lib/dropzone/dropzone.min.css" />
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/lib/flatpickr/flatpickr.min.css" />
+    <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css" />
+    <link rel="stylesheet" href="~/css/customer/customer-create.css"/>
+}
+@await Html.PartialAsync("_CusModifyInfo")
+
+@section ScriptBefore {
+    <script src="~/lib/dropzone/dropzone.min.js"></script>
+}
+
+@section Scripts {
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validate/localization/messages_vi.min.js"></script>
+    <script src="~/lib/choices.js/choices.min.js"></script>
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/flatpickr/l10n/vn.min.js"></script>
+    <script src="~/lib/cropperjs/cropper.min.js"></script>
+    <script src="~/js/customer/customer-create.js"></script>
+}

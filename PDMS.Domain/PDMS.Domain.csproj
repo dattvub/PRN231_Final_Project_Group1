@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.26" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PDMS.Shared\PDMS.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

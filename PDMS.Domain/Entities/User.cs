@@ -4,15 +4,15 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using PDMS.Domain.Entities.Interface;
 
-namespace PDMS.Domain.Entities
-{
-    public class User : IdentityUser, IAuditedEntityBase
-    {
-        public string Login
-        {
+namespace PDMS.Domain.Entities {
+    public class User : IdentityUser, IAuditedEntityBase {
+        public string Login {
             get => UserName;
             set => UserName = value;
         }
+
+        public Employee? Employee { get; set; }
+        public Customer? Customer { get; set; }
 
         [StringLength(30)]
         [Column("first_name")]
@@ -22,7 +22,8 @@ namespace PDMS.Domain.Entities
         [Column("last_name")]
         public string LastName { get; set; }
 
-        [Required] public bool Activated { get; set; }
+        [Required]
+        public bool Activated { get; set; }
 
         [StringLength(6, MinimumLength = 2)]
         [Column("lang_key")]
@@ -43,19 +44,20 @@ namespace PDMS.Domain.Entities
         [JsonIgnore]
         public string? ResetKey { get; set; }
 
-        [Column("reset_date")] public DateTime? ResetDate { get; set; }
+        [Column("reset_date")]
+        public DateTime? ResetDate { get; set; }
 
-        [JsonIgnore] public virtual ICollection<UserRole> UserRoles { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
 
-        public string? ReferralCode { get; set;}
+        public string? ReferralCode { get; set; }
 
         public string? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? LastModifiedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }
 
-        public override bool Equals(object obj)
-        {
+        public override bool Equals(object obj) {
             if (this == obj) return true;
 
             if (obj == null || GetType() != obj.GetType()) return false;
@@ -66,13 +68,11 @@ namespace PDMS.Domain.Entities
             return EqualityComparer<string>.Default.Equals(Id, user.Id);
         }
 
-        public override int GetHashCode()
-        {
+        public override int GetHashCode() {
             return HashCode.Combine(Id);
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return "User{" +
                    $"ID='{Id}'" +
                    $", Login='{Login}'" +

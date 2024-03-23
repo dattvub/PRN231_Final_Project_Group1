@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Danh sách phiếu đặt hàng";
+    ViewData["Protected"] = true;
+}
+
+@section Heads {
+    <script>
+        const showOrderId = @(ViewData["ShowOrder"] ?? "null")
+    </script>
+}
+
+<div class="mb-3 d-flex align-items-center mt-2">
+    <h3 class="m-0 h3">@ViewData["Title"]</h3>
+</div>
+<div id="order-list" class="mt-4"></div>
+
+@section Scripts {
+    <script src="~/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/js/order-ticket/order-ticket-list.js"></script>
+}

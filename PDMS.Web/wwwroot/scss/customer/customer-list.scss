@@ -1,0 +1,48 @@
+﻿@import "../essential";
+
+.filter-box {
+  transition-property: grid-template-rows, margin-top;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  grid-template-rows: 0fr;
+}
+
+.card-header:has(#filterBtn .toggle-state-store:checked) + div .filter-box {
+  grid-template-rows: 1fr;
+  margin-top: 1rem;
+}
+
+.select-cusType select,
+.select-cusGroup select {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.select-cusType,
+.select-cusGroup {
+    padding-left: 10px;
+}
+
+@include media-breakpoint-down(lg) {
+  .row-option {
+    right: -1rem;
+    background-color: white;
+    transform: translateY(-0.9rem);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    .shadow-holder {
+      box-shadow: var(--#{$variable-prefix}box-shadow);
+      clip-path: polygon(20px -50%, 150% -50%, 150% 150%, 20px 150%);
+      pointer-events: none;
+    }
+
+    button {
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  }
+}

@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Thống kê sản phẩm";
+    ViewData["Protected"] = true;
+}
+@section Heads {
+    <link rel="stylesheet" href="~/css/product/product.css" />
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row flex-between-center">
+            <div class="col-sm-auto mb-2 mb-sm-0">
+                <h6 class="mb-0" id="total-product">Showing 1-24 of 205 Products</h6>
+            </div>
+            <div class="d-flex align-items-center col-sm-auto">
+                <div class="ms-3 col-sm-auto">
+                    <div class="row gx-2 align-items-center">
+                        <div class="col-auto">
+                            <form class="row gx-2">
+                                <div class="col-auto"><small>Sắp xếp theo: </small></div>
+                                <div class="col-auto">
+                                    <select class="form-select form-select-sm sort-product" aria-label="Bulk actions">
+                                        <option value="newest" selected>Mới nhất</option>
+                                        <option value="lowest">Giá giảm dần</option>
+                                        <option value="highest">Giá tăng dần</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-auto pe-0"><a class="text-600 px-1" href="../../../app/e-commerce/product/product-grid.html" data-bs-toggle="tooltip" title="Product Grid"><span class="fas fa-th"></span></a></div>
+                    </div>
+                </div>
+                <div class="ms-3 me-3 col-sm-auto">
+                    hoặc
+                </div>
+                <div class="d-flex align-items-center col-sm-auto">
+                    <div class="col-sm-auto filter-box me-2">
+                        <form class="collapse" id="group-search-box">
+                            <div class="search-box w-100 mb-1">
+                                <input type="search" name="searchInput" id="search-group-input" maxlength="30" class="form-control search-input" placeholder="Tìm kiếm..." autocomplete="off" spellcheck="false">
+                                <span class="iconify-inline fs--1 search-box-icon" data-icon="fa:search"></span>
+                                <button type="reset" id="clear-group-search-btn" disabled class="btn p-0 position-absolute end-0 top-50 translate-middle shadow-none">
+                                    <div class="btn-close-falcon" aria-label="Close"></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-auto">
+                        <button class="btn btn-dark d-block my-2 p-1.5" role="button" data-bs-toggle="collapse" data-bs-target="#group-search-box">
+                            <span class="iconify-inline" data-icon="fa:search"></span>
+                            <span>Tìm</span>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-auto mb-3 text-end">
+    <a class="btn btn-primary add-product-btn" asp-controller="Product" asp-action="CreateProduct">Thêm sản phẩm</a>
+</div>
+<div class="card">
+    <div class="card-body p-0 overflow-hidden" id="productList">
+        <ul class="list list-unstyled row g-0">
+            <li class="col-12 p-card">
+                <div class="row">
+                    <div class="col-sm-5 col-md-4">
+                        <div class="position-relative h-sm-100">
+                            <a class="d-block h-100 thumb-wrapper" asp-controller="Product" asp-action="DetailProduct" asp-route-id="0"><img class="fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered product-img img-thumbnail" id="product-img" src="https://tamanhhospital.vn/wp-content/uploads/2023/01/thuoc-giam-dau-dau.jpg" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-8">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h5 class="mt-3 mt-sm-0"><a class="productName text-dark fs-0 fs-lg-1 thumb-wrapper-name name-product" asp-controller="Product" asp-action="DetailProduct" asp-route-id="0"></a></h5>
+                                <p class="fs--1 mb-2 mb-md-3"><a class="text-500 brand-name">Thuốc và dược liệu</a></p>
+                                <br>
+                                @*                                 <ul class="list-unstyled d-none d-lg-block">
+                                <li><span class="fas fa-circle" data-fa-transform="shrink-12">Brand: </span><span class="brandId"></span></li>
+                                <li><span class="fas fa-circle" data-fa-transform="shrink-12">Supplier: </span><span class="suppilerId">1TB SSD Hard Drive</span></li>
+                                <li><span class="fas fa-circle" data-fa-transform="shrink-12">Major: </span><span class="majorId">1TB SSD Hard Drive</span></li>
+                                </ul> *@
+                                <p class="fs-0.75 mb-1">Ngành hàng: <strong class="major-name">$50</strong></p>
+                                <p class="fs-0.75 mb-1">Nhà cung cấp: <strong class="suppiler-name">$50</strong></p>
+                            </div>
+                            <div class="col-lg-4 d-flex justify-content-between flex-column">
+                                <div>
+                                    <div class="fs-1 fs-md-2 text-warning mb-0"><div class="d-inline-block price"></div>₫</div>
+                                    <h5 class="fs--1 text-500 mb-0 mt-1">
+                                        @* $<del class="importPrice">2399 </del> *@
+                                    </h5>
+                                    <div class="mb-2 mt-3">
+                                    </div>
+                                    <div class="d-none d-lg-block">
+                                        
+                                        <div class="mw-75">
+                                            <svg class="mw-100 barcodeImg" id="barcodeImg"></svg>
+                                        </div>
+                                        <p class="fs--1 mb-1">
+                                            Stock: <strong class="text-success quantity">50</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mt-2 action-product-btn">
+                                    <a class="btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0 update-wrapper" asp-controller="Product" asp-action="EditProduct" asp-route-id="0">
+                                        <span class="iconify-inline fs--2" data-icon="material-symbols:update"></span>
+                                        <span class="ms-2 d-none d-md-inline-block ">Cập nhật</span>
+                                    </a><button class="btn btn-sm btn-primary d-lg-block mt-lg-2 w-100 delete-wrapper" id="deleteButton">
+                                        <span class="iconify-inline fs--2" data-icon="material-symbols:delete"> </span>
+                                        <span class="ms-2 d-none d-md-inline-block ">Xóa</span>
+                                    </button>
+                                </div>
+
+                                <div class="mt-2 detail-product-btn">
+                                    <a class="btn btn-info btn-outline-secondary border-300 d-lg-block me-2 me-lg-0 thumb-wrapper-btn" asp-controller="Product" asp-action="DetailProduct" asp-route-id="0">
+                                        <span class="iconify-inline fs--2" data-icon="bx:detail"></span>
+                                        <span class="ms-2 d-none d-md-inline-block ">Chi tiết</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="paginationBar" class="d-flex justify-content-center mt-3 mb-5">
+        <button class="btn btn-sm btn-falcon-default me-1 lh-1 pagination-prev" type="button" title="Trang trước">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-left"></span>
+        </button>
+        <ul class="pagination mb-0 pagination-number-group" data-list></ul>
+        <button class="btn btn-sm btn-falcon-default ms-1 lh-1 pagination-next" type="button" title="Trang sau">
+            <span class="iconify-inline fs--2" data-icon="fa:chevron-right"></span>
+        </button>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/js/product/product-list.js"></script>
+}
+@section ScriptBefore {
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/jsbarcode/JsBarcode.all.min.js"></script>
+}

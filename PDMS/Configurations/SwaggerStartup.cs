@@ -28,9 +28,9 @@ namespace PDMS.Configurations
                     }
                 };
 
-                c.AddSecurityDefinition("Bearer", securityScheme);
+                // c.AddSecurityDefinition("Bearer", securityScheme);
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                // c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 /*{
                     {
                         new OpenApiSecurityScheme
@@ -49,9 +49,9 @@ namespace PDMS.Configurations
                         new List<string>()
                     }
                 });*/
-                {
-                    { securityScheme, new[] { "Bearer" } }
-                });
+                // {
+                //     { securityScheme, new[] { "Bearer" } }
+                // });
             });
 
             return services;

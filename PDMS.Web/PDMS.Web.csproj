@@ -1,18 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Remove="wwwroot\scss\major\major-list.scss" />
+      <Content Remove="wwwroot\scss\product\product.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\css\brand\" />
+      <Folder Include="wwwroot\images\" />
       <Folder Include="wwwroot\lib\" />
-      <Folder Include="wwwroot\scss\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\product\product.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\scss\major\major-list.scss" />
+      <None Include="wwwroot\scss\product\product.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\major\major-list.scss" />
     </ItemGroup>
 
 </Project>

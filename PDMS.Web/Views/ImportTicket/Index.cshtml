@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Ticket";
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/css/brand/brand-list.css"/>
+}
+
+<div id="mainCard" class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Tạo Ticket</h5>
+        <div id="newBtnGroup">
+            <button class="btn btn-danger btn-sm" type="button">
+                <span class="iconify-inline" data-icon="bx:arrow-back"></span>
+                <span>Quay lại</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body border-top py-3">
+        <div class="d-grid position-relative transition-base">
+            <div class="ps-0 mb-3 mb-lg-0 d-flex justify-content-center">
+                <form class="ps-0 my-3 w-100 w-lg-75 needs-validation" novalidate>
+                    <input type="hidden" name="brandId" id="brandId">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="brandCode" class="form-label">Import ID</label>
+                                    <div class="input-group has-validation">
+                                        <input required type="text" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                        <span class="input-group-text">
+                                            <span class="iconify-inline fs-2" data-icon="mdi:id-card-outline"></span>
+                                        </span>
+                                        <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="brandCode" class="form-label">Ticket Code</label>
+                                    <div class="input-group has-validation">
+                                        <input required type="text" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                        <span class="input-group-text">
+                                            <span class="iconify-inline fs-2" data-icon="mdi:qrcode"></span>
+                                        </span>
+                                        <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="brandCode" class="form-label">Employee ID</label>
+                                    <div class="input-group has-validation">
+                                        <input required type="text" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                        <span class="input-group-text">
+                                            <span class="iconify-inline fs-2" data-icon="mdi:id-card-outline"></span>
+                                        </span>
+                                        <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="brandCode" class="form-label">Import Date</label>
+                                    <div class="input-group has-validation">
+                                        <input required type="datetime" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                        <span class="input-group-text">
+                                            <span class="iconify-inline fs-2" data-icon="mdi:date-range"></span>
+                                        </span>
+                                        <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="brandCode" class="form-label">Creator ID</label>
+                                <div class="input-group has-validation">
+                                    <input required type="text" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                    <span class="input-group-text">
+                                        <span class="iconify-inline fs-2" data-icon="mdi:id-card-outline"></span>
+                                    </span>
+                                    <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="brandCode" class="form-label">Status</label>
+                                <div class="input-group has-validation">
+                                    <input required type="text" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                    <span class="input-group-text">
+                                        <span class="iconify-inline fs-2" data-icon="mdi:list-status"></span>
+                                    </span>
+                                    <div class="invalid-feedback">Mã Brand không được để trống</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="brandCode" class="form-label">Total Pay</label>
+                            <div class="input-group has-validation">
+                                <input required type="number" name="brandCode" id="brandCode" class="form-control" autocomplete="off" spellcheck="false">
+                                <span class="input-group-text">
+                                    <span class="iconify-inline fs-2" data-icon="mdi:format-letter-case-upper"></span>
+                                </span>
+                                <div class="invalid-feedback">Mã Brand không được để trống</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 w-lg-25 mt-3" type="submit">
+                            <span class="change-new">Tạo</span>   
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/list.js/list.js"></script>
+    <script src="~/js/brand/brand-list.js"></script>
+}

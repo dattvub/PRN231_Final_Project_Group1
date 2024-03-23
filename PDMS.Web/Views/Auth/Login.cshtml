@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "_Base";
+    ViewData["Title"] = "Đăng nhập";
+}
+
+@section Heads {
+    <link rel="stylesheet" href="~/css/auth/login.css"/>
+}
+
+<template id="error-list">
+    <div class="alert alert-danger border-2 d-flex align-items-center mt-3" role="alert">
+        <div class="bg-danger me-3 icon-item">
+            <span class="iconify-inline fa-w-16 text-white fs-3" data-icon="fa:times-circle"></span>
+        </div>
+        <ul class="mb-0 flex-1 err-list"></ul>
+        <button class="btn-close ms-2" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</template>
+<div class="container-fluid">
+    <div class="row min-vh-100 bg-100">
+        <div class="col-6 d-none d-lg-block position-relative">
+            <div class="bg-holder" style="background-image:url('/images/banner.jpg'); background-position: center; background-size: cover"></div>
+        </div>
+        <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
+            <div class="row justify-content-center g-0">
+                <div class="col-lg-9 col-xl-8 col-xxl-6">
+                    <div class="card">
+                        <div class="card-header bg-circle-shape bg-shape text-center p-2">
+                            <span class="font-sans-serif fw-bolder fs-4 z-index-1 position-relative link-light light">PDMS</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row flex-between-center">
+                                <h3>Đăng nhập</h3>
+                            </div>
+                            <form id="login-form" class="needs-validation" novalidate>
+                                <div class="mb-3 has-validation">
+                                    <label class="form-label user-select-none" for="email">Email</label>
+                                    <input class="form-control" required id="email" type="email">
+                                    <div class="invalid-feedback">Email không hợp lệ</div>
+                                </div>
+                                <div class="mb-3 has-validation">
+                                    <label class="form-label user-select-none" for="password">Mật khẩu</label>
+                                    <input class="form-control" required id="password" type="password">
+                                    <div class="invalid-feedback">Mật khẩu không được để trống</div>
+                                </div>
+                                <div class="row flex-between-center">
+                                    <div class="col-auto">
+                                        <div class="form-check mb-0 no-validation">
+                                            <input class="form-check-input" type="checkbox" id="remember-me">
+                                            <label class="form-check-label mb-0 user-select-none" for="remember-me">Ghi nhớ đăng nhập</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary d-block w-100 mt-3" id="submit-btn" type="submit" name="submit">Đăng nhập</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/auth/login.js"></script>
+}

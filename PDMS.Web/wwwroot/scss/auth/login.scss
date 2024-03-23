@@ -1,0 +1,21 @@
+﻿@import "../essential";
+
+.no-validation {
+  .form-check-label {
+    color: inherit !important;
+  }
+
+  .form-check-input {
+    border-color: var(--#{$variable-prefix}form-check-input-border-color) !important;
+  }
+}
+
+.err-list {
+  list-style: none;
+  padding-left: 0;
+
+  &:has(:nth-child(2)) {
+    list-style: outside;
+    padding-left: 1rem;
+  }
+}
