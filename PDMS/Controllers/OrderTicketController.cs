@@ -49,9 +49,24 @@ public class OrderTicketController : Controller {
             return ValidationError.BadRequest400("????");
         }
 
-        var order = await _context.OrderTickets.FindAsync(id);
+        var order = await _context.OrderTickets
+            .Include(x => x.OrderDetails)
+            .ThenInclude(x => x.Product)
+            .FirstOrDefaultAsync(x => x.OrderId == id);
         if (order == null) {
             return ValidationError.BadRequest400("????");
+        }
+
+        if (status == OrderTicketStatus.Approved) {
+            foreach (var orderDetail in order.OrderDetails) {
+                if (orderDetail.Quantity > orderDetail.Product.Quantity) {
+                    return ValidationError.BadRequest400("Số lượng hàng đặt mua quá số lượng hàng trong kho");
+                }
+            }
+            
+            foreach (var orderDetail in order.OrderDetails) {
+                orderDetail.Product.Quantity -= orderDetail.Quantity;
+            }
         }
 
         order.Status = status;

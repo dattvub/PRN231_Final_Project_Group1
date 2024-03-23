@@ -53,9 +53,15 @@ function loadOrder() {
                                     onDelete = true
                                     fetchWithCredentials(`http://localhost:5000/OrderTicket/${order.orderId}?s=Cancel`, {
                                         method: 'PATCH',
+                                        onSuccess: () => {
+                                            const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
+                                            collapse?.hide()
+                                        },
+                                        onFail: async r => {
+                                            const json = await r.json()
+                                            showToast('Đã xảy ra lỗi', json?.errors.join('. ') || 'Đã xảy ra lỗi trong quá trình cập nhật trạng thái phiếu đặt hàng')
+                                        }
                                     })
-                                    const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
-                                    collapse?.hide()
                                 })
                             )
                         }
@@ -68,9 +74,15 @@ function loadOrder() {
                                     onDelete = true
                                     fetchWithCredentials(`http://localhost:5000/OrderTicket/${order.orderId}?s=Received`, {
                                         method: 'PATCH',
+                                        onSuccess: () => {
+                                            const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
+                                            collapse?.hide()
+                                        },
+                                        onFail: async r => {
+                                            const json = await r.json()
+                                            showToast('Đã xảy ra lỗi', json?.errors.join('. ') || 'Đã xảy ra lỗi trong quá trình cập nhật trạng thái phiếu đặt hàng')
+                                        }
                                     })
-                                    const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
-                                    collapse?.hide()
                                 })
                             )
                         }
@@ -83,9 +95,15 @@ function loadOrder() {
                                 onDelete = true
                                 fetchWithCredentials(`http://localhost:5000/OrderTicket/${order.orderId}?s=Approved`, {
                                     method: 'PATCH',
+                                    onSuccess: () => {
+                                        const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
+                                        collapse?.hide()
+                                    },
+                                    onFail: async r => {
+                                        const json = await r.json()
+                                        showToast('Đã xảy ra lỗi', json?.errors.join('. ') || 'Đã xảy ra lỗi trong quá trình cập nhật trạng thái phiếu đặt hàng')
+                                    }
                                 })
-                                const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
-                                collapse?.hide()
                             }),
                             $('<button class="btn btn-danger ms-2" type="button"></button>').append([
                                 $('<span class="iconify-inline" data-icon="material-symbols:cancel"></span>'),
@@ -94,9 +112,15 @@ function loadOrder() {
                                 onDelete = true
                                 fetchWithCredentials(`http://localhost:5000/OrderTicket/${order.orderId}?s=Rejected`, {
                                     method: 'PATCH',
+                                    onSuccess: () => {
+                                        const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
+                                        collapse?.hide()
+                                    },
+                                    onFail: async r => {
+                                        const json = await r.json()
+                                        showToast('Đã xảy ra lỗi', json?.errors.join('. ') || 'Đã xảy ra lỗi trong quá trình cập nhật trạng thái phiếu đặt hàng')
+                                    }
                                 })
-                                const collapse = bootstrap.Collapse.getOrCreateInstance(element.find('.collapse'))
-                                collapse?.hide()
                             })
                         )
                     }

@@ -156,6 +156,9 @@ function setBreadcrumb(...routes) {
  * @param {number} quantity
  */
 function addToCart(productId, quantity) {
+    if (Number(quantity) <= 0) {
+        return
+    }
     if (cart.hasOwnProperty(productId)) {
         cart[productId] += quantity
     } else {

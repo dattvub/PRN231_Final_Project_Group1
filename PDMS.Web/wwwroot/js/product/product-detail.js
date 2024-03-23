@@ -84,10 +84,19 @@ async function showProduct() {
                     input.val(minValue)
                 }
             });
+
+            $('#stock-can-add').change( () => {
+                if(parseInt($('#stock-can-add').val()) > data.quantity || parseInt($('#stock-can-add').val()) === 0){
+                    $('#add-to-cart').prop("disabled", true)
+                }else {
+                    $('#add-to-cart').prop("disabled", false)
+                }
+            })
+            
             setTimeout(() => {
                 if (user.role === "CUSTOMER") {
                     $('#add-to-cart').on('click', () => {
-                        addToCart(productId, $('#stock-can-add').val())
+                        addToCart(productId, parseInt($('#stock-can-add').val()))
                     })
                 } else {
                     $('#add-to-cart').prop("disabled", true)
