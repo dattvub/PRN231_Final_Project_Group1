@@ -1,4 +1,4 @@
-@import "../essential";
+﻿@import "../essential";
 
 @mixin row-variant($color) {
     .row-#{$color} {
@@ -44,19 +44,19 @@
 }
 
 div {
-    &:has(> #brandForm) {
+    &:has(> #majorForm) {
         height: 218px;
     }
 
-    &:has(> #brandForm.was-validated):has(#brandCode:invalid):not(:has(#brandName:invalid)) {
+    &:has(> #majorForm.was-validated):has(#majorCode:invalid):not(:has(#majorName:invalid)) {
         height: 240px;
     }
 
-    &:has(> #brandForm.was-validated):has(#brandName:invalid):not(:has(#brandCode:invalid)) {
+    &:has(> #majorForm.was-validated):has(#majorName:invalid):not(:has(#majorCode:invalid)) {
         height: 240px;
     }
 
-    &:has(> #brandForm.was-validated):has(#brandName:invalid):has(#brandCode:invalid) {
+    &:has(> #majorForm.was-validated):has(#majorName:invalid):has(#majorCode:invalid) {
         height: 262px;
     }
 }
@@ -87,12 +87,12 @@ div {
         display: none;
     }
 
-    div:has(> #brandForm) {
+    div:has(> #majorForm) {
         order: -1;
         display: none;
     }
 
-    .newOpened div:has(> #brandForm) {
+    .newOpened div:has(> #majorForm) {
         display: initial;
     }
 
@@ -101,7 +101,7 @@ div {
     }
 }
 
-#brandCode {
+#majorCode {
     text-transform: uppercase;
 }
 
@@ -112,4 +112,3 @@ div {
 tr {
     transition: all 2s ease-out;
 }
-    

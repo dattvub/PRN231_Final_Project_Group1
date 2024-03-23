@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Thống kê sản phẩm";
+    ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "DIRECTOR", "SUPERVISOR", "ACCOUNTANT", "SALEMAN"};
+}
+<div class="card overflow-hidden mb-3">
+    <div class="card-header bg-light">
+        <div class="row flex-between-center">
+            <div class="col-sm-auto">
+                <h5 class="mb-1 mb-md-0">Your Notifications</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card-body fs--1 p-0 " id="list-notifications">
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/notifications/notifications.js"></script>
+}

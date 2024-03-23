@@ -180,8 +180,8 @@ function onLoadMajorList(items) {
 
         const popOverElement = $('<div></div>').append([
             $('<p class="mb-2"></p>')
-                .append($('<span></span>').text('Xác nhận xoá Ngành '))
-                .append($('<strong></strong>').text(item.values().brandCode)),
+                .append($('<span></span>').text('Xác nhận xoá major '))
+                .append($('<strong></strong>').text(item.values().majorCode)),
             $('<button class="btn btn-sm btn-danger w-50 mx-auto d-block">Xoá</button>').on('click', deleteMajor),
         ])
         const popOverOptions = {

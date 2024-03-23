@@ -21,9 +21,10 @@ public class ProductController : Controller {
         return View();
     }
 
-    [Route("director/edit/{id}")]
-    public IActionResult EditProduct()
+    [Route("update/{id}")]
+    public IActionResult EditProduct([FromRoute] int id)
     {
+        ViewData["productId"] = id;
         return View();
     }
 
@@ -33,9 +34,4 @@ public class ProductController : Controller {
         return View();
     }
 
-    [Route("testCreate")]
-    public IActionResult CreateTest()
-    {
-        return View();
-    }
 }
