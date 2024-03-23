@@ -1,8 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Tạo sản phẩm";
     ViewData["Protected"] = true;
+    ViewData["AcceptRoles"] = new[] { "DIRECTOR" };
 }
 
 @section HeadBeforeStyle {
@@ -58,42 +57,10 @@
                                 </div>
                                 <!-- End Form -->
                             </div>
-                            <!-- End Col -->
-                            @* <div class="col-sm-6">
-                            <!-- Form -->
-                            <div class="mb-4">
-                            <label for="weightLabel" class="form-label">Weight</label>
-
-                            <div class="input-group">
-                            <input type="text" class="form-control" name="weightName" id="weightLabel" placeholder="0.0" aria-label="0.0">
-
-                            <div class="input-group-append">
-                            <!-- Select -->
-                            <div class="tom-select-custom tom-select-custom-end">
-                            <select class="js-select form-select" autocomplete="off" data-hs-tom-select-options='{
-                            "searchInDropdown": false,
-                            "hideSearch": true,
-                            "dropdownWidth": "6rem"
-                            }'>
-                            <option value="lb">lb</option>
-                            <option value="oz">oz</option>
-                            <option value="kg" selected>kg</option>
-                            <option value="g">g</option>
-                            </select>
-                            </div>
-                            <!-- End Select -->
-                            </div>
-                            </div>
-
-                            <small class="form-text">Used to calculate shipping rates at checkout and label prices during fulfillment.</small>
-                            </div>
-                            <!-- End Form -->
-                            </div> *@
-                            <!-- End Col -->
                         </div>
                         <!-- End Row -->
 
-                        <label class="form-label">Mô tả <span class="form-label-secondary">(Optional)</span></label>
+                        <label class="form-label">Mô tả <span class="form-label-secondary"></span></label>
 
                         <!-- Quill -->
                             <div id="quillEditor">
@@ -131,89 +98,6 @@
                     </div>
                     <!-- Body -->
                 </div>
-                <!-- End Card -->
-                <!-- Card -->
-                @* <div class="card">
-                <!-- Header -->
-                <div class="card-header">
-                <h4 class="card-header-title">Variants</h4>
-                </div>
-                <!-- End Header -->
-                <!-- Body -->
-                <div class="card-body">
-                <h6 class="text-cap">Options</h6>
-
-                <div class="js-add-field" data-hs-add-field-options='{
-                "template": "#addAnotherOptionFieldTemplate",
-                "container": "#addAnotherOptionFieldContainer",
-                "defaultCreated": 0
-                }'>
-                <div class="row mb-4">
-                <div class="col-sm-4 mb-2 mb-sm-0">
-                <!-- Select -->
-                <div class="tom-select-custom">
-                <select class="js-select form-select" data-hs-tom-select-options='{
-                "searchInDropdown": false,
-                "hideSearch": true
-                }'>
-                <option value="Size">Size</option>
-                <option value="Color">Color</option>
-                <option value="Material">Material</option>
-                <option value="Style">Style</option>
-                <option value="Title">Title</option>
-                </select>
-                </div>
-                <!-- End Select -->
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Enter tags" aria-label="Enter tags">
-                </div>
-                <!-- End Col -->
-                </div>
-                <!-- End Row -->
-                <!-- Container For Input Field -->
-                <div id="addAnotherOptionFieldContainer"></div>
-
-                <a href="javascript:;" class="js-create-field form-link">
-                <i class="bi-plus"></i> Add another option
-                </a>
-                </div>
-
-                <!-- Add Another Option Input Field -->
-                <div id="addAnotherOptionFieldTemplate" style="display: none;">
-                <div class="row mb-4">
-                <div class="col-sm-4 mb-2 mb-sm-0">
-                <!-- Select -->
-                <div class="tom-select-custom">
-                <select class="js-select-dynamic form-select" data-hs-tom-select-options='{
-                "searchInDropdown": false,
-                "hideSearch": true
-                }'>
-                <option value="Size">Size</option>
-                <option value="Color">Color</option>
-                <option value="Material">Material</option>
-                <option value="Style">Style</option>
-                <option value="Title">Title</option>
-                </select>
-                </div>
-                <!-- End Select -->
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Enter tags" aria-label="Enter tags">
-                </div>
-                <!-- End Col -->
-                </div>
-                <!-- End Row -->
-                </div>
-                <!-- End Add Another Option Input Field -->
-                </div>
-                <!-- Body -->
-                </div> *@
-                <!-- End Card -->
             </div>
             <!-- End Col -->
 
@@ -263,16 +147,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Form -->
-                        @*                         <div class="mb-2">
-                        <a class="d-inline-block" href="javascript:;" data-bs-toggle="modal" data-bs-target="#productsAdvancedFeaturesModal">
-                        <i class="bi-star-fill fs-4 text-warning me-1"></i> Set "Compare to" price
-                        </a>
-                        </div>
-
-                        <a class="d-inline-block" href="javascript:;" data-bs-toggle="modal" data-bs-target="#productsAdvancedFeaturesModal">
-                        <i class="bi-star-fill fs-4 text-warning me-1"></i> Bulk discount pricing
-                        </a> *@
                     </div>
                     <!-- Body -->
                 </div>
@@ -290,29 +164,29 @@
                         <!-- End Form -->
                         <!-- Form -->
                         <div class="mb-4">
-                            <label for="categoryLabel" class="form-label">Thương hiệu</label>
-
-                            <!-- Select -->
-                            <select id="brand" size="1" name="brand">
-                                <option value="">Chọn nhóm...</option>
-                            </select>
-                            <!-- End Select -->
-                        </div>
-                        <div class="mb-4">
-                            <label for="categoryLabel" class="form-label">Nguồn cung</label>
-
-                            <!-- Select -->
-                            <select id="supplier" size="1" name="supplier">
-                                <option value="">Chọn nguồn cung...</option>
-                            </select>
-                            <!-- End Select -->
-                        </div>
-                        <div class="mb-4">
                             <label for="categoryLabel" class="form-label">Ngành hàng</label>
 
                             <!-- Select -->
                             <select id="major" size="1" name="major">
                                 <option value="">Chọn ngành hàng...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Nhà cung cấp</label>
+
+                            <!-- Select -->
+                            <select id="supplier" size="1" name="supplier">
+                                <option value="">Chọn nhà cung cấp...</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-4">
+                            <label for="categoryLabel" class="form-label">Thương hiệu</label>
+
+                            <!-- Select -->
+                            <select id="brand" size="1" name="brand">
+                                <option value="">Chọn nhóm...</option>
                             </select>
                             <!-- End Select -->
                         </div>

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Content Remove="wwwroot\scss\major\major-list.scss" />
+      <Content Remove="wwwroot\scss\product\product.scss" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,6 +19,19 @@
 
     <ItemGroup>
       <PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\product\product.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\scss\major\major-list.scss" />
+      <None Include="wwwroot\scss\product\product.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\scss\major\major-list.scss" />
     </ItemGroup>
 
 </Project>

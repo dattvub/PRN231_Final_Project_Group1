@@ -1,0 +1,147 @@
+﻿
+.dz-dropzone-card {
+    width: 100%;
+    background-color: #f8fafd;
+    border: .125rem dashed rgba(231,234,243,.7);
+    border-radius: .5rem;
+    padding: 3rem 3rem;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+.dz-dropzone {
+    cursor: pointer
+}
+.dz-dropzone .dz-message {
+    width: 100%;
+    text-align: center
+}
+
+.input-group .tom-select-custom .form-select:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+}
+.input-group .tom-select-custom .form-select:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+}
+.tom-select-custom .ts-wrapper {
+    display: inline-block
+}
+.tom-select-custom .ts-wrapper.form-select .ts-control, .tom-select-custom .ts-wrapper.multi .ts-control.has-items.hs-select-single-multiple {
+    padding: .6125rem 2.25rem .6125rem 1rem
+}
+.tom-select-custom-end .ts-dropdown {
+    left: auto;
+    right: 0;
+    text-align: left
+}
+.tom-select-custom .ts-dropdown, .tom-select-custom .ts-dropdown.form-control, .tom-select-custom .ts-dropdown.form-select {
+    background-color: #fff;
+    border: .0625rem solid rgba(231,234,243,.7);
+    border-radius: .3125rem;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.075)
+}
+.tom-select-custom .ts-control, .tom-select-custom .ts-control input, .tom-select-custom .ts-dropdown {
+    color: #677788
+}
+.dz-dropzone .dz-file-preview {
+    background-color: #fff;
+    border-radius: .5rem;
+    padding: 1rem 1rem;
+    box-shadow: 0 .375rem .75rem rgba(140,152,164,.075);
+    width:95%
+}
+.bi-x {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.bi-x::before,
+.bi-x::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background-color: #333;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bi-x::before {
+    transform: rotate(45deg);
+}
+
+.bi-x::after {
+    transform: rotate(-45deg);
+}
+/* Optional hover effect */
+.bi-x:hover::before,
+.bi-x:hover::after {
+    background-color: #f00;
+}
+.dz-dropzone .dz-details {
+    margin-bottom: 1rem
+}
+.dz-dropzone .dz-img {
+    max-width: 2.625rem;
+    border-radius: .5rem;
+    margin-right: .75rem
+}
+.dz-dropzone .dz-img-inner {
+    border-radius: .5rem
+}
+.dz-dropzone .dz-file-wrapper {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.dz-dropzone .dz-filename {
+    margin-bottom: .25rem
+}
+.dz-dropzone .dz-title {
+    font-size: .65625rem;
+    font-weight: 600
+}
+.dz-dropzone .dz-size {
+    font-size: 80%
+}
+.dz-dropzone .dz-progress {
+    display: none;
+    margin-bottom: 1rem
+}
+.dz-dropzone .dz-processing.dz-error .dz-error-mark, .dz-dropzone .dz-processing.dz-success .dz-success-mark {
+    display: block
+}
+.dz-dropzone .dz-processing .dz-error-mark {
+    color: #ed4c78
+}
+.dz-dropzone .dz-processing .dz-error-mark, .dz-dropzone .dz-processing .dz-success-mark {
+    display: none
+}
+.ql-editor {
+    height: 11rem
+}
+.name-product {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.swiper-watch-progress {
+    overflow-x: hidden
+}
+
+.product-code {
+    --tw-text-opacity: 1;
+    color: rgb(158 158 158/var(--tw-text-opacity));
+    font-size: .875rem
+}
